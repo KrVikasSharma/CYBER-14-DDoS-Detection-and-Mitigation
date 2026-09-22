@@ -1,0 +1,37 @@
+# CYBER-14 Render Deployment Blueprint
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: cyber14-backend
+    runtime: python
+    repo: https://github.com/KrVikasSharma/CYBER-14-DDoS-Detection-and-Mitigation.git
+    branch: main
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHONPATH
+        value: backend
+      - key: PYTHON_VERSION
+        value: "3.12.0"
+      - key: APP_ENV
+        value: production
+      - key: DEMO_MODE
+        value: "true"
+      - key: STREAM_SIMULATOR_ENABLED
+        value: "true"
+      - key: DB_SSL_REQUIRED
+        value: "true"
+      # The following must be set manually on Render dashboard:
+      - key: DATABASE_URL
+        sync: false
+      - key: AUTH_ENABLED
+        sync: false
+      - key: AUTH_SECRET_KEY
+        sync: false
+      - key: AUTH_BOOTSTRAP_PASSWORD
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false

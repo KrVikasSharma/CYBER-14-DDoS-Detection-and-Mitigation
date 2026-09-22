@@ -1,6 +1,7 @@
 from collections.abc import Generator
 from datetime import datetime, timezone
 import logging
+import ssl
 from time import perf_counter
 from typing import Any
 from urllib.parse import urlparse
@@ -34,7 +35,14 @@ def get_engine() -> Engine:
         if not db_url.startswith("sqlite"):
             engine_kwargs["pool_size"] = getattr(settings, "db_pool_size", 10)
             engine_kwargs["max_overflow"] = getattr(settings, "db_max_overflow", 20)
-            engine_kwargs["connect_args"] = {"init_command": "SET time_zone = '+00:00'"}
+            connect_args: dict[str, Any] = {"init_command": "SET time_zone = '+00:00'"}
+            # Enable SSL/TLS for cloud MySQL (e.g. Aiven) when DB_SSL_REQUIRED=true
+            if getattr(settings, "db_ssl_required", False):
+                ssl_ctx = ssl.create_default_context()
+                ssl_ctx.check_hostname = False
+                ssl_ctx.verify_mode = ssl.CERT_NONE
+                connect_args["ssl"] = ssl_ctx
+            engine_kwargs["connect_args"] = connect_args
 
         _engine = create_engine(db_url, **engine_kwargs)
         _SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=_engine)

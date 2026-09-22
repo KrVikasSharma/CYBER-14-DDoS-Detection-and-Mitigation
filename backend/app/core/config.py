@@ -33,6 +33,7 @@ class Settings(BaseSettings):
     db_pool_size: int = 10
     db_max_overflow: int = 20
     db_pool_recycle: int = 3600
+    db_ssl_required: bool = False
 
     model_config = SettingsConfigDict(
         env_file=".env",
