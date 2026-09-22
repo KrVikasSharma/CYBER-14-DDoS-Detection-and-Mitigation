@@ -76,6 +76,8 @@ data/processed/*
 !data/processed/.gitkeep
 ml/data/*
 !ml/data/.gitkeep
+!ml/data/__init__.py
+!ml/data/*.py
 ml/artifacts/*
 !ml/artifacts/.gitkeep
 !ml/artifacts/o2/
