@@ -1,0 +1,43 @@
+{
+  "error_count": 0,
+  "excluded_columns": [
+    "Unnamed: 0",
+    "Flow ID",
+    "Source IP",
+    "Source Port",
+    "Destination IP",
+    "Destination Port",
+    "Timestamp",
+    "SimillarHTTP",
+    "Inbound",
+    "Label"
+  ],
+  "excluded_records": {
+    "duplicate_rows": 0
+  },
+  "issues": [
+    {
+      "code": "missing_numeric_values",
+      "details": {
+        "columns": {
+          "Flow Bytes/s": 130
+        }
+      },
+      "message": "Numeric feature columns contain missing values that preprocessing will impute.",
+      "severity": "warning"
+    },
+    {
+      "code": "infinite_numeric_values",
+      "details": {
+        "columns": {
+          "Flow Bytes/s": 207,
+          "Flow Packets/s": 337
+        }
+      },
+      "message": "Numeric feature columns contain infinite values that preprocessing will replace and impute.",
+      "severity": "warning"
+    }
+  ],
+  "passed": true,
+  "warning_count": 2
+}

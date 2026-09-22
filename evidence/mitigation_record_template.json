@@ -1,0 +1,37 @@
+{
+  "detection_input_reference": null,
+  "classification": {
+    "attack_type": null,
+    "confidence": null,
+    "traffic_rate": null,
+    "source_identifier": null,
+    "observed_at": null
+  },
+  "policy_version": null,
+  "mitigation_action": null,
+  "decision_id": null,
+  "timestamps": {
+    "created_at": null,
+    "expires_at": null,
+    "recovered_at": null
+  },
+  "expiry": {
+    "state": null,
+    "reason": null
+  },
+  "recovery": {
+    "state_transition": null,
+    "reason": null
+  },
+  "executor": {
+    "type": "simulated",
+    "success": null,
+    "error": null
+  },
+  "audit_event": null,
+  "error_or_failure_information": null,
+  "limitations": [
+    "Template only; do not populate with fabricated acceptance evidence.",
+    "The current executor is simulation-only and does not modify real network infrastructure."
+  ]
+}

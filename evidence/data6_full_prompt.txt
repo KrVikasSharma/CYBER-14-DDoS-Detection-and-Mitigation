@@ -1,0 +1,186 @@
+<USER_REQUEST>
+DATA-6 — PREPARE THE REAL CIC-DDoS2019 DATASET, NO TRAINING YET
+
+DATA-5 is complete. The frozen 78-feature manifest is now enforced.
+
+Your next task is ONLY to preprocess the real local CIC-DDoS2019 dataset into the project's processed-data format.
+
+IMPORTANT:
+- Do NOT train O2.
+- Do NOT train O3.
+- Do NOT run acceptance evaluation.
+- Do NOT run AC-1..AC-4.
+- Do NOT run NT-1..NT-5.
+- Do NOT modify any raw CSV files.
+- Do NOT claim official KPI/acceptance results.
+- Stop safely if disk space, memory, schema, labels, or preprocessing constraints are insufficient.
+- Use the existing train-only imputation fix from the previous task.
+- Use the frozen feature manifest from:
+  evidence/cic_ddos2019_feature_manifest.json
+
+REAL DATASET:
+C:\Users\Vikas\.cache\kagglehub\datasets\rodrigorosasilva\cic-ddos2019-30gb-full-dataset-csv-files\versions\1
+
+TASK 1 — Inspect current preprocessing pipeline
+
+Review:
+- scripts/prepare_data.py
+- ml/data/
+- ml/preprocessing/
+- ml/o2/
+- ml/o3/
+- evidence/cic_ddos2019_feature_manifest.json
+
+Confirm the pipeline will:
+1. Read the 18 real CSV files.
+2. Normalize header whitespace deterministically.
+3. Validate the frozen 88-column source schema.
+4. Enforce the frozen 78-feature manifest.
+5. Preserve label_original.
+6. Create label_normalized.
+7. Create label_binary.
+8. Reject unknown labels rather than silently mapping them.
+9. Fit missing-value imputation ONLY on the training split.
+10. Apply the training-fitted imputation parameters to validation/test data.
+11. Never use test/acceptance data to calculate preprocessing parameters.
+
+TASK 2 — Fix only preprocessing issues
+
+If the current pipeline is incompatible with the frozen manifest or real 88-column schema, make the minimum required code changes.
+
+Do NOT introduce dynamic feature selection.
+
+Do NOT silently drop unexpected columns.
+
+Do NOT silently rename dataset features except through the documented header-normalization rule.
+
+If any required feature is missing, FAIL CLOSED.
+
+TASK 3 — REAL DATA LABEL INVENTORY
+
+Before producing the final processed dataset, perform a streaming/bounded-compatible label inventory over the real files.
+
+Because the previous inspection only sampled 1,000 rows/file, this step must establish the actual label inventory required by the preprocessing pipeline.
+
+Record:
+- every distinct raw label observed
+- normalized label
+- binary mapping
+- count per raw label if practical
+- source file(s) containing each label
+
+Do not invent mappings.
+
+If an unexpected label is encountered:
+- stop preprocessing
+- report the exact label
+- report the file where it occurred
+- do not silently classify it as attack or benign.
+
+TASK 4 — PREPROCESS THE REAL DATASET
+
+Run the real preprocessing pipeline against all 18 CSV files.
+
+Output should be under the existing project data/processed structure.
+
+Use a deterministic split configuration.
+
+The split MUST:
+- happen before fitting imputation statistics
+- use the project's deterministic seed
+- preserve the existing preprocessing boundary
+- record split metadata
+- record preprocessing metadata/fingerprint.
+
+Do not independently resplit later inside O2/O3 training scripts.
+
+TASK 5 — RESOURCE SAFETY
+
+Before processing:
+- check available disk space
+- estimate required output space
+- check available RAM
+- avoid loading all 28.92 GB into memory at once if the existing implementation can be safely improved to chunk/stream.
+
+If the current implementation requires excessive memory or disk:
+- STOP and report the measured limitation
+- do not attempt an unsafe full run.
+
+Do not delete the original KaggleHub dataset.
+
+TASK 6 — PROVENANCE
+
+Update/create the preprocessing evidence so it records at minimum:
+- dataset identifier
+- Kaggle-hosted local source
+- local dataset path
+- all 18 source files
+- source file SHA-256 references from the existing schema inventory
+- source schema fingerprint/reference
+- feature manifest fingerprint
+- normalization rule
+- label mapping
+- row counts per source file if available
+- train/test row counts
+- split seed
+- split configuration
+- preprocessing configuration
+- training-only imputation metadata
+- processed dataset file hashes
+- code/config fingerprints where already supported.
+
+Do NOT claim this is the official UNB-hosted download.
+The current source is a Kaggle-hosted copy of CIC-DDoS2019.
+
+TASK 7 — VALIDATION
+
+After preprocessing:
+- validate generated files exist
+- validate schemas
+- validate exact 78-feature ordering
+- validate labels
+- validate no NaN/inf values remain in model features
+- validate train/test feature schema equality
+- validate preprocessing metadata exists
+- validate hashes are recorded
+- validate no raw IP address, port, timestamp, Flow ID, Label, Inbound, or Unnamed: 0 enters the model feature matrix.
+
+Do NOT train any model.
+
+TASK 8 — TESTS
+
+Run:
+- focused preprocessing/data tests
+- manifest tests
+- relevant O2/O3 feature contract tests
+- compileall
+
+Do not run training tests unless they are strictly unit tests that do not train on the 28.92 GB dataset.
+
+FINAL REPORT MUST INCLUDE:
+
+1. Whether preprocessing completed successfully.
+2. Actual complete label inventory.
+3. Row counts if successfully measured.
+4. Train/test sizes.
+5. Exact 78-feature contract confirmation.
+6. Whether train-only imputation was enforced.
+7. Processed output paths.
+8. Output hashes.
+9. Disk/RAM/resource measurements.
+10. Files changed.
+11. Tests passed/failed.
+12. Any warnings or data-quality issues.
+13. Whether DATA-6 is COMPLETE or BLOCKED.
+14. Explicitly state:
+   - O2 training NOT executed.
+   - O3 training NOT executed.
+   - Official KPI/AC/NT NOT executed.
+
+STOP after preprocessing and validation.
+
+Do not proceed automatically to model training.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-09-21T23:01:23+05:30.
+</ADDITIONAL_METADATA>

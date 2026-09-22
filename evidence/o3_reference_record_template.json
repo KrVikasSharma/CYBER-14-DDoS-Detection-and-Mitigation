@@ -1,0 +1,22 @@
+{
+  "model_identifier": null,
+  "model_version": null,
+  "dataset_reference": null,
+  "fixture_only": null,
+  "feature_list": [],
+  "target_column": "label_normalized",
+  "class_mapping": {
+    "classes": [],
+    "original_labels_by_class": {}
+  },
+  "training_configuration": null,
+  "evaluation_configuration": null,
+  "metrics": null,
+  "latency": null,
+  "software_versions": null,
+  "limitations": [
+    "Populate measured fields only from a reproducible local run.",
+    "Fixture measurements are not CIC-DDoS2019 measurements.",
+    "This record is not a CYBER-14 KPI or acceptance result."
+  ]
+}

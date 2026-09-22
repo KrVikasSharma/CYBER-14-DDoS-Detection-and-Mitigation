@@ -1,0 +1,11 @@
+{
+  "model_identifier": "cyber14-o3-demo-sample-classifier",
+  "model_version": "0.1.0-demo",
+  "model_type": "sklearn.ensemble.RandomForestClassifier",
+  "trained_at_utc": "2026-09-21T17:48:47.971812+00:00",
+  "random_seed": 42,
+  "training_rows": 7992,
+  "test_rows": 1998,
+  "class_count": 17,
+  "official_acceptance_result": false
+}

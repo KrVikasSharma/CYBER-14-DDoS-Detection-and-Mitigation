@@ -1,0 +1,9 @@
+{
+  "dataset_name": "CIC-DDoS2019",
+  "source_reference": "Canadian Institute for Cybersecurity CIC-DDoS2019 dataset",
+  "local_path": null,
+  "access_download_date": null,
+  "dataset_version": null,
+  "file_names": [],
+  "notes": "Template only. Fill this with real local dataset metadata after obtaining CIC-DDoS2019. Do not use synthetic fixtures as CIC-DDoS2019 evidence."
+}

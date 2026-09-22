@@ -1,0 +1,93 @@
+# ==============================================================================
+# CYBER-14: Git Ignore Configuration
+# ==============================================================================
+
+# Environment & Secrets (NEVER COMMIT)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python Environments & Caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Node & Frontend Build Artifacts
+node_modules/
+dashboard/frontend/node_modules/
+dist/
+.dist/
+dashboard/frontend/dist/
+build/
+.vite/
+
+# Application Logs & Runtime Logs
+*.log
+logs/
+.runtime-backend.*.log
+
+# Temporary & Scratch Files
+scratch/
+tmp/
+.tmp/
+.test_tmp/
+reports/generated/
+*.tmp
+*.joblib.tmp
+
+# IDE & Editor Files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Large Raw Datasets & Archives (Raw CIC-DDoS2019)
+data/raw/*
+!data/raw/.gitkeep
+*.parquet
+*.7z
+*.tar.gz
+*.gz
+*.zip
+
+# Database Dumps & Backups (Preserve tracked documentation scripts)
+*.sql.gz
+*.sql.tar
+*.dump
+
+# ML Processed Cache & Artifacts (Preserve tracked directory structure)
+data/processed/*
+!data/processed/.gitkeep
+ml/data/*
+!ml/data/.gitkeep
+ml/artifacts/*
+!ml/artifacts/.gitkeep
+!ml/artifacts/o2/
+ml/artifacts/o2/*
+!ml/artifacts/o2/.gitkeep
+!ml/artifacts/o3/
+ml/artifacts/o3/*
+!ml/artifacts/o3/.gitkeep
+
+# NOTE: The small runtime demo models and test samples are intentionally tracked:
+# - data/demo/models/o2/model.joblib (~300 KB)
+# - data/demo/models/o3/model.joblib (~9.5 MB)
+# - data/demo/cic_ddos2019_sample.csv (~4.4 MB)
+# - data/demo/demo_scenarios.json
+# - data/fixtures/

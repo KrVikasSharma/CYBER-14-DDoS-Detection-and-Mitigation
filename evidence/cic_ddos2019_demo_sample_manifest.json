@@ -1,0 +1,197 @@
+{
+  "title": "SMALL REAL CIC-DDoS2019 DEMONSTRATION SAMPLE \u2014 NOT OFFICIAL ACCEPTANCE DATA",
+  "description": "Controlled demonstration sample from real CIC-DDoS2019 CSVs for presentation and local testing.",
+  "official_acceptance_data": false,
+  "source_dataset": "rodrigorosasilva/cic-ddos2019-30gb-full-dataset-csv-files (KaggleHub version 1)",
+  "source_directory": "C:\\Users\\Vikas\\.cache\\kagglehub\\datasets\\rodrigorosasilva\\cic-ddos2019-30gb-full-dataset-csv-files\\versions\\1",
+  "created_at_utc": "2026-09-21T17:45:46.189711+00:00",
+  "random_seed": 42,
+  "sampling_method": "deterministic stratified streaming sample per file",
+  "feature_manifest_fingerprint": "997e6b28c6bcc5bf76a57789cf3f0cc8e41f7792e95742b3f8a800852c6ede3a",
+  "total_sampled_rows": 9990,
+  "total_columns": 88,
+  "label_distribution": {
+    "Syn": 1106,
+    "NetBIOS": 1065,
+    "MSSQL": 788,
+    "BENIGN": 641,
+    "DrDoS_UDP": 555,
+    "UDP": 553,
+    "UDP-lag": 553,
+    "DrDoS_LDAP": 552,
+    "TFTP": 551,
+    "DrDoS_SNMP": 514,
+    "DrDoS_SSDP": 505,
+    "DrDoS_DNS": 485,
+    "DrDoS_NTP": 485,
+    "DrDoS_MSSQL": 485,
+    "Portmap": 485,
+    "DrDoS_NetBIOS": 485,
+    "LDAP": 182
+  },
+  "benign_count": 641,
+  "attack_count": 9349,
+  "source_files": [
+    {
+      "file": "01-12\\DrDoS_DNS.csv",
+      "sha256": "eee1a2cf10be29129f00930e250236c237b97d2941e8cea766006db82047df83",
+      "sampled_rows": 555,
+      "labels": {
+        "DrDoS_DNS": 485,
+        "BENIGN": 70
+      }
+    },
+    {
+      "file": "01-12\\DrDoS_LDAP.csv",
+      "sha256": "fbc836bfb01d9eb5f5a2b4aae3428d7c17f449ede5466273249a9ce6095338b0",
+      "sampled_rows": 555,
+      "labels": {
+        "DrDoS_LDAP": 552,
+        "BENIGN": 3
+      }
+    },
+    {
+      "file": "01-12\\DrDoS_MSSQL.csv",
+      "sha256": "534ebd8bb98a571b6e0a65a65091cb22b09156fa4db82e5752a92df02ea5402b",
+      "sampled_rows": 555,
+      "labels": {
+        "DrDoS_MSSQL": 485,
+        "BENIGN": 70
+      }
+    },
+    {
+      "file": "01-12\\DrDoS_NetBIOS.csv",
+      "sha256": "b0dbf6d712a021380cade45f753531a5860d0bfd4d338b4013ea5566d968329e",
+      "sampled_rows": 555,
+      "labels": {
+        "DrDoS_NetBIOS": 485,
+        "BENIGN": 70
+      }
+    },
+    {
+      "file": "01-12\\DrDoS_NTP.csv",
+      "sha256": "b4ae33b2a22975f2c4c8b0e2bfc501fee38dae274dca37d4b01010de059c9c2c",
+      "sampled_rows": 555,
+      "labels": {
+        "DrDoS_NTP": 485,
+        "BENIGN": 70
+      }
+    },
+    {
+      "file": "01-12\\DrDoS_SNMP.csv",
+      "sha256": "a74a411a37fbb1a4d4acd20bb8a7e93714992e34d9fb08b3b2c5e1795c867eb7",
+      "sampled_rows": 555,
+      "labels": {
+        "DrDoS_SNMP": 514,
+        "BENIGN": 41
+      }
+    },
+    {
+      "file": "01-12\\DrDoS_SSDP.csv",
+      "sha256": "0bc1a2bb6dbef3851b7a2177ef74bd801dcf592b69ef5bbe5044821e695423c1",
+      "sampled_rows": 555,
+      "labels": {
+        "DrDoS_SSDP": 505,
+        "BENIGN": 50
+      }
+    },
+    {
+      "file": "01-12\\DrDoS_UDP.csv",
+      "sha256": "85c54bf54f987586e1d8da14b76d1167baa4636755cae24e648067e5242d679a",
+      "sampled_rows": 555,
+      "labels": {
+        "DrDoS_UDP": 555
+      }
+    },
+    {
+      "file": "01-12\\Syn.csv",
+      "sha256": "05a272a7005be14262d3929ad16877db42fc74a03032a3a5b58d0230ab08896a",
+      "sampled_rows": 555,
+      "labels": {
+        "Syn": 551,
+        "BENIGN": 4
+      }
+    },
+    {
+      "file": "01-12\\TFTP.csv",
+      "sha256": "b56314cca3f68c9027e9fa684c7c565df6fc5c510c87f12b1c00390364e44d7c",
+      "sampled_rows": 555,
+      "labels": {
+        "TFTP": 551,
+        "BENIGN": 4
+      }
+    },
+    {
+      "file": "01-12\\UDPLag.csv",
+      "sha256": "f67708a8462509932759ffed7eb92dca0f423267609d1be38a461708d4ea5b7e",
+      "sampled_rows": 555,
+      "labels": {
+        "UDP-lag": 553,
+        "BENIGN": 2
+      }
+    },
+    {
+      "file": "03-11\\LDAP.csv",
+      "sha256": "d1cfc7cb9252b73d9789f7307d7583be9c3a8e90ee9c096eefe8b0d3d8be23c3",
+      "sampled_rows": 555,
+      "labels": {
+        "NetBIOS": 513,
+        "BENIGN": 42
+      }
+    },
+    {
+      "file": "03-11\\MSSQL.csv",
+      "sha256": "d13cf30e7b987f7e916c54643f2e03dd4c31fc4b2051be175d5ee83d392d8f88",
+      "sampled_rows": 555,
+      "labels": {
+        "MSSQL": 303,
+        "LDAP": 182,
+        "BENIGN": 70
+      }
+    },
+    {
+      "file": "03-11\\NetBIOS.csv",
+      "sha256": "ddd2e8cd76c125e1d93094af519845e2ed1eaf44edcd3f783b3a9dee638a5e1e",
+      "sampled_rows": 555,
+      "labels": {
+        "NetBIOS": 552,
+        "BENIGN": 3
+      }
+    },
+    {
+      "file": "03-11\\Portmap.csv",
+      "sha256": "d0148da21f3c645b32b21b59386721eddd497a16e3de4e2950391e575fca2e28",
+      "sampled_rows": 555,
+      "labels": {
+        "Portmap": 485,
+        "BENIGN": 70
+      }
+    },
+    {
+      "file": "03-11\\Syn.csv",
+      "sha256": "603648e7c56e9232b6d647470dc01b6451502c594a4ebf235b45103edb5e545a",
+      "sampled_rows": 555,
+      "labels": {
+        "Syn": 555
+      }
+    },
+    {
+      "file": "03-11\\UDP.csv",
+      "sha256": "27e262e851f12a5fc29cd433fec53a63e9e8fc3cfdc1a1d78f77995bd175a59b",
+      "sampled_rows": 555,
+      "labels": {
+        "MSSQL": 485,
+        "BENIGN": 70
+      }
+    },
+    {
+      "file": "03-11\\UDPLag.csv",
+      "sha256": "c8a471f56721118dc0c5ae86ae348cd261f81cf7313c08f5bbdf913005ce7ced",
+      "sampled_rows": 555,
+      "labels": {
+        "UDP": 553,
+        "BENIGN": 2
+      }
+    }
+  ]
+}

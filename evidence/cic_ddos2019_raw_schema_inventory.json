@@ -1,0 +1,948 @@
+{
+  "dataset_identifier": "cic-ddos2019",
+  "kaggle_source_identifier": "rodrigorosasilva/cic-ddos2019-30gb-full-dataset-csv-files",
+  "official_cic_unb_reference_url": "https://www.unb.ca/cic/datasets/ddos-2019.html",
+  "local_dataset_path": "C:\\Users\\Vikas\\.cache\\kagglehub\\datasets\\rodrigorosasilva\\cic-ddos2019-30gb-full-dataset-csv-files\\versions\\1",
+  "access_date_utc": "2026-09-21",
+  "timestamp_utc": "2026-09-21T17:21:22.425116+00:00",
+  "summary": {
+    "total_files": 18,
+    "total_size_bytes": 31055543940,
+    "total_size_gb": 28.92,
+    "column_count": 88,
+    "all_headers_identical": true,
+    "sample_row_limit_per_file": 1000,
+    "total_sample_rows_inspected": 18000
+  },
+  "directory_comparison": {
+    "group_01_12": {
+      "file_count": 11,
+      "total_bytes": 22310877833,
+      "total_mb": 21277.31
+    },
+    "group_03_11": {
+      "file_count": 7,
+      "total_bytes": 8744666107,
+      "total_mb": 8339.56
+    },
+    "schemas_identical": true
+  },
+  "key_columns": {
+    "Unnamed: 0": {
+      "present": true,
+      "raw_header_name": "Unnamed: 0",
+      "stripped_name": "Unnamed: 0",
+      "column_index": 0,
+      "has_leading_space": false
+    },
+    "Source IP": {
+      "present": true,
+      "raw_header_name": " Source IP",
+      "stripped_name": "Source IP",
+      "column_index": 2,
+      "has_leading_space": true
+    },
+    "Source Port": {
+      "present": true,
+      "raw_header_name": " Source Port",
+      "stripped_name": "Source Port",
+      "column_index": 3,
+      "has_leading_space": true
+    },
+    "Destination IP": {
+      "present": true,
+      "raw_header_name": " Destination IP",
+      "stripped_name": "Destination IP",
+      "column_index": 4,
+      "has_leading_space": true
+    },
+    "Destination Port": {
+      "present": true,
+      "raw_header_name": " Destination Port",
+      "stripped_name": "Destination Port",
+      "column_index": 5,
+      "has_leading_space": true
+    },
+    "Timestamp": {
+      "present": true,
+      "raw_header_name": " Timestamp",
+      "stripped_name": "Timestamp",
+      "column_index": 7,
+      "has_leading_space": true
+    },
+    "Protocol": {
+      "present": true,
+      "raw_header_name": " Protocol",
+      "stripped_name": "Protocol",
+      "column_index": 6,
+      "has_leading_space": true
+    },
+    "Label": {
+      "present": true,
+      "raw_header_name": " Label",
+      "stripped_name": "Label",
+      "column_index": 87,
+      "has_leading_space": true
+    }
+  },
+  "canonical_columns": [
+    {
+      "index": 0,
+      "raw_name": "Unnamed: 0",
+      "stripped_name": "Unnamed: 0",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 1,
+      "raw_name": "Flow ID",
+      "stripped_name": "Flow ID",
+      "sample_dtype": "str"
+    },
+    {
+      "index": 2,
+      "raw_name": " Source IP",
+      "stripped_name": "Source IP",
+      "sample_dtype": "str"
+    },
+    {
+      "index": 3,
+      "raw_name": " Source Port",
+      "stripped_name": "Source Port",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 4,
+      "raw_name": " Destination IP",
+      "stripped_name": "Destination IP",
+      "sample_dtype": "str"
+    },
+    {
+      "index": 5,
+      "raw_name": " Destination Port",
+      "stripped_name": "Destination Port",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 6,
+      "raw_name": " Protocol",
+      "stripped_name": "Protocol",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 7,
+      "raw_name": " Timestamp",
+      "stripped_name": "Timestamp",
+      "sample_dtype": "str"
+    },
+    {
+      "index": 8,
+      "raw_name": " Flow Duration",
+      "stripped_name": "Flow Duration",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 9,
+      "raw_name": " Total Fwd Packets",
+      "stripped_name": "Total Fwd Packets",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 10,
+      "raw_name": " Total Backward Packets",
+      "stripped_name": "Total Backward Packets",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 11,
+      "raw_name": "Total Length of Fwd Packets",
+      "stripped_name": "Total Length of Fwd Packets",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 12,
+      "raw_name": " Total Length of Bwd Packets",
+      "stripped_name": "Total Length of Bwd Packets",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 13,
+      "raw_name": " Fwd Packet Length Max",
+      "stripped_name": "Fwd Packet Length Max",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 14,
+      "raw_name": " Fwd Packet Length Min",
+      "stripped_name": "Fwd Packet Length Min",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 15,
+      "raw_name": " Fwd Packet Length Mean",
+      "stripped_name": "Fwd Packet Length Mean",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 16,
+      "raw_name": " Fwd Packet Length Std",
+      "stripped_name": "Fwd Packet Length Std",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 17,
+      "raw_name": "Bwd Packet Length Max",
+      "stripped_name": "Bwd Packet Length Max",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 18,
+      "raw_name": " Bwd Packet Length Min",
+      "stripped_name": "Bwd Packet Length Min",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 19,
+      "raw_name": " Bwd Packet Length Mean",
+      "stripped_name": "Bwd Packet Length Mean",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 20,
+      "raw_name": " Bwd Packet Length Std",
+      "stripped_name": "Bwd Packet Length Std",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 21,
+      "raw_name": "Flow Bytes/s",
+      "stripped_name": "Flow Bytes/s",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 22,
+      "raw_name": " Flow Packets/s",
+      "stripped_name": "Flow Packets/s",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 23,
+      "raw_name": " Flow IAT Mean",
+      "stripped_name": "Flow IAT Mean",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 24,
+      "raw_name": " Flow IAT Std",
+      "stripped_name": "Flow IAT Std",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 25,
+      "raw_name": " Flow IAT Max",
+      "stripped_name": "Flow IAT Max",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 26,
+      "raw_name": " Flow IAT Min",
+      "stripped_name": "Flow IAT Min",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 27,
+      "raw_name": "Fwd IAT Total",
+      "stripped_name": "Fwd IAT Total",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 28,
+      "raw_name": " Fwd IAT Mean",
+      "stripped_name": "Fwd IAT Mean",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 29,
+      "raw_name": " Fwd IAT Std",
+      "stripped_name": "Fwd IAT Std",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 30,
+      "raw_name": " Fwd IAT Max",
+      "stripped_name": "Fwd IAT Max",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 31,
+      "raw_name": " Fwd IAT Min",
+      "stripped_name": "Fwd IAT Min",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 32,
+      "raw_name": "Bwd IAT Total",
+      "stripped_name": "Bwd IAT Total",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 33,
+      "raw_name": " Bwd IAT Mean",
+      "stripped_name": "Bwd IAT Mean",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 34,
+      "raw_name": " Bwd IAT Std",
+      "stripped_name": "Bwd IAT Std",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 35,
+      "raw_name": " Bwd IAT Max",
+      "stripped_name": "Bwd IAT Max",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 36,
+      "raw_name": " Bwd IAT Min",
+      "stripped_name": "Bwd IAT Min",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 37,
+      "raw_name": "Fwd PSH Flags",
+      "stripped_name": "Fwd PSH Flags",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 38,
+      "raw_name": " Bwd PSH Flags",
+      "stripped_name": "Bwd PSH Flags",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 39,
+      "raw_name": " Fwd URG Flags",
+      "stripped_name": "Fwd URG Flags",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 40,
+      "raw_name": " Bwd URG Flags",
+      "stripped_name": "Bwd URG Flags",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 41,
+      "raw_name": " Fwd Header Length",
+      "stripped_name": "Fwd Header Length",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 42,
+      "raw_name": " Bwd Header Length",
+      "stripped_name": "Bwd Header Length",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 43,
+      "raw_name": "Fwd Packets/s",
+      "stripped_name": "Fwd Packets/s",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 44,
+      "raw_name": " Bwd Packets/s",
+      "stripped_name": "Bwd Packets/s",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 45,
+      "raw_name": " Min Packet Length",
+      "stripped_name": "Min Packet Length",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 46,
+      "raw_name": " Max Packet Length",
+      "stripped_name": "Max Packet Length",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 47,
+      "raw_name": " Packet Length Mean",
+      "stripped_name": "Packet Length Mean",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 48,
+      "raw_name": " Packet Length Std",
+      "stripped_name": "Packet Length Std",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 49,
+      "raw_name": " Packet Length Variance",
+      "stripped_name": "Packet Length Variance",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 50,
+      "raw_name": "FIN Flag Count",
+      "stripped_name": "FIN Flag Count",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 51,
+      "raw_name": " SYN Flag Count",
+      "stripped_name": "SYN Flag Count",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 52,
+      "raw_name": " RST Flag Count",
+      "stripped_name": "RST Flag Count",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 53,
+      "raw_name": " PSH Flag Count",
+      "stripped_name": "PSH Flag Count",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 54,
+      "raw_name": " ACK Flag Count",
+      "stripped_name": "ACK Flag Count",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 55,
+      "raw_name": " URG Flag Count",
+      "stripped_name": "URG Flag Count",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 56,
+      "raw_name": " CWE Flag Count",
+      "stripped_name": "CWE Flag Count",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 57,
+      "raw_name": " ECE Flag Count",
+      "stripped_name": "ECE Flag Count",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 58,
+      "raw_name": " Down/Up Ratio",
+      "stripped_name": "Down/Up Ratio",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 59,
+      "raw_name": " Average Packet Size",
+      "stripped_name": "Average Packet Size",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 60,
+      "raw_name": " Avg Fwd Segment Size",
+      "stripped_name": "Avg Fwd Segment Size",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 61,
+      "raw_name": " Avg Bwd Segment Size",
+      "stripped_name": "Avg Bwd Segment Size",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 62,
+      "raw_name": " Fwd Header Length.1",
+      "stripped_name": "Fwd Header Length.1",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 63,
+      "raw_name": "Fwd Avg Bytes/Bulk",
+      "stripped_name": "Fwd Avg Bytes/Bulk",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 64,
+      "raw_name": " Fwd Avg Packets/Bulk",
+      "stripped_name": "Fwd Avg Packets/Bulk",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 65,
+      "raw_name": " Fwd Avg Bulk Rate",
+      "stripped_name": "Fwd Avg Bulk Rate",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 66,
+      "raw_name": " Bwd Avg Bytes/Bulk",
+      "stripped_name": "Bwd Avg Bytes/Bulk",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 67,
+      "raw_name": " Bwd Avg Packets/Bulk",
+      "stripped_name": "Bwd Avg Packets/Bulk",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 68,
+      "raw_name": "Bwd Avg Bulk Rate",
+      "stripped_name": "Bwd Avg Bulk Rate",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 69,
+      "raw_name": "Subflow Fwd Packets",
+      "stripped_name": "Subflow Fwd Packets",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 70,
+      "raw_name": " Subflow Fwd Bytes",
+      "stripped_name": "Subflow Fwd Bytes",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 71,
+      "raw_name": " Subflow Bwd Packets",
+      "stripped_name": "Subflow Bwd Packets",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 72,
+      "raw_name": " Subflow Bwd Bytes",
+      "stripped_name": "Subflow Bwd Bytes",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 73,
+      "raw_name": "Init_Win_bytes_forward",
+      "stripped_name": "Init_Win_bytes_forward",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 74,
+      "raw_name": " Init_Win_bytes_backward",
+      "stripped_name": "Init_Win_bytes_backward",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 75,
+      "raw_name": " act_data_pkt_fwd",
+      "stripped_name": "act_data_pkt_fwd",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 76,
+      "raw_name": " min_seg_size_forward",
+      "stripped_name": "min_seg_size_forward",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 77,
+      "raw_name": "Active Mean",
+      "stripped_name": "Active Mean",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 78,
+      "raw_name": " Active Std",
+      "stripped_name": "Active Std",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 79,
+      "raw_name": " Active Max",
+      "stripped_name": "Active Max",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 80,
+      "raw_name": " Active Min",
+      "stripped_name": "Active Min",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 81,
+      "raw_name": "Idle Mean",
+      "stripped_name": "Idle Mean",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 82,
+      "raw_name": " Idle Std",
+      "stripped_name": "Idle Std",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 83,
+      "raw_name": " Idle Max",
+      "stripped_name": "Idle Max",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 84,
+      "raw_name": " Idle Min",
+      "stripped_name": "Idle Min",
+      "sample_dtype": "float64"
+    },
+    {
+      "index": 85,
+      "raw_name": "SimillarHTTP",
+      "stripped_name": "SimillarHTTP",
+      "sample_dtype": "str"
+    },
+    {
+      "index": 86,
+      "raw_name": " Inbound",
+      "stripped_name": "Inbound",
+      "sample_dtype": "int64"
+    },
+    {
+      "index": 87,
+      "raw_name": " Label",
+      "stripped_name": "Label",
+      "sample_dtype": "str"
+    }
+  ],
+  "sample_label_observations": {
+    "all_observed_labels_in_samples": [
+      "BENIGN",
+      "DrDoS_DNS",
+      "DrDoS_LDAP",
+      "DrDoS_MSSQL",
+      "DrDoS_NTP",
+      "DrDoS_NetBIOS",
+      "DrDoS_SNMP",
+      "DrDoS_SSDP",
+      "DrDoS_UDP",
+      "LDAP",
+      "MSSQL",
+      "NetBIOS",
+      "Portmap",
+      "Syn",
+      "TFTP",
+      "UDP",
+      "UDP-lag"
+    ],
+    "observed_labels_by_file": {
+      "01-12/DrDoS_DNS.csv": [
+        "BENIGN",
+        "DrDoS_DNS"
+      ],
+      "01-12/DrDoS_LDAP.csv": [
+        "DrDoS_LDAP"
+      ],
+      "01-12/DrDoS_MSSQL.csv": [
+        "DrDoS_MSSQL"
+      ],
+      "01-12/DrDoS_NetBIOS.csv": [
+        "BENIGN",
+        "DrDoS_NetBIOS"
+      ],
+      "01-12/DrDoS_NTP.csv": [
+        "BENIGN",
+        "DrDoS_NTP"
+      ],
+      "01-12/DrDoS_SNMP.csv": [
+        "DrDoS_SNMP"
+      ],
+      "01-12/DrDoS_SSDP.csv": [
+        "BENIGN",
+        "DrDoS_SSDP"
+      ],
+      "01-12/DrDoS_UDP.csv": [
+        "DrDoS_UDP"
+      ],
+      "01-12/Syn.csv": [
+        "BENIGN",
+        "Syn"
+      ],
+      "01-12/TFTP.csv": [
+        "TFTP"
+      ],
+      "01-12/UDPLag.csv": [
+        "UDP-lag"
+      ],
+      "03-11/LDAP.csv": [
+        "NetBIOS"
+      ],
+      "03-11/MSSQL.csv": [
+        "BENIGN",
+        "LDAP"
+      ],
+      "03-11/NetBIOS.csv": [
+        "NetBIOS"
+      ],
+      "03-11/Portmap.csv": [
+        "BENIGN",
+        "Portmap"
+      ],
+      "03-11/Syn.csv": [
+        "Syn"
+      ],
+      "03-11/UDP.csv": [
+        "MSSQL"
+      ],
+      "03-11/UDPLag.csv": [
+        "UDP"
+      ]
+    },
+    "disclaimer": "These labels are observed from a bounded 1,000-row sample per file and do NOT constitute a complete dataset label inventory."
+  },
+  "file_inventory": [
+    {
+      "filename": "DrDoS_DNS.csv",
+      "relative_path": "01-12/DrDoS_DNS.csv",
+      "directory_group": "01-12",
+      "size_bytes": 2133307948,
+      "size_mb": 2034.48,
+      "sha256": "eee1a2cf10be29129f00930e250236c237b97d2941e8cea766006db82047df83",
+      "column_count": 88,
+      "sample_observed_labels": [
+        "BENIGN",
+        "DrDoS_DNS"
+      ]
+    },
+    {
+      "filename": "DrDoS_LDAP.csv",
+      "relative_path": "01-12/DrDoS_LDAP.csv",
+      "directory_group": "01-12",
+      "size_bytes": 917302277,
+      "size_mb": 874.81,
+      "sha256": "fbc836bfb01d9eb5f5a2b4aae3428d7c17f449ede5466273249a9ce6095338b0",
+      "column_count": 88,
+      "sample_observed_labels": [
+        "DrDoS_LDAP"
+      ]
+    },
+    {
+      "filename": "DrDoS_MSSQL.csv",
+      "relative_path": "01-12/DrDoS_MSSQL.csv",
+      "directory_group": "01-12",
+      "size_bytes": 1889181756,
+      "size_mb": 1801.66,
+      "sha256": "534ebd8bb98a571b6e0a65a65091cb22b09156fa4db82e5752a92df02ea5402b",
+      "column_count": 88,
+      "sample_observed_labels": [
+        "DrDoS_MSSQL"
+      ]
+    },
+    {
+      "filename": "DrDoS_NetBIOS.csv",
+      "relative_path": "01-12/DrDoS_NetBIOS.csv",
+      "directory_group": "01-12",
+      "size_bytes": 1697479829,
+      "size_mb": 1618.84,
+      "sha256": "b0dbf6d712a021380cade45f753531a5860d0bfd4d338b4013ea5566d968329e",
+      "column_count": 88,
+      "sample_observed_labels": [
+        "BENIGN",
+        "DrDoS_NetBIOS"
+      ]
+    },
+    {
+      "filename": "DrDoS_NTP.csv",
+      "relative_path": "01-12/DrDoS_NTP.csv",
+      "directory_group": "01-12",
+      "size_bytes": 645008606,
+      "size_mb": 615.13,
+      "sha256": "b4ae33b2a22975f2c4c8b0e2bfc501fee38dae274dca37d4b01010de059c9c2c",
+      "column_count": 88,
+      "sample_observed_labels": [
+        "BENIGN",
+        "DrDoS_NTP"
+      ]
+    },
+    {
+      "filename": "DrDoS_SNMP.csv",
+      "relative_path": "01-12/DrDoS_SNMP.csv",
+      "directory_group": "01-12",
+      "size_bytes": 2172579815,
+      "size_mb": 2071.93,
+      "sha256": "a74a411a37fbb1a4d4acd20bb8a7e93714992e34d9fb08b3b2c5e1795c867eb7",
+      "column_count": 88,
+      "sample_observed_labels": [
+        "DrDoS_SNMP"
+      ]
+    },
+    {
+      "filename": "DrDoS_SSDP.csv",
+      "relative_path": "01-12/DrDoS_SSDP.csv",
+      "directory_group": "01-12",
+      "size_bytes": 1252686219,
+      "size_mb": 1194.65,
+      "sha256": "0bc1a2bb6dbef3851b7a2177ef74bd801dcf592b69ef5bbe5044821e695423c1",
+      "column_count": 88,
+      "sample_observed_labels": [
+        "BENIGN",
+        "DrDoS_SSDP"
+      ]
+    },
+    {
+      "filename": "DrDoS_UDP.csv",
+      "relative_path": "01-12/DrDoS_UDP.csv",
+      "directory_group": "01-12",
+      "size_bytes": 1506039371,
+      "size_mb": 1436.27,
+      "sha256": "85c54bf54f987586e1d8da14b76d1167baa4636755cae24e648067e5242d679a",
+      "column_count": 88,
+      "sample_observed_labels": [
+        "DrDoS_UDP"
+      ]
+    },
+    {
+      "filename": "Syn.csv",
+      "relative_path": "01-12/Syn.csv",
+      "directory_group": "01-12",
+      "size_bytes": 637312127,
+      "size_mb": 607.79,
+      "sha256": "05a272a7005be14262d3929ad16877db42fc74a03032a3a5b58d0230ab08896a",
+      "column_count": 88,
+      "sample_observed_labels": [
+        "BENIGN",
+        "Syn"
+      ]
+    },
+    {
+      "filename": "TFTP.csv",
+      "relative_path": "01-12/TFTP.csv",
+      "directory_group": "01-12",
+      "size_bytes": 9302011115,
+      "size_mb": 8871.09,
+      "sha256": "b56314cca3f68c9027e9fa684c7c565df6fc5c510c87f12b1c00390364e44d7c",
+      "column_count": 88,
+      "sample_observed_labels": [
+        "TFTP"
+      ]
+    },
+    {
+      "filename": "UDPLag.csv",
+      "relative_path": "01-12/UDPLag.csv",
+      "directory_group": "01-12",
+      "size_bytes": 157968770,
+      "size_mb": 150.65,
+      "sha256": "f67708a8462509932759ffed7eb92dca0f423267609d1be38a461708d4ea5b7e",
+      "column_count": 88,
+      "sample_observed_labels": [
+        "UDP-lag"
+      ]
+    },
+    {
+      "filename": "LDAP.csv",
+      "relative_path": "03-11/LDAP.csv",
+      "directory_group": "03-11",
+      "size_bytes": 871398918,
+      "size_mb": 831.03,
+      "sha256": "d1cfc7cb9252b73d9789f7307d7583be9c3a8e90ee9c096eefe8b0d3d8be23c3",
+      "column_count": 88,
+      "sample_observed_labels": [
+        "NetBIOS"
+      ]
+    },
+    {
+      "filename": "MSSQL.csv",
+      "relative_path": "03-11/MSSQL.csv",
+      "directory_group": "03-11",
+      "size_bytes": 2386225228,
+      "size_mb": 2275.68,
+      "sha256": "d13cf30e7b987f7e916c54643f2e03dd4c31fc4b2051be175d5ee83d392d8f88",
+      "column_count": 88,
+      "sample_observed_labels": [
+        "BENIGN",
+        "LDAP"
+      ]
+    },
+    {
+      "filename": "NetBIOS.csv",
+      "relative_path": "03-11/NetBIOS.csv",
+      "directory_group": "03-11",
+      "size_bytes": 1418468105,
+      "size_mb": 1352.76,
+      "sha256": "ddd2e8cd76c125e1d93094af519845e2ed1eaf44edcd3f783b3a9dee638a5e1e",
+      "column_count": 88,
+      "sample_observed_labels": [
+        "NetBIOS"
+      ]
+    },
+    {
+      "filename": "Portmap.csv",
+      "relative_path": "03-11/Portmap.csv",
+      "directory_group": "03-11",
+      "size_bytes": 78611080,
+      "size_mb": 74.97,
+      "sha256": "d0148da21f3c645b32b21b59386721eddd497a16e3de4e2950391e575fca2e28",
+      "column_count": 88,
+      "sample_observed_labels": [
+        "BENIGN",
+        "Portmap"
+      ]
+    },
+    {
+      "filename": "Syn.csv",
+      "relative_path": "03-11/Syn.csv",
+      "directory_group": "03-11",
+      "size_bytes": 1877372065,
+      "size_mb": 1790.4,
+      "sha256": "603648e7c56e9232b6d647470dc01b6451502c594a4ebf235b45103edb5e545a",
+      "column_count": 88,
+      "sample_observed_labels": [
+        "Syn"
+      ]
+    },
+    {
+      "filename": "UDP.csv",
+      "relative_path": "03-11/UDP.csv",
+      "directory_group": "03-11",
+      "size_bytes": 1792797298,
+      "size_mb": 1709.74,
+      "sha256": "27e262e851f12a5fc29cd433fec53a63e9e8fc3cfdc1a1d78f77995bd175a59b",
+      "column_count": 88,
+      "sample_observed_labels": [
+        "MSSQL"
+      ]
+    },
+    {
+      "filename": "UDPLag.csv",
+      "relative_path": "03-11/UDPLag.csv",
+      "directory_group": "03-11",
+      "size_bytes": 319793413,
+      "size_mb": 304.98,
+      "sha256": "c8a471f56721118dc0c5ae86ae348cd261f81cf7313c08f5bbdf913005ce7ced",
+      "column_count": 88,
+      "sample_observed_labels": [
+        "UDP"
+      ]
+    }
+  ],
+  "facts_vs_observations": {
+    "full_file_verified_facts": [
+      "Verified all 18 CSV files exist and are readable.",
+      "Calculated full-file SHA-256 digests using chunked 4MB stream reads across all 28.92 GB.",
+      "Verified that all 18 files have identical column count (88), identical column names, and identical order.",
+      "Confirmed presence of Unnamed: 0, Source IP, Source Port, Destination IP, Destination Port, Timestamp, Protocol, and Label.",
+      "Confirmed exact raw header strings retain leading whitespace (e.g. ' Source IP', ' Label')."
+    ],
+    "bounded_sample_observations": [
+      "In 1,000 rows/file (18,000 rows total), 17 distinct label strings were observed.",
+      "Observed sample labels include: BENIGN, DrDoS_DNS, DrDoS_LDAP, DrDoS_MSSQL, DrDoS_NTP, DrDoS_NetBIOS, DrDoS_SNMP, DrDoS_SSDP, DrDoS_UDP, LDAP, MSSQL, NetBIOS, Portmap, Syn, TFTP, UDP, UDP-lag",
+      "Sample column dtypes: 34 int64, 48 float64, and 6 object/string columns."
+    ],
+    "not_verified_yet": [
+      "Full dataset label inventory across all 30GB is not verified yet (deferred to avoid heavy compute).",
+      "Exact total row count across all files is not computed yet.",
+      "Presence of inf/-inf or NaN values outside the first 1,000 rows per file is not verified yet.",
+      "Official CYBER-14 acceptance metrics (KPI-1..6, AC-1..4, NT-1..5) remain NOT EXECUTED."
+    ]
+  }
+}

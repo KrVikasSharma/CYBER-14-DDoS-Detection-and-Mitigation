@@ -1,0 +1,9 @@
+Flow Duration,Total Fwd Packets,Protocol,label_original,label_normalized,label_binary
+10,1,6,BENIGN,BENIGN,0
+11,1,6,BENIGN,BENIGN,0
+12,2,17,BENIGN,BENIGN,0
+13,2,6,BENIGN,BENIGN,0
+50,20,17,DrDoS_DNS,DRDOS_DNS,1
+51,21,17,Syn,SYN,1
+52,22,6,TFTP,TFTP,1
+53,23,17,UDP-lag,UDP-LAG,1

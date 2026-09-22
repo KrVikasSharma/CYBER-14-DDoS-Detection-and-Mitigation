@@ -1,0 +1,53 @@
+{
+  "timestamp": "2026-09-22T08:42:00Z",
+  "audit_name": "Continuous Live Analytics & Graph Verification",
+  "status": "PASS",
+  "scenarios_tested": [
+    "BENIGN",
+    "FLASH CROWD",
+    "SYN",
+    "NETBIOS",
+    "UDP",
+    "DNS",
+    "LDAP",
+    "MSSQL",
+    "NTP",
+    "TFTP",
+    "PORTMAP",
+    "SNMP"
+  ],
+  "total_unique_observations": 13,
+  "duplicates_detected": 0,
+  "final_analytics": {
+    "total_requests": 616,
+    "current_rate": 1500.0,
+    "active_connections": 0,
+    "unique_sources": 20,
+    "detected_attacks": 140,
+    "blocked": 106,
+    "rate_limited": 58,
+    "allow": 452,
+    "latency": {
+      "avg_ms": 138.3,
+      "latest_ms": 62.6
+    },
+    "attack_distribution": {
+      "DRDOS_DNS": 30,
+      "DRDOS_LDAP": 10,
+      "DRDOS_NTP": 13,
+      "DRDOS_SNMP": 8,
+      "DRDOS_SSDP": 4,
+      "MSSQL": 10,
+      "NETBIOS": 21,
+      "PORTMAP": 8,
+      "SYN": 16,
+      "TFTP": 10,
+      "UDP": 10
+    },
+    "mitigation_distribution": {
+      "ALLOW": 452,
+      "BLOCK": 106,
+      "RATE_LIMIT": 58
+    }
+  }
+}

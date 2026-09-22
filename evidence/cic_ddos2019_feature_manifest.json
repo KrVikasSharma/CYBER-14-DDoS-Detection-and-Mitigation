@@ -1,0 +1,901 @@
+{
+  "manifest_version": "1.0.0",
+  "dataset_identifier": "cic-ddos2019",
+  "source_schema_reference": "evidence/cic_ddos2019_raw_schema_inventory.json",
+  "source_schema_column_count": 88,
+  "source_total_csv_files": 18,
+  "source_total_bytes": 31055543940,
+  "created_at_utc": "2026-09-21T17:25:14.738736+00:00",
+  "feature_list_sha256": "997e6b28c6bcc5bf76a57789cf3f0cc8e41f7792e95742b3f8a800852c6ede3a",
+  "normalization_rule": {
+    "method": "strip_leading_and_trailing_whitespace",
+    "description": "Deterministic whitespace normalization via str.strip(). Leading spaces in raw CIC-DDoS2019 column names (e.g., ' Source IP', ' Label') are stripped to canonical names ('Source IP', 'Label'). Original raw header strings and indices (0..87) are preserved for provenance. The original typo 'SimillarHTTP' is strictly preserved."
+  },
+  "feature_counts": {
+    "source_columns": 88,
+    "excluded_columns": 10,
+    "included_features_o2": 78,
+    "included_features_o3": 78
+  },
+  "shared_vector_decision": {
+    "shared": true,
+    "justification": "O2 (binary detection) and O3 (attack-type multi-class classification) share the exact same 78-feature flow vector. Both models characterize flow transport, packet length distributions, TCP flags, and inter-arrival times. Sharing the vector eliminates duplicate feature extraction pipelines and ensures identical zero-identity-leakage boundaries."
+  },
+  "leakage_controls": {
+    "target_leakage": "Excluded ' Label' (target). Supervised targets (label_original, label_normalized, label_binary) strictly excluded.",
+    "identity_leakage": "Excluded 'Flow ID', ' Source IP', ' Destination IP' to eliminate host/flow instance memorization.",
+    "port_leakage": "Excluded ' Source Port' (ephemeral) and ' Destination Port' (service bias) to force models to learn flow dynamics rather than port mapping.",
+    "temporal_leakage": "Excluded ' Timestamp' to prevent decision trees from partitioning capture dates/times.",
+    "payload_sparsity": "Excluded 'SimillarHTTP' due to non-numeric type and high sparsity in non-HTTP attacks.",
+    "topology_bias": "Excluded ' Inbound' testbed directional flag to eliminate synthetic topology bias.",
+    "post_decision_leakage": "Forbidden prefixes strictly enforced: mitigation_, decision_, acceptance_, kpi_, latency_, result_."
+  },
+  "excluded_columns": [
+    {
+      "normalized_name": "Unnamed: 0",
+      "raw_name": "Unnamed: 0",
+      "source_index": 0,
+      "sample_dtype": "int64",
+      "exclusion_category": "INDEX_LEAKAGE",
+      "rationale": "Arbitrary integer row index generated during CSV export. Has zero causal relationship to network traffic; if included, decision trees partition row offsets."
+    },
+    {
+      "normalized_name": "Flow ID",
+      "raw_name": "Flow ID",
+      "source_index": 1,
+      "sample_dtype": "str",
+      "exclusion_category": "IDENTITY_LEAKAGE",
+      "rationale": "Textual flow tuple identifier string combining IPs, ports, and timestamp. Memorizes specific connection instances rather than traffic dynamics."
+    },
+    {
+      "normalized_name": "Source IP",
+      "raw_name": " Source IP",
+      "source_index": 2,
+      "sample_dtype": "str",
+      "exclusion_category": "IDENTITY_LEAKAGE",
+      "rationale": "Host source IP address. Testbed IP addresses memorize specific simulated attackers/clients rather than generalizable attack traffic patterns."
+    },
+    {
+      "normalized_name": "Source Port",
+      "raw_name": " Source Port",
+      "source_index": 3,
+      "sample_dtype": "int64",
+      "exclusion_category": "EPHEMERAL_PORT_LEAKAGE",
+      "rationale": "Client or reflected source port. Highly dynamic/ephemeral or testbed-artifact specific; causes brittle port memorization."
+    },
+    {
+      "normalized_name": "Destination IP",
+      "raw_name": " Destination IP",
+      "source_index": 4,
+      "sample_dtype": "str",
+      "exclusion_category": "IDENTITY_LEAKAGE",
+      "rationale": "Victim host IP address. Memorizing static victim subnet addresses prevents generalization to any other protected network."
+    },
+    {
+      "normalized_name": "Destination Port",
+      "raw_name": " Destination Port",
+      "source_index": 5,
+      "sample_dtype": "int64",
+      "exclusion_category": "SERVICE_PORT_BIAS",
+      "rationale": "Destination service port. In CIC-DDoS2019, attack scripts targeted specific ports (e.g. 53, 123). Including destination port encourages models to predict attack types based purely on port numbers rather than flow volume and packet rate dynamics, causing severe false positives against legitimate services on the same port."
+    },
+    {
+      "normalized_name": "Timestamp",
+      "raw_name": " Timestamp",
+      "source_index": 7,
+      "sample_dtype": "str",
+      "exclusion_category": "TEMPORAL_LEAKAGE",
+      "rationale": "Capture wall-clock timestamp string. Attack campaigns occurred during discrete time windows on Jan 12 and Mar 11, 2019. Trees learn to partition capture dates/times directly."
+    },
+    {
+      "normalized_name": "SimillarHTTP",
+      "raw_name": "SimillarHTTP",
+      "source_index": 85,
+      "sample_dtype": "str",
+      "exclusion_category": "PAYLOAD_METADATA_SPARSITY",
+      "rationale": "Non-numeric string metadata field containing HTTP request snippets or '0'. Highly sparse, absent for UDP/ICMP/non-HTTP flows, and introduces text memorization. Excluded to ensure a uniform numeric flow feature space. Original spelling 'SimillarHTTP' is strictly preserved without modification."
+    },
+    {
+      "normalized_name": "Inbound",
+      "raw_name": " Inbound",
+      "source_index": 86,
+      "sample_dtype": "int64",
+      "exclusion_category": "TOPOLOGY_LEAKAGE",
+      "rationale": "Artificial binary direction flag assigned during testbed packet generation indicating flow toward victim subnet. In production perimeter monitoring, all ingress traffic is inbound, making this testbed-specific flag ungeneralizable."
+    },
+    {
+      "normalized_name": "Label",
+      "raw_name": " Label",
+      "source_index": 87,
+      "sample_dtype": "str",
+      "exclusion_category": "TARGET_LEAKAGE",
+      "rationale": "Supervised learning ground-truth target column. Preprocessed into label_original, label_normalized, and label_binary; strictly excluded from model feature inputs."
+    }
+  ],
+  "included_features_o2": [
+    "Protocol",
+    "Flow Duration",
+    "Total Fwd Packets",
+    "Total Backward Packets",
+    "Total Length of Fwd Packets",
+    "Total Length of Bwd Packets",
+    "Fwd Packet Length Max",
+    "Fwd Packet Length Min",
+    "Fwd Packet Length Mean",
+    "Fwd Packet Length Std",
+    "Bwd Packet Length Max",
+    "Bwd Packet Length Min",
+    "Bwd Packet Length Mean",
+    "Bwd Packet Length Std",
+    "Flow Bytes/s",
+    "Flow Packets/s",
+    "Flow IAT Mean",
+    "Flow IAT Std",
+    "Flow IAT Max",
+    "Flow IAT Min",
+    "Fwd IAT Total",
+    "Fwd IAT Mean",
+    "Fwd IAT Std",
+    "Fwd IAT Max",
+    "Fwd IAT Min",
+    "Bwd IAT Total",
+    "Bwd IAT Mean",
+    "Bwd IAT Std",
+    "Bwd IAT Max",
+    "Bwd IAT Min",
+    "Fwd PSH Flags",
+    "Bwd PSH Flags",
+    "Fwd URG Flags",
+    "Bwd URG Flags",
+    "Fwd Header Length",
+    "Bwd Header Length",
+    "Fwd Packets/s",
+    "Bwd Packets/s",
+    "Min Packet Length",
+    "Max Packet Length",
+    "Packet Length Mean",
+    "Packet Length Std",
+    "Packet Length Variance",
+    "FIN Flag Count",
+    "SYN Flag Count",
+    "RST Flag Count",
+    "PSH Flag Count",
+    "ACK Flag Count",
+    "URG Flag Count",
+    "CWE Flag Count",
+    "ECE Flag Count",
+    "Down/Up Ratio",
+    "Average Packet Size",
+    "Avg Fwd Segment Size",
+    "Avg Bwd Segment Size",
+    "Fwd Header Length.1",
+    "Fwd Avg Bytes/Bulk",
+    "Fwd Avg Packets/Bulk",
+    "Fwd Avg Bulk Rate",
+    "Bwd Avg Bytes/Bulk",
+    "Bwd Avg Packets/Bulk",
+    "Bwd Avg Bulk Rate",
+    "Subflow Fwd Packets",
+    "Subflow Fwd Bytes",
+    "Subflow Bwd Packets",
+    "Subflow Bwd Bytes",
+    "Init_Win_bytes_forward",
+    "Init_Win_bytes_backward",
+    "act_data_pkt_fwd",
+    "min_seg_size_forward",
+    "Active Mean",
+    "Active Std",
+    "Active Max",
+    "Active Min",
+    "Idle Mean",
+    "Idle Std",
+    "Idle Max",
+    "Idle Min"
+  ],
+  "included_features_o3": [
+    "Protocol",
+    "Flow Duration",
+    "Total Fwd Packets",
+    "Total Backward Packets",
+    "Total Length of Fwd Packets",
+    "Total Length of Bwd Packets",
+    "Fwd Packet Length Max",
+    "Fwd Packet Length Min",
+    "Fwd Packet Length Mean",
+    "Fwd Packet Length Std",
+    "Bwd Packet Length Max",
+    "Bwd Packet Length Min",
+    "Bwd Packet Length Mean",
+    "Bwd Packet Length Std",
+    "Flow Bytes/s",
+    "Flow Packets/s",
+    "Flow IAT Mean",
+    "Flow IAT Std",
+    "Flow IAT Max",
+    "Flow IAT Min",
+    "Fwd IAT Total",
+    "Fwd IAT Mean",
+    "Fwd IAT Std",
+    "Fwd IAT Max",
+    "Fwd IAT Min",
+    "Bwd IAT Total",
+    "Bwd IAT Mean",
+    "Bwd IAT Std",
+    "Bwd IAT Max",
+    "Bwd IAT Min",
+    "Fwd PSH Flags",
+    "Bwd PSH Flags",
+    "Fwd URG Flags",
+    "Bwd URG Flags",
+    "Fwd Header Length",
+    "Bwd Header Length",
+    "Fwd Packets/s",
+    "Bwd Packets/s",
+    "Min Packet Length",
+    "Max Packet Length",
+    "Packet Length Mean",
+    "Packet Length Std",
+    "Packet Length Variance",
+    "FIN Flag Count",
+    "SYN Flag Count",
+    "RST Flag Count",
+    "PSH Flag Count",
+    "ACK Flag Count",
+    "URG Flag Count",
+    "CWE Flag Count",
+    "ECE Flag Count",
+    "Down/Up Ratio",
+    "Average Packet Size",
+    "Avg Fwd Segment Size",
+    "Avg Bwd Segment Size",
+    "Fwd Header Length.1",
+    "Fwd Avg Bytes/Bulk",
+    "Fwd Avg Packets/Bulk",
+    "Fwd Avg Bulk Rate",
+    "Bwd Avg Bytes/Bulk",
+    "Bwd Avg Packets/Bulk",
+    "Bwd Avg Bulk Rate",
+    "Subflow Fwd Packets",
+    "Subflow Fwd Bytes",
+    "Subflow Bwd Packets",
+    "Subflow Bwd Bytes",
+    "Init_Win_bytes_forward",
+    "Init_Win_bytes_backward",
+    "act_data_pkt_fwd",
+    "min_seg_size_forward",
+    "Active Mean",
+    "Active Std",
+    "Active Max",
+    "Active Min",
+    "Idle Mean",
+    "Idle Std",
+    "Idle Max",
+    "Idle Min"
+  ],
+  "feature_metadata": [
+    {
+      "feature_name": "Protocol",
+      "raw_header_name": " Protocol",
+      "source_index": 6,
+      "sample_dtype": "int64",
+      "category": "protocol",
+      "rationale": "Transport layer protocol number (e.g., 6 for TCP, 17 for UDP)."
+    },
+    {
+      "feature_name": "Flow Duration",
+      "raw_header_name": " Flow Duration",
+      "source_index": 8,
+      "sample_dtype": "int64",
+      "category": "temporal_duration",
+      "rationale": "Total duration of the bidirectional flow in microseconds."
+    },
+    {
+      "feature_name": "Total Fwd Packets",
+      "raw_header_name": " Total Fwd Packets",
+      "source_index": 9,
+      "sample_dtype": "int64",
+      "category": "volumetric_packet_count",
+      "rationale": "Total number of packets transmitted in the forward direction."
+    },
+    {
+      "feature_name": "Total Backward Packets",
+      "raw_header_name": " Total Backward Packets",
+      "source_index": 10,
+      "sample_dtype": "int64",
+      "category": "volumetric_packet_count",
+      "rationale": "Total number of packets transmitted in the backward direction."
+    },
+    {
+      "feature_name": "Total Length of Fwd Packets",
+      "raw_header_name": "Total Length of Fwd Packets",
+      "source_index": 11,
+      "sample_dtype": "float64",
+      "category": "volumetric_byte_length",
+      "rationale": "Total bytes transmitted in forward packet payloads."
+    },
+    {
+      "feature_name": "Total Length of Bwd Packets",
+      "raw_header_name": " Total Length of Bwd Packets",
+      "source_index": 12,
+      "sample_dtype": "float64",
+      "category": "volumetric_byte_length",
+      "rationale": "Total bytes transmitted in backward packet payloads."
+    },
+    {
+      "feature_name": "Fwd Packet Length Max",
+      "raw_header_name": " Fwd Packet Length Max",
+      "source_index": 13,
+      "sample_dtype": "float64",
+      "category": "packet_size_distribution",
+      "rationale": "Maximum packet size in forward direction."
+    },
+    {
+      "feature_name": "Fwd Packet Length Min",
+      "raw_header_name": " Fwd Packet Length Min",
+      "source_index": 14,
+      "sample_dtype": "float64",
+      "category": "packet_size_distribution",
+      "rationale": "Minimum packet size in forward direction."
+    },
+    {
+      "feature_name": "Fwd Packet Length Mean",
+      "raw_header_name": " Fwd Packet Length Mean",
+      "source_index": 15,
+      "sample_dtype": "float64",
+      "category": "packet_size_distribution",
+      "rationale": "Mean packet size in forward direction."
+    },
+    {
+      "feature_name": "Fwd Packet Length Std",
+      "raw_header_name": " Fwd Packet Length Std",
+      "source_index": 16,
+      "sample_dtype": "float64",
+      "category": "packet_size_distribution",
+      "rationale": "Standard deviation of forward packet sizes."
+    },
+    {
+      "feature_name": "Bwd Packet Length Max",
+      "raw_header_name": "Bwd Packet Length Max",
+      "source_index": 17,
+      "sample_dtype": "float64",
+      "category": "packet_size_distribution",
+      "rationale": "Maximum packet size in backward direction."
+    },
+    {
+      "feature_name": "Bwd Packet Length Min",
+      "raw_header_name": " Bwd Packet Length Min",
+      "source_index": 18,
+      "sample_dtype": "float64",
+      "category": "packet_size_distribution",
+      "rationale": "Minimum packet size in backward direction."
+    },
+    {
+      "feature_name": "Bwd Packet Length Mean",
+      "raw_header_name": " Bwd Packet Length Mean",
+      "source_index": 19,
+      "sample_dtype": "float64",
+      "category": "packet_size_distribution",
+      "rationale": "Mean packet size in backward direction."
+    },
+    {
+      "feature_name": "Bwd Packet Length Std",
+      "raw_header_name": " Bwd Packet Length Std",
+      "source_index": 20,
+      "sample_dtype": "float64",
+      "category": "packet_size_distribution",
+      "rationale": "Standard deviation of backward packet sizes."
+    },
+    {
+      "feature_name": "Flow Bytes/s",
+      "raw_header_name": "Flow Bytes/s",
+      "source_index": 21,
+      "sample_dtype": "float64",
+      "category": "rate_throughput",
+      "rationale": "Flow transmission rate in bytes per second."
+    },
+    {
+      "feature_name": "Flow Packets/s",
+      "raw_header_name": " Flow Packets/s",
+      "source_index": 22,
+      "sample_dtype": "float64",
+      "category": "rate_throughput",
+      "rationale": "Flow transmission rate in packets per second."
+    },
+    {
+      "feature_name": "Flow IAT Mean",
+      "raw_header_name": " Flow IAT Mean",
+      "source_index": 23,
+      "sample_dtype": "float64",
+      "category": "temporal_iat",
+      "rationale": "Mean inter-arrival time between packets in the flow."
+    },
+    {
+      "feature_name": "Flow IAT Std",
+      "raw_header_name": " Flow IAT Std",
+      "source_index": 24,
+      "sample_dtype": "float64",
+      "category": "temporal_iat",
+      "rationale": "Standard deviation of inter-arrival times in the flow."
+    },
+    {
+      "feature_name": "Flow IAT Max",
+      "raw_header_name": " Flow IAT Max",
+      "source_index": 25,
+      "sample_dtype": "float64",
+      "category": "temporal_iat",
+      "rationale": "Maximum inter-arrival time in the flow."
+    },
+    {
+      "feature_name": "Flow IAT Min",
+      "raw_header_name": " Flow IAT Min",
+      "source_index": 26,
+      "sample_dtype": "float64",
+      "category": "temporal_iat",
+      "rationale": "Minimum inter-arrival time in the flow."
+    },
+    {
+      "feature_name": "Fwd IAT Total",
+      "raw_header_name": "Fwd IAT Total",
+      "source_index": 27,
+      "sample_dtype": "float64",
+      "category": "temporal_iat",
+      "rationale": "Total inter-arrival time of forward packets."
+    },
+    {
+      "feature_name": "Fwd IAT Mean",
+      "raw_header_name": " Fwd IAT Mean",
+      "source_index": 28,
+      "sample_dtype": "float64",
+      "category": "temporal_iat",
+      "rationale": "Mean inter-arrival time between forward packets."
+    },
+    {
+      "feature_name": "Fwd IAT Std",
+      "raw_header_name": " Fwd IAT Std",
+      "source_index": 29,
+      "sample_dtype": "float64",
+      "category": "temporal_iat",
+      "rationale": "Standard deviation of forward packet inter-arrival times."
+    },
+    {
+      "feature_name": "Fwd IAT Max",
+      "raw_header_name": " Fwd IAT Max",
+      "source_index": 30,
+      "sample_dtype": "float64",
+      "category": "temporal_iat",
+      "rationale": "Maximum forward inter-arrival time."
+    },
+    {
+      "feature_name": "Fwd IAT Min",
+      "raw_header_name": " Fwd IAT Min",
+      "source_index": 31,
+      "sample_dtype": "float64",
+      "category": "temporal_iat",
+      "rationale": "Minimum forward inter-arrival time."
+    },
+    {
+      "feature_name": "Bwd IAT Total",
+      "raw_header_name": "Bwd IAT Total",
+      "source_index": 32,
+      "sample_dtype": "float64",
+      "category": "temporal_iat",
+      "rationale": "Total inter-arrival time of backward packets."
+    },
+    {
+      "feature_name": "Bwd IAT Mean",
+      "raw_header_name": " Bwd IAT Mean",
+      "source_index": 33,
+      "sample_dtype": "float64",
+      "category": "temporal_iat",
+      "rationale": "Mean inter-arrival time between backward packets."
+    },
+    {
+      "feature_name": "Bwd IAT Std",
+      "raw_header_name": " Bwd IAT Std",
+      "source_index": 34,
+      "sample_dtype": "float64",
+      "category": "temporal_iat",
+      "rationale": "Standard deviation of backward packet inter-arrival times."
+    },
+    {
+      "feature_name": "Bwd IAT Max",
+      "raw_header_name": " Bwd IAT Max",
+      "source_index": 35,
+      "sample_dtype": "float64",
+      "category": "temporal_iat",
+      "rationale": "Maximum backward inter-arrival time."
+    },
+    {
+      "feature_name": "Bwd IAT Min",
+      "raw_header_name": " Bwd IAT Min",
+      "source_index": 36,
+      "sample_dtype": "float64",
+      "category": "temporal_iat",
+      "rationale": "Minimum backward inter-arrival time."
+    },
+    {
+      "feature_name": "Fwd PSH Flags",
+      "raw_header_name": "Fwd PSH Flags",
+      "source_index": 37,
+      "sample_dtype": "int64",
+      "category": "tcp_flags",
+      "rationale": "Number of forward packets with Push (PSH) flag set."
+    },
+    {
+      "feature_name": "Bwd PSH Flags",
+      "raw_header_name": " Bwd PSH Flags",
+      "source_index": 38,
+      "sample_dtype": "int64",
+      "category": "tcp_flags",
+      "rationale": "Number of backward packets with Push (PSH) flag set."
+    },
+    {
+      "feature_name": "Fwd URG Flags",
+      "raw_header_name": " Fwd URG Flags",
+      "source_index": 39,
+      "sample_dtype": "int64",
+      "category": "tcp_flags",
+      "rationale": "Number of forward packets with Urgent (URG) flag set."
+    },
+    {
+      "feature_name": "Bwd URG Flags",
+      "raw_header_name": " Bwd URG Flags",
+      "source_index": 40,
+      "sample_dtype": "int64",
+      "category": "tcp_flags",
+      "rationale": "Number of backward packets with Urgent (URG) flag set."
+    },
+    {
+      "feature_name": "Fwd Header Length",
+      "raw_header_name": " Fwd Header Length",
+      "source_index": 41,
+      "sample_dtype": "int64",
+      "category": "header_length",
+      "rationale": "Total bytes used for headers in the forward direction."
+    },
+    {
+      "feature_name": "Bwd Header Length",
+      "raw_header_name": " Bwd Header Length",
+      "source_index": 42,
+      "sample_dtype": "int64",
+      "category": "header_length",
+      "rationale": "Total bytes used for headers in the backward direction."
+    },
+    {
+      "feature_name": "Fwd Packets/s",
+      "raw_header_name": "Fwd Packets/s",
+      "source_index": 43,
+      "sample_dtype": "float64",
+      "category": "rate_throughput",
+      "rationale": "Forward packet transmission rate per second."
+    },
+    {
+      "feature_name": "Bwd Packets/s",
+      "raw_header_name": " Bwd Packets/s",
+      "source_index": 44,
+      "sample_dtype": "float64",
+      "category": "rate_throughput",
+      "rationale": "Backward packet transmission rate per second."
+    },
+    {
+      "feature_name": "Min Packet Length",
+      "raw_header_name": " Min Packet Length",
+      "source_index": 45,
+      "sample_dtype": "float64",
+      "category": "packet_size_distribution",
+      "rationale": "Minimum packet length observed across the entire flow."
+    },
+    {
+      "feature_name": "Max Packet Length",
+      "raw_header_name": " Max Packet Length",
+      "source_index": 46,
+      "sample_dtype": "float64",
+      "category": "packet_size_distribution",
+      "rationale": "Maximum packet length observed across the entire flow."
+    },
+    {
+      "feature_name": "Packet Length Mean",
+      "raw_header_name": " Packet Length Mean",
+      "source_index": 47,
+      "sample_dtype": "float64",
+      "category": "packet_size_distribution",
+      "rationale": "Mean packet length observed across the entire flow."
+    },
+    {
+      "feature_name": "Packet Length Std",
+      "raw_header_name": " Packet Length Std",
+      "source_index": 48,
+      "sample_dtype": "float64",
+      "category": "packet_size_distribution",
+      "rationale": "Standard deviation of packet length across the flow."
+    },
+    {
+      "feature_name": "Packet Length Variance",
+      "raw_header_name": " Packet Length Variance",
+      "source_index": 49,
+      "sample_dtype": "float64",
+      "category": "packet_size_distribution",
+      "rationale": "Variance of packet length across the flow."
+    },
+    {
+      "feature_name": "FIN Flag Count",
+      "raw_header_name": "FIN Flag Count",
+      "source_index": 50,
+      "sample_dtype": "int64",
+      "category": "tcp_flags",
+      "rationale": "Count of packets with TCP FIN flag set."
+    },
+    {
+      "feature_name": "SYN Flag Count",
+      "raw_header_name": " SYN Flag Count",
+      "source_index": 51,
+      "sample_dtype": "int64",
+      "category": "tcp_flags",
+      "rationale": "Count of packets with TCP SYN flag set."
+    },
+    {
+      "feature_name": "RST Flag Count",
+      "raw_header_name": " RST Flag Count",
+      "source_index": 52,
+      "sample_dtype": "int64",
+      "category": "tcp_flags",
+      "rationale": "Count of packets with TCP RST flag set."
+    },
+    {
+      "feature_name": "PSH Flag Count",
+      "raw_header_name": " PSH Flag Count",
+      "source_index": 53,
+      "sample_dtype": "int64",
+      "category": "tcp_flags",
+      "rationale": "Count of packets with TCP PSH flag set."
+    },
+    {
+      "feature_name": "ACK Flag Count",
+      "raw_header_name": " ACK Flag Count",
+      "source_index": 54,
+      "sample_dtype": "int64",
+      "category": "tcp_flags",
+      "rationale": "Count of packets with TCP ACK flag set."
+    },
+    {
+      "feature_name": "URG Flag Count",
+      "raw_header_name": " URG Flag Count",
+      "source_index": 55,
+      "sample_dtype": "int64",
+      "category": "tcp_flags",
+      "rationale": "Count of packets with TCP URG flag set."
+    },
+    {
+      "feature_name": "CWE Flag Count",
+      "raw_header_name": " CWE Flag Count",
+      "source_index": 56,
+      "sample_dtype": "int64",
+      "category": "tcp_flags",
+      "rationale": "Count of packets with TCP CWE flag set."
+    },
+    {
+      "feature_name": "ECE Flag Count",
+      "raw_header_name": " ECE Flag Count",
+      "source_index": 57,
+      "sample_dtype": "int64",
+      "category": "tcp_flags",
+      "rationale": "Count of packets with TCP ECE flag set."
+    },
+    {
+      "feature_name": "Down/Up Ratio",
+      "raw_header_name": " Down/Up Ratio",
+      "source_index": 58,
+      "sample_dtype": "float64",
+      "category": "flow_ratio",
+      "rationale": "Ratio of incoming to outgoing packets."
+    },
+    {
+      "feature_name": "Average Packet Size",
+      "raw_header_name": " Average Packet Size",
+      "source_index": 59,
+      "sample_dtype": "float64",
+      "category": "packet_size_distribution",
+      "rationale": "Average packet size in the flow."
+    },
+    {
+      "feature_name": "Avg Fwd Segment Size",
+      "raw_header_name": " Avg Fwd Segment Size",
+      "source_index": 60,
+      "sample_dtype": "float64",
+      "category": "packet_size_distribution",
+      "rationale": "Average forward segment size."
+    },
+    {
+      "feature_name": "Avg Bwd Segment Size",
+      "raw_header_name": " Avg Bwd Segment Size",
+      "source_index": 61,
+      "sample_dtype": "float64",
+      "category": "packet_size_distribution",
+      "rationale": "Average backward segment size."
+    },
+    {
+      "feature_name": "Fwd Header Length.1",
+      "raw_header_name": " Fwd Header Length.1",
+      "source_index": 62,
+      "sample_dtype": "int64",
+      "category": "header_length",
+      "rationale": "Duplicate forward header length metric preserved from CICFlowMeter."
+    },
+    {
+      "feature_name": "Fwd Avg Bytes/Bulk",
+      "raw_header_name": "Fwd Avg Bytes/Bulk",
+      "source_index": 63,
+      "sample_dtype": "int64",
+      "category": "bulk_transfer",
+      "rationale": "Average bytes per bulk transmission in forward direction."
+    },
+    {
+      "feature_name": "Fwd Avg Packets/Bulk",
+      "raw_header_name": " Fwd Avg Packets/Bulk",
+      "source_index": 64,
+      "sample_dtype": "int64",
+      "category": "bulk_transfer",
+      "rationale": "Average packets per bulk transmission in forward direction."
+    },
+    {
+      "feature_name": "Fwd Avg Bulk Rate",
+      "raw_header_name": " Fwd Avg Bulk Rate",
+      "source_index": 65,
+      "sample_dtype": "int64",
+      "category": "bulk_transfer",
+      "rationale": "Average bulk transfer rate in forward direction."
+    },
+    {
+      "feature_name": "Bwd Avg Bytes/Bulk",
+      "raw_header_name": " Bwd Avg Bytes/Bulk",
+      "source_index": 66,
+      "sample_dtype": "int64",
+      "category": "bulk_transfer",
+      "rationale": "Average bytes per bulk transmission in backward direction."
+    },
+    {
+      "feature_name": "Bwd Avg Packets/Bulk",
+      "raw_header_name": " Bwd Avg Packets/Bulk",
+      "source_index": 67,
+      "sample_dtype": "int64",
+      "category": "bulk_transfer",
+      "rationale": "Average packets per bulk transmission in backward direction."
+    },
+    {
+      "feature_name": "Bwd Avg Bulk Rate",
+      "raw_header_name": "Bwd Avg Bulk Rate",
+      "source_index": 68,
+      "sample_dtype": "int64",
+      "category": "bulk_transfer",
+      "rationale": "Average bulk transfer rate in backward direction."
+    },
+    {
+      "feature_name": "Subflow Fwd Packets",
+      "raw_header_name": "Subflow Fwd Packets",
+      "source_index": 69,
+      "sample_dtype": "int64",
+      "category": "subflow_metrics",
+      "rationale": "Average forward packets in subflow."
+    },
+    {
+      "feature_name": "Subflow Fwd Bytes",
+      "raw_header_name": " Subflow Fwd Bytes",
+      "source_index": 70,
+      "sample_dtype": "int64",
+      "category": "subflow_metrics",
+      "rationale": "Average forward bytes in subflow."
+    },
+    {
+      "feature_name": "Subflow Bwd Packets",
+      "raw_header_name": " Subflow Bwd Packets",
+      "source_index": 71,
+      "sample_dtype": "int64",
+      "category": "subflow_metrics",
+      "rationale": "Average backward packets in subflow."
+    },
+    {
+      "feature_name": "Subflow Bwd Bytes",
+      "raw_header_name": " Subflow Bwd Bytes",
+      "source_index": 72,
+      "sample_dtype": "int64",
+      "category": "subflow_metrics",
+      "rationale": "Average backward bytes in subflow."
+    },
+    {
+      "feature_name": "Init_Win_bytes_forward",
+      "raw_header_name": "Init_Win_bytes_forward",
+      "source_index": 73,
+      "sample_dtype": "int64",
+      "category": "window_and_segment",
+      "rationale": "Initial window size in forward direction."
+    },
+    {
+      "feature_name": "Init_Win_bytes_backward",
+      "raw_header_name": " Init_Win_bytes_backward",
+      "source_index": 74,
+      "sample_dtype": "int64",
+      "category": "window_and_segment",
+      "rationale": "Initial window size in backward direction."
+    },
+    {
+      "feature_name": "act_data_pkt_fwd",
+      "raw_header_name": " act_data_pkt_fwd",
+      "source_index": 75,
+      "sample_dtype": "int64",
+      "category": "window_and_segment",
+      "rationale": "Count of packets with at least 1 byte of TCP data payload in forward direction."
+    },
+    {
+      "feature_name": "min_seg_size_forward",
+      "raw_header_name": " min_seg_size_forward",
+      "source_index": 76,
+      "sample_dtype": "int64",
+      "category": "window_and_segment",
+      "rationale": "Minimum segment size observed in forward direction."
+    },
+    {
+      "feature_name": "Active Mean",
+      "raw_header_name": "Active Mean",
+      "source_index": 77,
+      "sample_dtype": "float64",
+      "category": "active_idle_dynamics",
+      "rationale": "Mean time a flow was active before becoming idle."
+    },
+    {
+      "feature_name": "Active Std",
+      "raw_header_name": " Active Std",
+      "source_index": 78,
+      "sample_dtype": "float64",
+      "category": "active_idle_dynamics",
+      "rationale": "Standard deviation of active time before becoming idle."
+    },
+    {
+      "feature_name": "Active Max",
+      "raw_header_name": " Active Max",
+      "source_index": 79,
+      "sample_dtype": "float64",
+      "category": "active_idle_dynamics",
+      "rationale": "Maximum time a flow was active before becoming idle."
+    },
+    {
+      "feature_name": "Active Min",
+      "raw_header_name": " Active Min",
+      "source_index": 80,
+      "sample_dtype": "float64",
+      "category": "active_idle_dynamics",
+      "rationale": "Minimum time a flow was active before becoming idle."
+    },
+    {
+      "feature_name": "Idle Mean",
+      "raw_header_name": "Idle Mean",
+      "source_index": 81,
+      "sample_dtype": "float64",
+      "category": "active_idle_dynamics",
+      "rationale": "Mean time a flow was idle before becoming active."
+    },
+    {
+      "feature_name": "Idle Std",
+      "raw_header_name": " Idle Std",
+      "source_index": 82,
+      "sample_dtype": "float64",
+      "category": "active_idle_dynamics",
+      "rationale": "Standard deviation of idle time before becoming active."
+    },
+    {
+      "feature_name": "Idle Max",
+      "raw_header_name": " Idle Max",
+      "source_index": 83,
+      "sample_dtype": "float64",
+      "category": "active_idle_dynamics",
+      "rationale": "Maximum time a flow was idle before becoming active."
+    },
+    {
+      "feature_name": "Idle Min",
+      "raw_header_name": " Idle Min",
+      "source_index": 84,
+      "sample_dtype": "float64",
+      "category": "active_idle_dynamics",
+      "rationale": "Minimum time a flow was idle before becoming active."
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "target_column": "label_normalized",
+  "available_classes": [
+    "BENIGN",
+    "DRDOS_DNS",
+    "DRDOS_LDAP",
+    "DRDOS_MSSQL",
+    "DRDOS_NETBIOS",
+    "DRDOS_NTP",
+    "DRDOS_SNMP",
+    "DRDOS_SSDP",
+    "DRDOS_UDP",
+    "LDAP",
+    "MSSQL",
+    "NETBIOS",
+    "PORTMAP",
+    "SYN",
+    "TFTP",
+    "UDP",
+    "UDP-LAG"
+  ],
+  "class_count": 17,
+  "class_distribution": {
+    "SYN": 860,
+    "NETBIOS": 850,
+    "MSSQL": 623,
+    "BENIGN": 497,
+    "DRDOS_UDP": 453,
+    "DRDOS_LDAP": 451,
+    "UDP-LAG": 451,
+    "UDP": 445,
+    "TFTP": 437,
+    "DRDOS_SNMP": 408,
+    "DRDOS_SSDP": 402,
+    "DRDOS_NTP": 401,
+    "DRDOS_NETBIOS": 400,
+    "DRDOS_DNS": 395,
+    "DRDOS_MSSQL": 389,
+    "PORTMAP": 388,
+    "LDAP": 142
+  }
+}

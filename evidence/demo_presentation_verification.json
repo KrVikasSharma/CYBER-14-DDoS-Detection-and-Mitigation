@@ -1,0 +1,104 @@
+{
+  "verified_at_utc": "2026-09-22T03:48:37.291122+00:00",
+  "tasks": {
+    "task_1_startup": {
+      "status": "PASS",
+      "health": {
+        "status": "ok",
+        "service": "CYBER-14 DDoS Detection and Mitigation"
+      },
+      "system_status": {
+        "service": "CYBER-14 DDoS Detection and Mitigation",
+        "environment": "development",
+        "status": "ok",
+        "api_version": "/api/v1",
+        "ml_status": "ready_demo_sample",
+        "mitigation_status": "simulation_only_ready",
+        "streaming_status": "ready",
+        "authentication_enabled": true,
+        "authentication_mode": "local_demo",
+        "configured_roles": [
+          "viewer",
+          "analyst",
+          "operator",
+          "admin"
+        ],
+        "simulator_enabled": true
+      }
+    },
+    "task_2_auth": {
+      "status": "PASS",
+      "unauthenticated_rejected": true,
+      "login_successful": true,
+      "user": {
+        "username": "admin",
+        "role": "admin",
+        "auth_mode": "local_demo"
+      }
+    },
+    "task_3_detection": {
+      "status": "PASS",
+      "benign": {
+        "o2_label": 0,
+        "o2_detected": false,
+        "o2_confidence": 1.0,
+        "mitigation_decision": "ALLOW",
+        "mitigation_reason": "Trusted legitimate classification is below the flash-crowd containment threshold."
+      },
+      "flash_crowd": {
+        "o2_label": 0,
+        "o2_detected": false,
+        "traffic_rate": 2500,
+        "mitigation_decision": "RATE_LIMIT",
+        "mitigation_reason": "Trusted classification with sustained traffic above the configured flash-crowd threshold; contain volume without treating it as malicious."
+      },
+      "attack": {
+        "o2_label": 1,
+        "o2_detected": true,
+        "o3_class": "NETBIOS",
+        "o3_confidence": 0.8222186978289387,
+        "mitigation_decision": "BLOCK",
+        "mitigation_reason": "Known attack classification meets the confirmed-attack confidence threshold."
+      }
+    },
+    "task_4_websocket": {
+      "status": "PASS",
+      "channel": "/ws/traffic",
+      "live_observations_verified": true,
+      "controlled_simulation_verified": true
+    },
+    "task_5_ui": {
+      "status": "PASS",
+      "verified_pages": [
+        "Overview (Dashboard)",
+        "Binary Detection (O2)",
+        "Multi-class Classification (O3)",
+        "Mitigation Control",
+        "Real-time Stream",
+        "Evidence & Audit",
+        "System Status & KPIs",
+        "Training & Artifacts",
+        "Settings / Environment"
+      ],
+      "banners_verified": [
+        "DEMO MODE",
+        "REAL CIC-DDoS2019 SAMPLE",
+        "NOT OFFICIAL ACCEPTANCE"
+      ]
+    },
+    "task_6_evidence": {
+      "status": "PASS",
+      "demo_manifest_accessible": true,
+      "sample_rows": 9990,
+      "raw_files": 18,
+      "demo_evaluation_accessible": true,
+      "o2_accuracy": 0.998998998998999,
+      "o3_accuracy": 0.7077077077077077,
+      "feature_manifest_accessible": true,
+      "features_count": 78,
+      "audit_records_count": 7,
+      "evidence_runs_count": 4
+    }
+  },
+  "summary": "ALL PRESENTATION TASKS VERIFIED SUCCESSFULLY"
+}

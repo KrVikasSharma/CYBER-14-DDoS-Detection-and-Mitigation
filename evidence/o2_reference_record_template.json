@@ -1,0 +1,17 @@
+{
+  "model_identifier": "cyber14-o2-random-forest-reference",
+  "model_version": "0.1.0",
+  "feature_contract": {
+    "target_column": "label_binary",
+    "feature_columns": [],
+    "feature_ordering": "processed_csv_column_order_after_exclusions"
+  },
+  "dataset_provenance_identifier": null,
+  "training_configuration": null,
+  "evaluation_configuration": null,
+  "measured_metrics": null,
+  "latency_measurements": null,
+  "resource_measurements": null,
+  "official_cyber14_kpi_result": false,
+  "notes": "Template only. Populate with real measured values only after training/evaluating against supplied processed data. Fixture measurements are test mechanics, not CIC-DDoS2019 performance."
+}

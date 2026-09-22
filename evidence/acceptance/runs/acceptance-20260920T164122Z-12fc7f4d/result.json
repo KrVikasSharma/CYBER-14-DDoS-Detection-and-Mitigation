@@ -1,0 +1,72 @@
+{
+  "acceptance_conditions": {
+    "AC-1": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    },
+    "AC-2": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    },
+    "AC-3": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    },
+    "AC-4": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    }
+  },
+  "configuration_hash": "8bb925655b8dd20fe3e26bf22c100d0172618f050167e5bd9ac1a48b279ecde0",
+  "dataset_reference": "fixture-only:o3_tiny_processed_fixture.csv",
+  "fixture_only": true,
+  "kpis": {
+    "KPI-1": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    },
+    "KPI-2": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    },
+    "KPI-3": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    },
+    "KPI-4": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    },
+    "KPI-5": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    },
+    "KPI-6": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    }
+  },
+  "limitations": [
+    "Official KPI definitions and thresholds were not present in the repository inputs.",
+    "Real CIC-DDoS2019 data is unavailable.",
+    "No independent acceptance environment or reviewer evidence is available.",
+    "No fixture result is an official KPI or acceptance result."
+  ],
+  "model_versions": {
+    "o2": "0.1.0",
+    "o3": "0.1.0"
+  },
+  "official_cyber14_kpi_result": false,
+  "recorded_at_utc": "2026-09-20T16:41:22.611025+00:00",
+  "run_id": "acceptance-20260920T164122Z-12fc7f4d"
+}

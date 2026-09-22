@@ -1,0 +1,29 @@
+[project]
+name = "cyber-14-ddos-detection-mitigation"
+version = "0.1.0"
+description = "KL University CYBER-14 capstone backend and ML architecture for DDoS detection and mitigation."
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115.0",
+    "joblib>=1.5.0",
+    "numpy>=1.26.0",
+    "pandas>=2.2.0",
+    "pydantic-settings>=2.6.0",
+    "scikit-learn>=1.5.0",
+    "uvicorn[standard]>=0.30.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "httpx>=0.27.0",
+    "pytest>=8.3.0",
+    "ruff>=0.6.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "backend"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

@@ -1,0 +1,277 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/health",
+      "auth": "NONE",
+      "role": "NONE",
+      "unauth_status": 200,
+      "auth_status": 200,
+      "result": "PASS",
+      "consumer": "Top bar, Health checks"
+    },
+    {
+      "method": "GET",
+      "path": "/api/system/status",
+      "auth": "NONE",
+      "role": "NONE",
+      "unauth_status": 200,
+      "auth_status": 200,
+      "result": "PASS",
+      "consumer": "Legacy compatibility"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/system/status",
+      "auth": "NONE",
+      "role": "NONE",
+      "unauth_status": 200,
+      "auth_status": 200,
+      "result": "PASS",
+      "consumer": "Dashboard, Topbar, Sidebar"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/system/telemetry",
+      "auth": "BEARER",
+      "role": "VIEWER+",
+      "unauth_status": 401,
+      "auth_status": 200,
+      "result": "PASS",
+      "consumer": "Analytics & KPIs, Dashboard"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "auth": "NONE",
+      "role": "NONE",
+      "unauth_status": 200,
+      "auth_status": 200,
+      "result": "PASS",
+      "consumer": "Login Screen"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/auth/me",
+      "auth": "BEARER",
+      "role": "ALL",
+      "unauth_status": 401,
+      "auth_status": 200,
+      "result": "PASS",
+      "consumer": "App Shell, Topbar, Sidebar, Profile"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/logout",
+      "auth": "BEARER",
+      "role": "ALL",
+      "unauth_status": 401,
+      "auth_status": 200,
+      "result": "PASS",
+      "consumer": "Sidebar, Profile"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/detection/demo-scenarios",
+      "auth": "BEARER",
+      "role": "ANALYST+",
+      "unauth_status": 401,
+      "auth_status": 200,
+      "result": "PASS",
+      "consumer": "Threat Detection, Live Traffic"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/detection/analyze",
+      "auth": "BEARER",
+      "role": "ANALYST+",
+      "unauth_status": 401,
+      "auth_status": 200,
+      "result": "PASS",
+      "consumer": "Threat Detection (O2)"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/stream/simulate",
+      "auth": "BEARER",
+      "role": "OPERATOR+",
+      "unauth_status": 401,
+      "auth_status": 200,
+      "result": "PASS",
+      "consumer": "Live Traffic (Simulator Panel)"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/evaluation/kpis",
+      "auth": "BEARER",
+      "role": "VIEWER+",
+      "unauth_status": 401,
+      "auth_status": 200,
+      "result": "PASS",
+      "consumer": "Analytics & KPIs"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/evaluation/acceptance",
+      "auth": "BEARER",
+      "role": "VIEWER+",
+      "unauth_status": 401,
+      "auth_status": 200,
+      "result": "PASS",
+      "consumer": "Training & Artifacts"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/evaluation/negative-tests",
+      "auth": "BEARER",
+      "role": "VIEWER+",
+      "unauth_status": 401,
+      "auth_status": 200,
+      "result": "PASS",
+      "consumer": "Training & Artifacts"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/evidence/summary",
+      "auth": "BEARER",
+      "role": "VIEWER+",
+      "unauth_status": 401,
+      "auth_status": 200,
+      "result": "PASS",
+      "consumer": "Evidence & Audit (Available API)"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/evidence/runs",
+      "auth": "BEARER",
+      "role": "VIEWER+",
+      "unauth_status": 401,
+      "auth_status": 200,
+      "result": "PASS",
+      "consumer": "Evidence & Audit (Official Run History)"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/evidence/audit",
+      "auth": "BEARER",
+      "role": "VIEWER+",
+      "unauth_status": 401,
+      "auth_status": 200,
+      "result": "PASS",
+      "consumer": "Evidence & Audit (Audit Trail Tab)"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/evidence/demo-manifest",
+      "auth": "BEARER",
+      "role": "VIEWER+",
+      "unauth_status": 401,
+      "auth_status": 200,
+      "result": "PASS",
+      "consumer": "Evidence & Audit (Sample Manifest Tab)"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/evidence/demo-evaluation",
+      "auth": "BEARER",
+      "role": "VIEWER+",
+      "unauth_status": 401,
+      "auth_status": 200,
+      "result": "PASS",
+      "consumer": "Evidence & Audit (Demo Metrics Tab)"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/evidence/feature-manifest",
+      "auth": "BEARER",
+      "role": "VIEWER+",
+      "unauth_status": 401,
+      "auth_status": 200,
+      "result": "PASS",
+      "consumer": "Evidence & Audit (Feature Manifest Tab)"
+    },
+    {
+      "method": "WS",
+      "path": "/ws/traffic",
+      "auth": "BEARER / PARAM",
+      "role": "OPERATOR+",
+      "unauth_status": 1008,
+      "auth_status": 101,
+      "result": "PASS",
+      "consumer": "Live Traffic, Dashboard"
+    }
+  ],
+  "auth_rbac": [
+    {
+      "endpoint": "POST /api/v1/stream/simulate (Requires OPERATOR/ADMIN)",
+      "admin_status": 200,
+      "operator_status": 200,
+      "analyst_status": 403,
+      "viewer_status": 403,
+      "rbac_enforced": true
+    },
+    {
+      "endpoint": "POST /api/v1/detection/analyze (Requires ANALYST/OPERATOR/ADMIN)",
+      "admin_status": 200,
+      "analyst_status": 200,
+      "viewer_status": 403,
+      "rbac_enforced": true
+    },
+    {
+      "test": "Tampered token rejected",
+      "status": 401,
+      "rejected": true
+    }
+  ],
+  "detection": [
+    {
+      "scenario": "BENIGN",
+      "o2_detected": false,
+      "o3": null,
+      "decision": "ALLOW",
+      "passed": true
+    },
+    {
+      "scenario": "FLASH_CROWD",
+      "o2_detected": false,
+      "o3": null,
+      "decision": "RATE_LIMIT",
+      "passed": true
+    },
+    {
+      "scenario": "ATTACK (NetBIOS)",
+      "o2_detected": true,
+      "o3": "NETBIOS",
+      "decision": "BLOCK",
+      "passed": true
+    }
+  ],
+  "websocket": [
+    {
+      "lifecycle_verified": true,
+      "reconnect_verified": true
+    }
+  ],
+  "metadata": [
+    {
+      "metadata_echoed": true,
+      "contract_rejects_spurious_features": true,
+      "features_validated_count": 78
+    }
+  ],
+  "mitigation": [
+    {
+      "executor_type": "simulated",
+      "is_simulation_only": true,
+      "audit_trail_recorded": true,
+      "audit_record_count": 18
+    }
+  ],
+  "evidence": [
+    {
+      "kpis_not_executed": true,
+      "acceptance_not_executed": true,
+      "negative_tests_blocked": true
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "acceptance_conditions": {
+    "AC-1": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    },
+    "AC-2": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    },
+    "AC-3": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    },
+    "AC-4": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    }
+  },
+  "kpis": {
+    "KPI-1": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    },
+    "KPI-2": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    },
+    "KPI-3": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    },
+    "KPI-4": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    },
+    "KPI-5": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    },
+    "KPI-6": {
+      "fixture_only": true,
+      "reason": "Fixture mode validates evidence mechanics only; official acceptance requires real CIC-DDoS2019 data.",
+      "status": "NOT_EXECUTED"
+    }
+  }
+}

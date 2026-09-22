@@ -1,0 +1,105 @@
+{
+  "total_files": 18,
+  "total_rows": 70427637,
+  "global_label_counts": {
+    "TFTP": 20082580,
+    "Syn": 6473789,
+    "MSSQL": 5787453,
+    "DrDoS_SNMP": 5159870,
+    "DrDoS_DNS": 5071011,
+    "DrDoS_MSSQL": 4522492,
+    "DrDoS_NetBIOS": 4093279,
+    "UDP": 3867155,
+    "NetBIOS": 3657497,
+    "DrDoS_UDP": 3134645,
+    "DrDoS_SSDP": 2610611,
+    "DrDoS_LDAP": 2179930,
+    "LDAP": 1915122,
+    "DrDoS_NTP": 1202642,
+    "UDP-lag": 366461,
+    "Portmap": 186960,
+    "BENIGN": 113828,
+    "UDPLag": 1873,
+    "WebDDoS": 439
+  },
+  "file_label_counts": {
+    "01-12\\DrDoS_DNS.csv": {
+      "DrDoS_DNS": 5071011,
+      "BENIGN": 3402
+    },
+    "01-12\\DrDoS_LDAP.csv": {
+      "DrDoS_LDAP": 2179930,
+      "BENIGN": 1612
+    },
+    "01-12\\DrDoS_MSSQL.csv": {
+      "DrDoS_MSSQL": 4522492,
+      "BENIGN": 2006
+    },
+    "01-12\\DrDoS_NetBIOS.csv": {
+      "DrDoS_NetBIOS": 4093279,
+      "BENIGN": 1707
+    },
+    "01-12\\DrDoS_NTP.csv": {
+      "DrDoS_NTP": 1202642,
+      "BENIGN": 14365
+    },
+    "01-12\\DrDoS_SNMP.csv": {
+      "DrDoS_SNMP": 5159870,
+      "BENIGN": 1507
+    },
+    "01-12\\DrDoS_SSDP.csv": {
+      "DrDoS_SSDP": 2610611,
+      "BENIGN": 763
+    },
+    "01-12\\DrDoS_UDP.csv": {
+      "DrDoS_UDP": 3134645,
+      "BENIGN": 2157
+    },
+    "01-12\\Syn.csv": {
+      "Syn": 1582289,
+      "BENIGN": 392
+    },
+    "01-12\\TFTP.csv": {
+      "TFTP": 20082580,
+      "BENIGN": 25247
+    },
+    "01-12\\UDPLag.csv": {
+      "UDP-lag": 366461,
+      "BENIGN": 3705,
+      "WebDDoS": 439
+    },
+    "03-11\\LDAP.csv": {
+      "NetBIOS": 202919,
+      "LDAP": 1905191,
+      "BENIGN": 5124
+    },
+    "03-11\\MSSQL.csv": {
+      "MSSQL": 5763061,
+      "LDAP": 9931,
+      "BENIGN": 2794
+    },
+    "03-11\\NetBIOS.csv": {
+      "NetBIOS": 3454578,
+      "BENIGN": 1321
+    },
+    "03-11\\Portmap.csv": {
+      "Portmap": 186960,
+      "BENIGN": 4734
+    },
+    "03-11\\Syn.csv": {
+      "Syn": 4284751,
+      "BENIGN": 35790
+    },
+    "03-11\\UDP.csv": {
+      "UDP": 3754680,
+      "MSSQL": 24392,
+      "BENIGN": 3134
+    },
+    "03-11\\UDPLag.csv": {
+      "Syn": 606749,
+      "UDP": 112475,
+      "BENIGN": 4068,
+      "UDPLag": 1873
+    }
+  }
+}

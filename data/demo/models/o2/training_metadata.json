@@ -1,0 +1,14 @@
+{
+  "model_identifier": "cyber14-o2-demo-sample-detector",
+  "model_version": "0.1.0-demo",
+  "model_type": "sklearn.ensemble.RandomForestClassifier",
+  "trained_at_utc": "2026-09-21T17:48:47.826881+00:00",
+  "random_seed": 42,
+  "training_rows": 7992,
+  "test_rows": 1998,
+  "sample_summary": {
+    "attack_count": 7495,
+    "legitimate_count": 497
+  },
+  "official_acceptance_result": false
+}
