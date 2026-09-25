@@ -41,3 +41,4 @@ class SecurityEvent(BaseModel):
     success: bool
     reason: str
     correlation_id: str
+    client_ip: str | None = None

@@ -22,7 +22,7 @@ async function request(path, options = {}) {
         localStorage.removeItem('cyber14_access_token')
         window.dispatchEvent(new Event('cyber14:auth-expired'))
       }
-      const error = new Error(body?.message || `Request failed with ${response.status}`)
+      const error = new Error(body?.detail || body?.message || `Request failed with ${response.status}`)
       error.status = response.status
       throw error
     }
