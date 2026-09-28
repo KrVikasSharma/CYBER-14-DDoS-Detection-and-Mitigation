@@ -79,6 +79,8 @@ function App() {
   const [lastError, setLastError] = useState(null)
   const [simulatorEnabled, setSimulatorEnabled] = useState(false)
   const [autoStreaming, setAutoStreaming] = useState(false)
+  const [scenarios, setScenarios] = useState(null)
+  const autoStreamTimerRef = useRef(null)
 
   const addEvent = useCallback((message) => {
     if (message.type === 'error') { setLastError(message); return }
@@ -97,6 +99,90 @@ function App() {
       setLastError(null)
     }
   }, [stream.state])
+
+  useEffect(() => {
+    if (stream.state === 'DISCONNECTED' && autoStreaming) {
+      setAutoStreaming(false)
+    }
+  }, [stream.state, autoStreaming])
+
+  useEffect(() => {
+    if (session) {
+      api.demoScenarios().then(setScenarios).catch(() => null)
+    }
+  }, [session])
+
+  const sendSpecificScenario = useCallback((scenarioKey) => {
+    if (stream.state !== 'CONNECTED') return
+    setLastError(null)
+    const sc = scenarios?.[scenarioKey]
+    const portOffset = (Date.now() % 900)
+    if (sc) {
+      stream.send({
+        source_identifier: `live:${scenarioKey}:${Date.now().toString().slice(-4)}`,
+        traffic_rate: sc.traffic_rate,
+        features: sc.features,
+        metadata: {
+          ...sc.metadata,
+          source_port: (sc.metadata?.source_port || 50000) + portOffset,
+          timestamp: new Date().toISOString(),
+        },
+      })
+    } else {
+      stream.send({
+        source_identifier: `live:${scenarioKey}:${Date.now().toString().slice(-4)}`,
+        traffic_rate: scenarioKey === 'flash_crowd' ? 2000 : 10,
+        features: { 'Flow Duration': 10, 'Total Fwd Packets': 1, Protocol: 6 },
+        metadata: {
+          source_ip: '192.168.1.50',
+          source_port: 54321 + portOffset,
+          destination_ip: '10.0.0.1',
+          destination_port: 80,
+          protocol: 'TCP',
+          timestamp: new Date().toISOString(),
+        },
+      })
+    }
+  }, [stream, scenarios])
+
+  useEffect(() => {
+    if (!autoStreaming || stream.state !== 'CONNECTED') {
+      if (autoStreamTimerRef.current) {
+        clearInterval(autoStreamTimerRef.current)
+        autoStreamTimerRef.current = null
+      }
+      return
+    }
+
+    const scenarioSequence = [
+      'benign',
+      'syn',
+      'flash_crowd',
+      'netbios',
+      'benign',
+      'udp',
+      'dns',
+      'mssql',
+      'ldap',
+      'ntp',
+      'tftp',
+      'portmap',
+      'snmp',
+    ]
+    let step = 0
+    autoStreamTimerRef.current = setInterval(() => {
+      const currentScenario = scenarioSequence[step % scenarioSequence.length]
+      sendSpecificScenario(currentScenario)
+      step++
+    }, 1800)
+
+    return () => {
+      if (autoStreamTimerRef.current) {
+        clearInterval(autoStreamTimerRef.current)
+        autoStreamTimerRef.current = null
+      }
+    }
+  }, [autoStreaming, stream.state, sendSpecificScenario])
 
   const refresh = useCallback(async () => {
     setStatus((current) => ({ ...current, state: 'loading', error: null }))
@@ -120,7 +206,7 @@ function App() {
 
   if (session === null) return <Login onEnter={async (username, password) => { try { setAuthError(null); setSession(await auth.login(username, password)) } catch (error) { setAuthError(error.message) } }} error={authError} />
   const handleLogout = async () => { await auth.logout(); setSession(null) }
-  const context = { page, setPage, status, telemetry, refresh, events, stream, simulatorEnabled, setSimulatorEnabled, lastError, setLastError, addEvent, user: session, autoStreaming, setAutoStreaming }
+  const context = { page, setPage, status, telemetry, refresh, events, stream, simulatorEnabled, setSimulatorEnabled, lastError, setLastError, addEvent, user: session, autoStreaming, setAutoStreaming, sendSpecificScenario, scenarios }
 
   return (
     <div className="app-shell">
@@ -501,13 +587,11 @@ function CustomChartTooltip({ active, payload, label }) {
   )
 }
 
-function LiveTraffic({ stream, events, addEvent, simulatorEnabled, setSimulatorEnabled, lastError, setLastError, autoStreaming, setAutoStreaming }) {
+function LiveTraffic({ stream, events, addEvent, simulatorEnabled, setSimulatorEnabled, lastError, setLastError, autoStreaming, setAutoStreaming, sendSpecificScenario, scenarios }) {
   const [scenario, setScenario] = useState('benign')
   const [selectedAttack, setSelectedAttack] = useState('syn')
   const [count, setCount] = useState(3)
   const [simState, setSimState] = useState('idle')
-  const [scenarios, setScenarios] = useState(null)
-  const autoStreamTimerRef = useRef(null)
 
   // Baseline from MySQL persistent storage
   const [baseline, setBaseline] = useState(null)
@@ -530,16 +614,6 @@ function LiveTraffic({ stream, events, addEvent, simulatorEnabled, setSimulatorE
     recentLatencies: [],
   })
   const lastProcessedIdRef = useRef(null)
-
-  useEffect(() => {
-    api.demoScenarios().then(setScenarios).catch(() => null)
-  }, [])
-
-  useEffect(() => {
-    if (stream.state === 'DISCONNECTED' && autoStreaming) {
-      setAutoStreaming(false)
-    }
-  }, [stream.state, autoStreaming, setAutoStreaming])
 
   // Process genuine incoming WebSocket observations
   useEffect(() => {
@@ -608,78 +682,6 @@ function LiveTraffic({ stream, events, addEvent, simulatorEnabled, setSimulatorE
       return next.length > 120 ? next.slice(-120) : next
     })
   }, [events, baseline, stream.state])
-
-  const sendSpecificScenario = useCallback((scenarioKey) => {
-    if (stream.state !== 'CONNECTED') return
-    setLastError(null)
-    const sc = scenarios?.[scenarioKey]
-    const portOffset = (Date.now() % 900)
-    if (sc) {
-      stream.send({
-        source_identifier: `live:${scenarioKey}:${Date.now().toString().slice(-4)}`,
-        traffic_rate: sc.traffic_rate,
-        features: sc.features,
-        metadata: {
-          ...sc.metadata,
-          source_port: (sc.metadata?.source_port || 50000) + portOffset,
-          timestamp: new Date().toISOString(),
-        },
-      })
-    } else {
-      stream.send({
-        source_identifier: `live:${scenarioKey}:${Date.now().toString().slice(-4)}`,
-        traffic_rate: scenarioKey === 'flash_crowd' ? 2000 : 10,
-        features: { 'Flow Duration': 10, 'Total Fwd Packets': 1, Protocol: 6 },
-        metadata: {
-          source_ip: '192.168.1.50',
-          source_port: 54321 + portOffset,
-          destination_ip: '10.0.0.1',
-          destination_port: 80,
-          protocol: 'TCP',
-          timestamp: new Date().toISOString(),
-        }
-      })
-    }
-  }, [stream, scenarios, setLastError])
-
-  useEffect(() => {
-    if (!autoStreaming || stream.state !== 'CONNECTED') {
-      if (autoStreamTimerRef.current) {
-        clearInterval(autoStreamTimerRef.current)
-        autoStreamTimerRef.current = null
-      }
-      return
-    }
-
-    const scenarioSequence = [
-      'benign',
-      'syn',
-      'flash_crowd',
-      'netbios',
-      'benign',
-      'udp',
-      'dns',
-      'mssql',
-      'ldap',
-      'ntp',
-      'tftp',
-      'portmap',
-      'snmp',
-    ]
-    let step = 0
-    autoStreamTimerRef.current = setInterval(() => {
-      const currentScenario = scenarioSequence[step % scenarioSequence.length]
-      sendSpecificScenario(currentScenario)
-      step++
-    }, 1800)
-
-    return () => {
-      if (autoStreamTimerRef.current) {
-        clearInterval(autoStreamTimerRef.current)
-        autoStreamTimerRef.current = null
-      }
-    }
-  }, [autoStreaming, stream.state, sendSpecificScenario])
 
   const toggleAutoStream = () => {
     setLastError(null)
