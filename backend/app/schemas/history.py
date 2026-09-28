@@ -49,6 +49,9 @@ class IncidentItem(BaseModel):
     attack_type: str
     severity: str
     status: str
+    o2_confidence: float | None = None
+    o3_confidence: float | None = None
+    mitigation_action: str | None = None
     first_seen: str | None = None
     first_seen_ist: str | None = None
     last_seen: str | None = None
@@ -109,8 +112,12 @@ class AuditLogItem(BaseModel):
     resource_type: str | None = None
     resource_id: str | None = None
     details: str | None = None
+    client_ip: str | None = None
+    status: str | None = None
+    reason: str | None = None
     created_at: str | None = None
     created_at_ist: str | None = None
+
 
 
 class PaginatedAuditLogsResponse(BaseModel):

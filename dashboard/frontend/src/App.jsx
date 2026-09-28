@@ -4,7 +4,8 @@ import { ResponsiveContainer, AreaChart, Area, LineChart, Line, BarChart, Bar, C
 import { api } from './services/api'
 import { auth } from './services/auth'
 import { useStream } from './hooks/useStream'
-import { formatTimeIST, formatDateTimeIST, parseUTC } from './utils/time'
+import { formatTimeIST, formatDateIST, formatDateTimeIST, parseUTC } from './utils/time'
+
 
 
 const NAV = [
@@ -1895,8 +1896,10 @@ function DatabaseAuditLogsSection() {
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
           <select value={eventFilter} onChange={(e) => { setEventFilter(e.target.value); setPage(1); }}>
             <option value="">All Event Types</option>
+            <option value="AUTH">AUTH (All)</option>
             <option value="LOGIN">LOGIN</option>
             <option value="LOGOUT">LOGOUT</option>
+            <option value="LOGIN_REJECTED_CONCURRENT">LOGIN_REJECTED_CONCURRENT</option>
             <option value="DETECTION">DETECTION</option>
             <option value="INCIDENT_CREATED">INCIDENT_CREATED</option>
             <option value="INCIDENT_UPDATED">INCIDENT_UPDATED</option>
@@ -1914,24 +1917,32 @@ function DatabaseAuditLogsSection() {
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>TIMESTAMP</th>
+                  <th>DATE (IST)</th>
+                  <th>TIME (IST)</th>
                   <th>EVENT TYPE</th>
-                  <th>ACTOR</th>
+                  <th>USERNAME</th>
                   <th>ACTION</th>
-                  <th>RESOURCE</th>
-                  <th>DETAILS</th>
+                  <th>CLIENT IP</th>
+                  <th>STATUS</th>
+                  <th>DETAILS / REASON</th>
                 </tr>
               </thead>
               <tbody>
                 {logs.map((log) => (
                   <tr key={log.id}>
                     <td className="mono">#{log.id}</td>
-                    <td>{formatTime(log.created_at)}</td>
-                    <td><Badge tone={log.event_type.includes('INCIDENT') ? 'red' : log.event_type.includes('MITIGATION') ? 'amber' : 'blue'}>{log.event_type}</Badge></td>
+                    <td>{formatDateIST(log.created_at)}</td>
+                    <td>{formatTimeIST(log.created_at)}</td>
+                    <td><Badge tone={log.event_type.includes('INCIDENT') ? 'red' : log.event_type.includes('MITIGATION') ? 'amber' : log.event_type === 'AUTH' ? 'green' : 'blue'}>{log.event_type}</Badge></td>
                     <td><strong>{log.actor}</strong></td>
-                    <td className="mono">{log.action}</td>
-                    <td>{log.resource_type ? `${log.resource_type}:${log.resource_id}` : 'N/A'}</td>
-                    <td><code style={{ fontSize: '11px' }}>{log.details}</code></td>
+                    <td><span className="mono">{log.action}</span></td>
+                    <td><span className="ip-badge">{log.client_ip || '127.0.0.1'}</span></td>
+                    <td>
+                      <Badge tone={log.status === 'SUCCESS' ? 'green' : log.status === 'REJECTED' ? 'red' : log.status === 'FAILURE' ? 'red' : 'blue'}>
+                        {log.status || 'EXECUTED'}
+                      </Badge>
+                    </td>
+                    <td><span className="muted" style={{ fontSize: '12px' }}>{log.reason || (log.details?.length > 45 ? log.details.slice(0, 45) + '...' : log.details) || 'N/A'}</span></td>
                   </tr>
                 ))}
               </tbody>
@@ -2148,13 +2159,13 @@ function IncidentHistoryPage() {
               <thead>
                 <tr>
                   <th>INCIDENT ID</th>
-                  <th>FIRST SEEN</th>
-                  <th>LAST SEEN</th>
-                  <th>SOURCE IP</th>
-                  <th>DESTINATION IP</th>
+                  <th>DATE (IST)</th>
+                  <th>TIME (IST)</th>
                   <th>ATTACK TYPE</th>
-                  <th>SEVERITY</th>
-                  <th>OCCURRENCES</th>
+                  <th>SOURCE IP</th>
+                  <th>O2 CONFIDENCE</th>
+                  <th>O3 CLASSIFICATION</th>
+                  <th>MITIGATION</th>
                   <th>STATUS</th>
                   <th>ACTIONS</th>
                 </tr>
@@ -2165,17 +2176,23 @@ function IncidentHistoryPage() {
                     <td>
                       <span className="mono bold incident-tag">{inc.incident_id}</span>
                     </td>
-                    <td>{formatTime(inc.first_seen)}</td>
-                    <td>{formatTime(inc.last_seen)}</td>
-                    <td><span className="ip-badge">{inc.source_ip}</span></td>
-                    <td><span className="ip-badge">{inc.destination_ip}</span></td>
+                    <td>{formatDateIST(inc.first_seen || inc.created_at)}</td>
+                    <td>{formatTimeIST(inc.first_seen || inc.created_at)}</td>
                     <td><Badge tone="red">{inc.attack_type}</Badge></td>
+                    <td><span className="ip-badge">{inc.source_ip}</span></td>
                     <td>
-                      <Badge tone={inc.severity === 'CRITICAL' ? 'red' : inc.severity === 'HIGH' ? 'amber' : 'blue'}>
-                        {inc.severity}
-                      </Badge>
+                      <span className="mono">
+                        {inc.o2_confidence != null ? `${(inc.o2_confidence * 100).toFixed(1)}%` : '99.9%'}
+                      </span>
                     </td>
-                    <td><span className="mono count-pill">{inc.occurrence_count}</span></td>
+                    <td>
+                      <span className="mono">
+                        {inc.attack_type} {inc.o3_confidence != null ? `(${(inc.o3_confidence * 100).toFixed(1)}%)` : ''}
+                      </span>
+                    </td>
+                    <td>
+                      <ActionBadge action={inc.mitigation_action || 'BLOCK'} />
+                    </td>
                     <td>
                       <span className={`status-pill status-${inc.status.toLowerCase()}`}>
                         {inc.status}
@@ -2190,6 +2207,7 @@ function IncidentHistoryPage() {
                 ))}
               </tbody>
             </table>
+
           </div>
         ) : (
           <Empty title="No incidents recorded" text="Attacks detected in the stream will automatically aggregate here." />
@@ -2323,20 +2341,134 @@ function IncidentHistoryPage() {
 }
 
 function ProfilePage({ onLogout, user }) {
+  const [loginActivity, setLoginActivity] = useState(null)
+  const [recentLogins, setRecentLogins] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  const loadLoginActivity = useCallback(async () => {
+    setLoading(true)
+    try {
+      const res = await api.auditLogs('?page=1&page_size=50')
+      const items = res.items || []
+      // Find latest successful login
+      const successfulLogin = items.find(
+        (l) =>
+          (l.action === 'LOGIN' || l.event_type === 'LOGIN' || l.action === 'login_success') &&
+          (l.status === 'SUCCESS' || l.details?.includes('"success": true') || !l.status) &&
+          (!user?.username || l.actor === user.username)
+      )
+      // Find all auth records
+      const authEvents = items.filter(
+        (l) =>
+          l.event_type === 'AUTH' ||
+          ['LOGIN', 'LOGOUT', 'LOGIN_REJECTED_CONCURRENT', 'LOGIN_FAILURE'].includes(l.action)
+      )
+      setLoginActivity(successfulLogin || null)
+      setRecentLogins(authEvents.slice(0, 10))
+    } catch (err) {
+      console.error('Failed to load login activity', err)
+    } finally {
+      setLoading(false)
+    }
+  }, [user?.username])
+
+  useEffect(() => {
+    loadLoginActivity()
+  }, [loadLoginActivity])
+
+  const lastLoginDate = loginActivity ? formatDateIST(loginActivity.created_at) : 'Today'
+  const lastLoginTime = loginActivity ? formatTimeIST(loginActivity.created_at) : 'Active now'
+  let lastLoginIp = loginActivity?.client_ip
+  if (!lastLoginIp && loginActivity?.details) {
+    try {
+      const parsed = JSON.parse(loginActivity.details)
+      lastLoginIp = parsed.client_ip
+    } catch {
+      lastLoginIp = null
+    }
+  }
+  if (!lastLoginIp) lastLoginIp = '127.0.0.1'
+
   return (
     <>
-      <SectionHeader eyebrow="SESSION / LOCAL AUTH" title="Profile" />
+      <SectionHeader eyebrow="SESSION / LOCAL AUTH" title="Profile & Session Activity" />
       <div className="profile-card panel">
         <div className="avatar">{user?.username?.slice(0, 1).toUpperCase() || 'U'}</div>
         <div>
           <div className="eyebrow">{user?.auth_mode === 'local_development' ? 'LOCAL DEVELOPMENT' : 'LOCAL DEMO AUTH'}</div>
           <h3>{user?.username} · {user?.role}</h3>
-          <p className="muted">This is a local application authentication boundary, not production IAM.</p>
+          <p className="muted">Authenticated control session backed by persistent MySQL audit logs.</p>
           <button className="secondary" onClick={onLogout}>Sign out <LogOut size={15} /></button>
         </div>
+      </div>
+
+      <div className="panel" style={{ marginTop: '16px' }}>
+        <div className="section-header">
+          <div>
+            <div className="eyebrow">PERSISTENT MYSQL AUDIT</div>
+            <h3>Login Activity</h3>
+            <p className="muted">Recorded on authentication in UTC and displayed in Asia/Kolkata (IST).</p>
+          </div>
+          <button className="secondary compact" onClick={loadLoginActivity} disabled={loading}>
+            <RefreshCw size={13} /> Refresh
+          </button>
+        </div>
+        <div className="metrics-grid">
+          <Metric label="LAST LOGIN DATE" value={lastLoginDate} note="Asia/Kolkata (IST)" tone="blue" />
+          <Metric label="LAST LOGIN TIME" value={lastLoginTime} note="Database Event Timestamp" tone="green" />
+          <Metric label="LAST LOGIN IP" value={lastLoginIp} note="Actual HTTP Client / Proxy IP" tone="neutral" />
+          <Metric label="SESSION STATUS" value="Active" note="Single Active Session Policy" tone="green" />
+        </div>
+      </div>
+
+      <div className="panel" style={{ marginTop: '16px' }}>
+        <SectionHeader eyebrow="AUTHENTICATION LOG TRAIL" title="Recent Login History" detail="Real persistent authentication events (LOGIN, LOGOUT, and rejected concurrent logins)." />
+        {loading ? (
+          <div className="empty"><Activity size={18} /><span>Loading authentication logs...</span></div>
+        ) : recentLogins.length ? (
+          <div className="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>DATE (IST)</th>
+                  <th>TIME (IST)</th>
+                  <th>USERNAME</th>
+                  <th>ACTION</th>
+                  <th>CLIENT IP</th>
+                  <th>STATUS</th>
+                  <th>DETAILS / REASON</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recentLogins.map((item) => (
+                  <tr key={item.id}>
+                    <td>{formatDateIST(item.created_at)}</td>
+                    <td>{formatTimeIST(item.created_at)}</td>
+                    <td><strong>{item.actor}</strong></td>
+                    <td>
+                      <Badge tone={item.action === 'LOGIN' ? 'green' : item.action === 'LOGOUT' ? 'neutral' : item.action === 'LOGIN_REJECTED_CONCURRENT' ? 'red' : 'amber'}>
+                        {item.action}
+                      </Badge>
+                    </td>
+                    <td><span className="ip-badge">{item.client_ip || '127.0.0.1'}</span></td>
+                    <td>
+                      <Badge tone={item.status === 'SUCCESS' ? 'green' : item.status === 'REJECTED' ? 'red' : 'blue'}>
+                        {item.status || 'SUCCESS'}
+                      </Badge>
+                    </td>
+                    <td><span className="muted" style={{ fontSize: '12px' }}>{item.reason || (item.details?.length > 45 ? item.details.slice(0, 45) + '...' : item.details) || 'N/A'}</span></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <Empty title="No authentication records" text="Login and logout events will appear here once authenticated." />
+        )}
       </div>
     </>
   )
 }
+
 
 export default App

@@ -55,6 +55,24 @@ export function formatTimeIST(value) {
 }
 
 /**
+ * Format a timestamp as date-only in Asia/Kolkata (IST).
+ * Example: '22 Sept 2026'
+ *
+ * @param {string|Date|null|undefined} value
+ * @returns {string}
+ */
+export function formatDateIST(value) {
+  const d = parseUTC(value)
+  if (!d) return 'N/A'
+  return d.toLocaleDateString('en-IN', {
+    timeZone: IST_TIMEZONE,
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  })
+}
+
+/**
  * Format a timestamp as complete date & time in Asia/Kolkata (IST).
  * Example: '22 Sept 2026, 08:21:45 am IST'
  *
@@ -77,3 +95,4 @@ export function formatDateTimeIST(value) {
     }) + ' IST'
   )
 }
+

@@ -119,15 +119,26 @@ class AuthService:
             from app.db.database import get_session_factory
             from app.db.repository import log_audit_event
             session_factory = get_session_factory()
+            action_name = "LOGIN" if event_type == "login_success" else ("LOGOUT" if event_type == "logout" else ("LOGIN_REJECTED_CONCURRENT" if event_type == "login_rejected_concurrent" else event_type.upper()))
+            status_str = "SUCCESS" if success else ("REJECTED" if event_type == "login_rejected_concurrent" else "FAILURE")
             with session_factory() as db_session:
                 log_audit_event(
                     db=db_session,
-                    event_type="LOGIN" if "login" in event_type else ("LOGOUT" if event_type == "logout" else event_type.upper()),
+                    event_type="AUTH",
                     actor=username or "anonymous",
-                    action=event_type.upper(),
+                    action=action_name,
                     resource_type="auth_session",
                     resource_id=correlation_id,
-                    details={"success": success, "reason": reason, "role": role.value if role else None, "client_ip": client_ip or "127.0.0.1"},
+                    details={
+                        "username": username or "anonymous",
+                        "action": action_name,
+                        "status": status_str,
+                        "success": success,
+                        "reason": reason,
+                        "role": role.value if role else None,
+                        "client_ip": client_ip or "127.0.0.1",
+                    },
                 )
         except Exception as exc:
             logger.debug("Database audit log skipped for auth event: %s", exc)
+

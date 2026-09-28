@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatDateTimeIST, formatTimeIST, parseUTC } from './time'
+import { formatDateTimeIST, formatDateIST, formatTimeIST, parseUTC } from './time'
 
 describe('CYBER-14 Timezone & Timestamp Utility (Asia/Kolkata)', () => {
   it('correctly parses UTC ISO string with Z suffix', () => {
@@ -46,11 +46,19 @@ describe('CYBER-14 Timezone & Timestamp Utility (Asia/Kolkata)', () => {
     expect(fullStr).toContain('IST')
   })
 
+  it('formats date-only in IST', () => {
+    const dateStr = formatDateIST('2026-09-22T02:51:45Z')
+    expect(dateStr).toContain('2026')
+    expect(dateStr).toMatch(/22/)
+  })
+
   it('gracefully returns N/A for null, undefined, or empty values', () => {
     expect(formatTimeIST(null)).toBe('N/A')
     expect(formatTimeIST(undefined)).toBe('N/A')
     expect(formatTimeIST('')).toBe('N/A')
+    expect(formatDateIST(null)).toBe('N/A')
     expect(formatDateTimeIST(null)).toBe('N/A')
     expect(formatDateTimeIST(undefined)).toBe('N/A')
   })
 })
+

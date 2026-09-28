@@ -369,7 +369,9 @@ def get_incidents(
     page_size = min(max(1, page_size), 100)
     page = max(1, page)
 
-    stmt = select(AttackIncident)
+    stmt = select(AttackIncident).options(
+        joinedload(AttackIncident.mitigation_actions).joinedload(MitigationAction.detection)
+    )
 
     if search:
         search_pattern = f"%{search}%"
@@ -396,11 +398,14 @@ def get_incidents(
     count_stmt = select(func.count()).select_from(stmt.subquery())
     total = db.scalar(count_stmt) or 0
 
+
     stmt = stmt.order_by(desc(AttackIncident.last_seen)).offset((page - 1) * page_size).limit(page_size)
-    items = db.scalars(stmt).all()
+    items = db.scalars(stmt).unique().all()
 
     results = []
     for inc in items:
+        latest_mit = inc.mitigation_actions[-1] if inc.mitigation_actions else None
+        latest_det = latest_mit.detection if latest_mit else None
         results.append({
             "id": inc.id,
             "incident_id": inc.incident_id,
@@ -409,6 +414,9 @@ def get_incidents(
             "attack_type": inc.attack_type,
             "severity": inc.severity,
             "status": inc.status,
+            "o2_confidence": latest_det.o2_confidence if latest_det else None,
+            "o3_confidence": latest_det.o3_confidence if latest_det else None,
+            "mitigation_action": latest_mit.action if latest_mit else "NONE",
             "first_seen": format_iso_utc(inc.first_seen),
             "first_seen_ist": format_ist(inc.first_seen),
             "last_seen": format_iso_utc(inc.last_seen),
@@ -427,6 +435,7 @@ def get_incidents(
         "page_size": page_size,
         "total_pages": total_pages,
     }
+
 
 
 def get_incident_by_id(db: Session, incident_id: str) -> dict[str, Any] | None:
@@ -608,7 +617,12 @@ def get_audit_logs(
     stmt = select(AuditLog)
 
     if event_type:
-        stmt = stmt.where(AuditLog.event_type == event_type.upper())
+        stmt = stmt.where(
+            or_(
+                AuditLog.event_type == event_type.upper(),
+                AuditLog.action == event_type.upper(),
+            )
+        )
     if actor:
         stmt = stmt.where(AuditLog.actor == actor)
     if start_date:
@@ -624,6 +638,31 @@ def get_audit_logs(
 
     results = []
     for a in items:
+        details_obj: dict[str, Any] = {}
+        if a.details:
+            try:
+                parsed = json.loads(a.details)
+                if isinstance(parsed, dict):
+                    details_obj = parsed
+            except Exception:
+                details_obj = {}
+
+        client_ip = details_obj.get("client_ip") or details_obj.get("target_ip")
+        status_val = details_obj.get("status")
+        if not status_val:
+            if details_obj.get("success") is True:
+                status_val = "SUCCESS"
+            elif details_obj.get("success") is False:
+                status_val = "FAILURE"
+            elif a.action in {"LOGIN", "LOGOUT"}:
+                status_val = "SUCCESS"
+            elif a.action == "LOGIN_REJECTED_CONCURRENT":
+                status_val = "REJECTED"
+            elif a.action in {"APPLY_BLOCK", "APPLY_RATE_LIMIT"}:
+                status_val = "EXECUTED"
+
+        reason_val = details_obj.get("reason")
+
         results.append({
             "id": a.id,
             "event_type": a.event_type,
@@ -632,6 +671,9 @@ def get_audit_logs(
             "resource_type": a.resource_type,
             "resource_id": a.resource_id,
             "details": a.details,
+            "client_ip": client_ip,
+            "status": status_val,
+            "reason": reason_val,
             "created_at": format_iso_utc(a.created_at),
             "created_at_ist": format_ist(a.created_at),
         })
@@ -644,6 +686,7 @@ def get_audit_logs(
         "page_size": page_size,
         "total_pages": total_pages,
     }
+
 
 
 def get_live_analytics_summary(db: Session, active_connections: int = 0) -> dict[str, Any]:
