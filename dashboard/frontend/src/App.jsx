@@ -187,25 +187,87 @@ function App() {
   const refresh = useCallback(async () => {
     setStatus((current) => ({ ...current, state: 'loading', error: null }))
     try {
-      const [system, liveTelemetry] = await Promise.all([api.status(), api.telemetry()])
-      setStatus({ state: 'ready', data: system, error: null })
-      setTelemetry(liveTelemetry)
+      const [systemRes, telemetryRes] = await Promise.allSettled([
+        api.status(),
+        api.telemetry(),
+      ])
+
+      if (systemRes.status === 'fulfilled') {
+        setStatus({ state: 'ready', data: systemRes.value, error: null })
+      } else {
+        const err = systemRes.reason
+        setStatus({ state: 'error', data: null, error: err?.message || 'Status request failed' })
+      }
+
+      if (telemetryRes.status === 'fulfilled') {
+        setTelemetry(telemetryRes.value)
+      } else {
+        const err = telemetryRes.reason
+        if (err?.status === 401) {
+          setSession(null)
+        }
+      }
     } catch (error) {
-      if (error.status === 401) setSession(null)
-      setStatus({ state: 'error', data: null, error: error.message })
+      if (error?.status === 401) setSession(null)
+      setStatus({ state: 'error', data: null, error: error?.message || 'Unknown error' })
     }
   }, [])
-  useEffect(() => { auth.me().then(setSession) }, [])
-  useEffect(() => { const expire = () => setSession(null); window.addEventListener('cyber14:auth-expired', expire); return () => window.removeEventListener('cyber14:auth-expired', expire) }, [])
-  useEffect(() => { if (session) refresh() }, [refresh, session])
+
+  useEffect(() => {
+    api.status().then((data) => {
+      setStatus({ state: 'ready', data, error: null })
+    }).catch(() => null)
+  }, [])
+
+  useEffect(() => {
+    auth.me().then(setSession)
+  }, [])
+
+  useEffect(() => {
+    const expire = () => {
+      setSession(null)
+      setStatus({ state: 'loading', data: null, error: null })
+      setTelemetry(null)
+      setEvents([])
+    }
+    window.addEventListener('cyber14:auth-expired', expire)
+    return () => window.removeEventListener('cyber14:auth-expired', expire)
+  }, [])
+
+  useEffect(() => {
+    if (session) refresh()
+  }, [refresh, session])
+
   useEffect(() => {
     if (status.data?.simulator_enabled) {
       setSimulatorEnabled(true)
     }
   }, [status.data?.simulator_enabled])
 
-  if (session === null) return <Login onEnter={async (username, password) => { try { setAuthError(null); setSession(await auth.login(username, password)) } catch (error) { setAuthError(error.message) } }} error={authError} />
-  const handleLogout = async () => { await auth.logout(); setSession(null) }
+  if (session === null) {
+    return (
+      <Login
+        onEnter={async (username, password) => {
+          try {
+            setAuthError(null)
+            const user = await auth.login(username, password)
+            setSession(user)
+            refresh()
+          } catch (error) {
+            setAuthError(error.message)
+          }
+        }}
+        error={authError}
+      />
+    )
+  }
+  const handleLogout = async () => {
+    await auth.logout()
+    setSession(null)
+    setStatus({ state: 'loading', data: null, error: null })
+    setTelemetry(null)
+    setEvents([])
+  }
   const context = { page, setPage, status, telemetry, refresh, events, stream, simulatorEnabled, setSimulatorEnabled, lastError, setLastError, addEvent, user: session, autoStreaming, setAutoStreaming, sendSpecificScenario, scenarios }
 
   return (
