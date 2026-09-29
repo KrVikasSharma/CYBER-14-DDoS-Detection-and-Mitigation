@@ -1,0 +1,769 @@
+{
+  "acceptance_conditions": {
+    "AC-1": {
+      "artifact_references": [],
+      "configuration": {},
+      "dataset_source_identifier": "data\\demo\\processed\\test.csv",
+      "environment_information": {
+        "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+        "machine": "AMD64",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+        "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "recorded_at_utc": "2026-09-29T03:55:02.592202+00:00"
+      },
+      "errors": [],
+      "expected_result": {
+        "attack_action": "BLOCK",
+        "benign_action": "ALLOW",
+        "features_count": 78,
+        "flash_crowd_action": "RATE_LIMIT",
+        "o2_accuracy_minimum": 0.95
+      },
+      "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+      "metrics": {
+        "features_count": 78,
+        "o2_accuracy": 0.998998998998999,
+        "o3_accuracy": 0.7077077077077077,
+        "test_sample_count": 1998
+      },
+      "model_version_identifier": "0.1.0",
+      "observed_result": {
+        "attack_action": "BLOCK",
+        "benign_action": "ALLOW",
+        "features_count": 78,
+        "flash_crowd_action": "RATE_LIMIT",
+        "o2_accuracy": 0.999,
+        "o3_accuracy": 0.7077
+      },
+      "project": "CYBER-14",
+      "reasons": [
+        "All representative operation checks passed"
+      ],
+      "sample_fixture_identifier": null,
+      "status": "PASS",
+      "test_id": "AC-1",
+      "test_name": "Representative Operation",
+      "timestamp": "2026-09-29T03:55:02.528701+00:00"
+    },
+    "AC-2": {
+      "artifact_references": [],
+      "configuration": {},
+      "dataset_source_identifier": null,
+      "environment_information": {
+        "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+        "machine": "AMD64",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+        "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "recorded_at_utc": "2026-09-29T03:55:02.968274+00:00"
+      },
+      "errors": [],
+      "expected_result": {
+        "all_edge_checks_passed": true,
+        "fail_closed_robustness": true
+      },
+      "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+      "metrics": {
+        "passed_checks": 5,
+        "total_checks": 5
+      },
+      "model_version_identifier": null,
+      "observed_result": {
+        "all_passed": true,
+        "checks": [
+          {
+            "passed": true,
+            "test": "missing_features_fail_closed"
+          },
+          {
+            "action": "ALLOW",
+            "passed": true,
+            "test": "benign_flow"
+          },
+          {
+            "action": "RATE_LIMIT",
+            "passed": true,
+            "test": "extreme_volumetric_rate"
+          },
+          {
+            "action": "RATE_LIMIT",
+            "passed": true,
+            "test": "low_confidence_attack_containment"
+          },
+          {
+            "action": "ALLOW",
+            "passed": true,
+            "test": "ipv6_loopback_handling"
+          }
+        ]
+      },
+      "project": "CYBER-14",
+      "reasons": [
+        "All boundary and failure resilience tests executed successfully"
+      ],
+      "sample_fixture_identifier": null,
+      "status": "PASS",
+      "test_id": "AC-2",
+      "test_name": "Boundary/Failure Operation",
+      "timestamp": "2026-09-29T03:55:02.894617+00:00"
+    },
+    "AC-3": {
+      "artifact_references": [
+        "evidence\\acceptance\\runs\\acceptance-20260929T035431Z-d9c8b793\\independent_review_package.json"
+      ],
+      "configuration": {},
+      "dataset_source_identifier": null,
+      "environment_information": {
+        "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+        "machine": "AMD64",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+        "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "recorded_at_utc": "2026-09-29T03:55:03.055252+00:00"
+      },
+      "errors": [],
+      "expected_result": {
+        "independent_reviewer_signoff": "REQUIRED"
+      },
+      "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+      "metrics": {
+        "package_artifacts_count": 3
+      },
+      "model_version_identifier": null,
+      "observed_result": {
+        "current_state": "PENDING_INDEPENDENT_REVIEW",
+        "package_path": "evidence\\acceptance\\runs\\acceptance-20260929T035431Z-d9c8b793\\independent_review_package.json",
+        "review_bundle_generated": true
+      },
+      "project": "CYBER-14",
+      "reasons": [
+        "Independent review package prepared; awaiting formal external human auditor evaluation (NOT_EXECUTED)."
+      ],
+      "sample_fixture_identifier": null,
+      "status": "NOT_EXECUTED",
+      "test_id": "AC-3",
+      "test_name": "Independent Acceptance Preparation",
+      "timestamp": "2026-09-29T03:55:02.991280+00:00"
+    },
+    "AC-4": {
+      "artifact_references": [],
+      "configuration": {},
+      "dataset_source_identifier": null,
+      "environment_information": {
+        "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+        "machine": "AMD64",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+        "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "recorded_at_utc": "2026-09-29T03:55:03.197406+00:00"
+      },
+      "errors": [],
+      "expected_result": {
+        "throughput_positive": true,
+        "valid_resource_readings": true
+      },
+      "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+      "metrics": {
+        "active_threads": 1,
+        "available_ram_gb": 6.47,
+        "cpu_logical_cores": 12,
+        "cpu_machine": "AMD64",
+        "cpu_processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+        "execution_metrics": {
+          "avg_latency_per_sample_ms": 0.0098,
+          "elapsed_seconds": 0.0196,
+          "sample_count": 1998,
+          "throughput_flows_per_sec": 101786.1
+        },
+        "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+        "memory_load_percent": 58.0,
+        "operation_result": null,
+        "os_platform": "Windows-11-10.0.26200-SP0",
+        "os_release": "11",
+        "os_system": "Windows",
+        "python_executable": "C:\\Users\\Vikas\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\\python.exe",
+        "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "recorded_at_utc": "2026-09-29T03:55:03.112973+00:00",
+        "total_ram_gb": 15.65,
+        "used_ram_gb": 9.18
+      },
+      "model_version_identifier": null,
+      "observed_result": {
+        "cpu_cores": 12,
+        "elapsed_seconds": 0.0196,
+        "memory_load_percent": 58.0,
+        "model_inference_throughput_flows_per_sec": 101786.1,
+        "total_ram_gb": 15.65,
+        "workload_type": "ML model batch inference"
+      },
+      "project": "CYBER-14",
+      "reasons": [
+        "Resource envelope successfully captured and bounded (ML model batch inference)"
+      ],
+      "sample_fixture_identifier": null,
+      "status": "PASS",
+      "test_id": "AC-4",
+      "test_name": "Frozen Resource Envelope",
+      "timestamp": "2026-09-29T03:55:03.133512+00:00"
+    }
+  },
+  "configuration_hash": "8bb925655b8dd20fe3e26bf22c100d0172618f050167e5bd9ac1a48b279ecde0",
+  "dataset_reference": "fixture-only:o3_tiny_processed_fixture.csv",
+  "fixture_only": false,
+  "kpis": {
+    "KPI-1": {
+      "artifact_references": [],
+      "configuration": {},
+      "dataset_source_identifier": "data\\demo\\processed\\test.csv",
+      "environment_information": {
+        "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+        "machine": "AMD64",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+        "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "recorded_at_utc": "2026-09-29T03:54:32.434635+00:00"
+      },
+      "errors": [],
+      "expected_result": {
+        "direction": "at_least",
+        "metric": "accuracy",
+        "threshold": 0.95
+      },
+      "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+      "metrics": {
+        "accuracy": 0.998998998998999,
+        "class_distribution": {
+          "0": 144,
+          "1": 1854
+        },
+        "confusion_matrix": {
+          "false_negative": 0,
+          "false_positive": 2,
+          "true_negative": 142,
+          "true_positive": 1854
+        },
+        "false_negative_rate": 0.0,
+        "false_positive_rate": 0.013888888888888888,
+        "sample_count": 1998
+      },
+      "model_version_identifier": "0.1.0",
+      "observed_result": {
+        "accuracy": 0.999,
+        "sample_count": 1998
+      },
+      "project": "CYBER-14",
+      "reasons": [
+        "Comparison executed against the supplied threshold."
+      ],
+      "sample_fixture_identifier": null,
+      "status": "PASS",
+      "test_id": "KPI-1",
+      "test_name": "Detection Accuracy",
+      "timestamp": "2026-09-29T03:54:32.356542+00:00"
+    },
+    "KPI-2": {
+      "artifact_references": [
+        "evidence\\flash_crowd\\runs\\flash_crowd-20260929T035432Z-b7bfcd81\\result.json",
+        "evidence\\flash_crowd\\runs\\flash_crowd-20260929T035432Z-b7bfcd81\\metrics.json"
+      ],
+      "configuration": {},
+      "dataset_source_identifier": "data\\demo\\flash_crowd\\flash_crowd_fixture.csv",
+      "environment_information": {
+        "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+        "machine": "AMD64",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+        "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "recorded_at_utc": "2026-09-29T03:55:01.288251+00:00"
+      },
+      "errors": [],
+      "expected_result": {
+        "expected_flash_action": "RATE_LIMIT",
+        "expected_sub_threshold_action": "ALLOW",
+        "metric": "destructive_mitigation_fpr",
+        "oracle": "Deterministic policy contract: legitimate traffic under load must never receive destructive BLOCK",
+        "threshold": "UNSET (Awaiting independent threshold definition)"
+      },
+      "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+      "metrics": {
+        "benchmark_summary": {
+          "flash_crowd_observations": 432,
+          "rate_conditions_tested": 5,
+          "sub_threshold_observations": 288,
+          "total_observations": 720,
+          "unique_benign_vectors": 144
+        },
+        "classification_metrics": {
+          "benign_base_vector_fpr": 0.0139,
+          "overall_classification_fpr": 0.0139
+        },
+        "conditions": [
+          {
+            "allow_count": 142,
+            "block_count": 0,
+            "classification_false_positives": 2,
+            "classification_fpr": 0.0139,
+            "condition_id": "FC-COND-01-BASELINE",
+            "condition_name": "Baseline Legitimate Traffic",
+            "confidence_stats": {
+              "max": 1.0,
+              "mean": 0.9353,
+              "min": 0.5175
+            },
+            "destructive_block_count": 0,
+            "destructive_mitigation_fpr": 0.0,
+            "expected_mitigation_action": "ALLOW",
+            "is_flash_crowd": false,
+            "latency_scope": "In-memory O2 inference and MitigationEngine policy evaluation",
+            "latency_stats_ms": {
+              "combined_decision": {
+                "mean": 18.549,
+                "p50": 18.364,
+                "p95": 20.276,
+                "p99": 20.866
+              },
+              "mitigation_decision": {
+                "mean": 0.141,
+                "p50": 0.141,
+                "p95": 0.212,
+                "p99": 0.244
+              },
+              "o2_inference": {
+                "mean": 18.408,
+                "p50": 18.207,
+                "p95": 20.1,
+                "p99": 20.726
+              }
+            },
+            "observations_count": 144,
+            "rate_limit_count": 2,
+            "traffic_rate_req_per_sec": 50.0
+          },
+          {
+            "allow_count": 142,
+            "block_count": 0,
+            "classification_false_positives": 2,
+            "classification_fpr": 0.0139,
+            "condition_id": "FC-COND-02-SUB-THRESHOLD",
+            "condition_name": "Moderate High-Rate Legitimate Traffic (500 req/s)",
+            "confidence_stats": {
+              "max": 1.0,
+              "mean": 0.9353,
+              "min": 0.5175
+            },
+            "destructive_block_count": 0,
+            "destructive_mitigation_fpr": 0.0,
+            "expected_mitigation_action": "ALLOW",
+            "is_flash_crowd": false,
+            "latency_scope": "In-memory O2 inference and MitigationEngine policy evaluation",
+            "latency_stats_ms": {
+              "combined_decision": {
+                "mean": 18.812,
+                "p50": 18.514,
+                "p95": 20.775,
+                "p99": 21.659
+              },
+              "mitigation_decision": {
+                "mean": 0.202,
+                "p50": 0.191,
+                "p95": 0.282,
+                "p99": 0.378
+              },
+              "o2_inference": {
+                "mean": 18.61,
+                "p50": 18.311,
+                "p95": 20.557,
+                "p99": 21.456
+              }
+            },
+            "observations_count": 144,
+            "rate_limit_count": 2,
+            "traffic_rate_req_per_sec": 500.0
+          },
+          {
+            "allow_count": 142,
+            "block_count": 0,
+            "classification_false_positives": 2,
+            "classification_fpr": 0.0139,
+            "condition_id": "FC-COND-03-BOUNDARY",
+            "condition_name": "Threshold Boundary Traffic (1000 req/s)",
+            "confidence_stats": {
+              "max": 1.0,
+              "mean": 0.9353,
+              "min": 0.5175
+            },
+            "destructive_block_count": 0,
+            "destructive_mitigation_fpr": 0.0,
+            "expected_mitigation_action": "RATE_LIMIT",
+            "is_flash_crowd": true,
+            "latency_scope": "In-memory O2 inference and MitigationEngine policy evaluation",
+            "latency_stats_ms": {
+              "combined_decision": {
+                "mean": 18.934,
+                "p50": 18.494,
+                "p95": 20.543,
+                "p99": 22.299
+              },
+              "mitigation_decision": {
+                "mean": 0.259,
+                "p50": 0.252,
+                "p95": 0.339,
+                "p99": 0.367
+              },
+              "o2_inference": {
+                "mean": 18.675,
+                "p50": 18.279,
+                "p95": 20.278,
+                "p99": 22.003
+              }
+            },
+            "observations_count": 144,
+            "rate_limit_count": 2,
+            "traffic_rate_req_per_sec": 1000.0
+          },
+          {
+            "allow_count": 11,
+            "block_count": 0,
+            "classification_false_positives": 2,
+            "classification_fpr": 0.0139,
+            "condition_id": "FC-COND-04-FLASH-SURGE",
+            "condition_name": "Volumetric Flash-Crowd Surge (1500 req/s)",
+            "confidence_stats": {
+              "max": 1.0,
+              "mean": 0.9353,
+              "min": 0.5175
+            },
+            "destructive_block_count": 0,
+            "destructive_mitigation_fpr": 0.0,
+            "expected_mitigation_action": "RATE_LIMIT",
+            "is_flash_crowd": true,
+            "latency_scope": "In-memory O2 inference and MitigationEngine policy evaluation",
+            "latency_stats_ms": {
+              "combined_decision": {
+                "mean": 18.783,
+                "p50": 18.586,
+                "p95": 20.417,
+                "p99": 22.171
+              },
+              "mitigation_decision": {
+                "mean": 0.344,
+                "p50": 0.333,
+                "p95": 0.441,
+                "p99": 0.512
+              },
+              "o2_inference": {
+                "mean": 18.438,
+                "p50": 18.216,
+                "p95": 20.084,
+                "p99": 21.739
+              }
+            },
+            "observations_count": 144,
+            "rate_limit_count": 133,
+            "traffic_rate_req_per_sec": 1500.0
+          },
+          {
+            "allow_count": 11,
+            "block_count": 0,
+            "classification_false_positives": 2,
+            "classification_fpr": 0.0139,
+            "condition_id": "FC-COND-05-EXTREME-SURGE",
+            "condition_name": "Extreme Flash-Crowd Surge (2500 req/s)",
+            "confidence_stats": {
+              "max": 1.0,
+              "mean": 0.9353,
+              "min": 0.5175
+            },
+            "destructive_block_count": 0,
+            "destructive_mitigation_fpr": 0.0,
+            "expected_mitigation_action": "RATE_LIMIT",
+            "is_flash_crowd": true,
+            "latency_scope": "In-memory O2 inference and MitigationEngine policy evaluation",
+            "latency_stats_ms": {
+              "combined_decision": {
+                "mean": 18.983,
+                "p50": 18.886,
+                "p95": 20.674,
+                "p99": 21.355
+              },
+              "mitigation_decision": {
+                "mean": 0.41,
+                "p50": 0.4,
+                "p95": 0.526,
+                "p99": 0.639
+              },
+              "o2_inference": {
+                "mean": 18.572,
+                "p50": 18.507,
+                "p95": 20.245,
+                "p99": 20.927
+              }
+            },
+            "observations_count": 144,
+            "rate_limit_count": 133,
+            "traffic_rate_req_per_sec": 2500.0
+          }
+        ],
+        "flash_crowd_mitigation_metrics": {
+          "allow_count": 164,
+          "configured_threshold": null,
+          "destructive_block_count": 0,
+          "destructive_mitigation_fpr": 0.0,
+          "rate_limit_containment_count": 268
+        }
+      },
+      "model_version_identifier": "0.1.0",
+      "observed_result": {
+        "allow_count": 164,
+        "classification_fpr": 0.0139,
+        "conditions_tested": 5,
+        "destructive_blocks": 0,
+        "destructive_mitigation_fpr": 0.0,
+        "flash_crowd_observations": 432,
+        "rate_limit_count": 268
+      },
+      "project": "CYBER-14",
+      "reasons": [
+        "Measured flash-crowd experiment completed: 432 flash observations evaluated with 0 destructive blocks (0.00% destructive FPR, 100% safe containment). Status remains NOT_EXECUTED pending formal threshold definition in acceptance_config.json."
+      ],
+      "sample_fixture_identifier": null,
+      "status": "NOT_EXECUTED",
+      "test_id": "KPI-2",
+      "test_name": "Flash-Crowd False Positive Evaluation",
+      "timestamp": "2026-09-29T03:55:01.220479+00:00"
+    },
+    "KPI-3": {
+      "artifact_references": [],
+      "configuration": {},
+      "dataset_source_identifier": "data\\demo\\processed\\test.csv",
+      "environment_information": {
+        "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+        "machine": "AMD64",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+        "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "recorded_at_utc": "2026-09-29T03:55:02.127707+00:00"
+      },
+      "errors": [],
+      "expected_result": {
+        "direction": "at_most",
+        "metric": "p95_ms",
+        "threshold": 30.0
+      },
+      "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+      "metrics": {
+        "failed_trials": 0,
+        "failure_reasons": [],
+        "failures": 0,
+        "maximum_ms": 21.331200000076933,
+        "minimum_ms": 17.571099999940998,
+        "minimum_successful_trials": 30,
+        "official_measurement": true,
+        "p50_ms": 18.387900000107038,
+        "p95_ms": 19.73502000003009,
+        "p99_ms": 20.823342000048793,
+        "status": "PASS",
+        "successful_latency_samples": [
+          17.826999999897453,
+          18.01290000003064,
+          18.103200000041397,
+          18.33079999983056,
+          18.840899999986505,
+          19.69110000004548,
+          18.837000000075932,
+          18.25220000000627,
+          18.39010000003327,
+          18.175599999949554,
+          17.986099999916405,
+          18.241700000089622,
+          19.313000000011016,
+          19.83749999999418,
+          19.126000000142085,
+          18.6989999999696,
+          18.343899999990754,
+          18.54500000013104,
+          17.571099999940998,
+          17.96579999995629,
+          18.822000000000116,
+          18.697399999837216,
+          18.590499999845633,
+          18.857100000104765,
+          18.05160000003525,
+          17.96979999994619,
+          17.99869999990733,
+          18.09610000009343,
+          17.978999999968437,
+          18.18150000008245,
+          18.387900000107038,
+          18.75419999987571,
+          19.607400000040798,
+          18.769900000052075,
+          21.331200000076933
+        ],
+        "successful_trials": 35,
+        "trial_count": 35
+      },
+      "model_version_identifier": "0.1.0",
+      "observed_result": {
+        "p50_ms": 18.39,
+        "p95_ms": 19.74,
+        "p99_ms": 20.82,
+        "trial_count": 35
+      },
+      "project": "CYBER-14",
+      "reasons": [
+        "Comparison executed against the supplied threshold."
+      ],
+      "sample_fixture_identifier": null,
+      "status": "PASS",
+      "test_id": "KPI-3",
+      "test_name": "Detection Latency",
+      "timestamp": "2026-09-29T03:55:02.061522+00:00"
+    },
+    "KPI-4": {
+      "artifact_references": [],
+      "configuration": {},
+      "dataset_source_identifier": null,
+      "environment_information": {
+        "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+        "machine": "AMD64",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+        "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "recorded_at_utc": "2026-09-29T03:55:02.190657+00:00"
+      },
+      "errors": [],
+      "expected_result": {
+        "direction": "equal",
+        "metric": "unsafe_outcomes",
+        "threshold": 0
+      },
+      "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+      "metrics": {
+        "contracts_tested": 4,
+        "safety_checks_passed": true,
+        "unsafe_event_count": 0
+      },
+      "model_version_identifier": null,
+      "observed_result": {
+        "unsafe_outcomes": 0,
+        "violations": []
+      },
+      "project": "CYBER-14",
+      "reasons": [
+        "Comparison executed against the supplied threshold."
+      ],
+      "sample_fixture_identifier": null,
+      "status": "PASS",
+      "test_id": "KPI-4",
+      "test_name": "Unsafe/Unauthorized Outcome Count",
+      "timestamp": "2026-09-29T03:55:02.127707+00:00"
+    },
+    "KPI-5": {
+      "artifact_references": [],
+      "configuration": {},
+      "dataset_source_identifier": "data\\demo\\processed\\test.csv",
+      "environment_information": {
+        "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+        "machine": "AMD64",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+        "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "recorded_at_utc": "2026-09-29T03:55:02.303105+00:00"
+      },
+      "errors": [],
+      "expected_result": {
+        "direction": "at_least",
+        "metric": "detection_rate",
+        "threshold": 0.95
+      },
+      "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+      "metrics": {
+        "attack_samples": 1854,
+        "detected_attack_samples": 1854,
+        "detection_rate": 1.0,
+        "sample_count": 1998
+      },
+      "model_version_identifier": "0.1.0",
+      "observed_result": {
+        "detected_attack_samples": 1854,
+        "detection_rate": 1.0,
+        "mitigation_action_verified": "BLOCK",
+        "total_attack_samples": 1854
+      },
+      "project": "CYBER-14",
+      "reasons": [
+        "Comparison executed against the supplied threshold."
+      ],
+      "sample_fixture_identifier": null,
+      "status": "PASS",
+      "test_id": "KPI-5",
+      "test_name": "Attack-Path Detection/Prevention Rate",
+      "timestamp": "2026-09-29T03:55:02.239484+00:00"
+    },
+    "KPI-6": {
+      "artifact_references": [],
+      "configuration": {},
+      "dataset_source_identifier": "data\\demo\\processed\\test.csv",
+      "environment_information": {
+        "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+        "machine": "AMD64",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+        "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "recorded_at_utc": "2026-09-29T03:55:02.427490+00:00"
+      },
+      "errors": [],
+      "expected_result": {
+        "direction": "at_most",
+        "metric": "false_positive_rate",
+        "threshold": 0.02
+      },
+      "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+      "metrics": {
+        "accuracy": 0.998998998998999,
+        "class_distribution": {
+          "0": 144,
+          "1": 1854
+        },
+        "confusion_matrix": {
+          "false_negative": 0,
+          "false_positive": 2,
+          "true_negative": 142,
+          "true_positive": 1854
+        },
+        "false_negative_rate": 0.0,
+        "false_positive_rate": 0.013888888888888888,
+        "sample_count": 1998
+      },
+      "model_version_identifier": "0.1.0",
+      "observed_result": {
+        "false_positive_rate": 0.0139,
+        "sample_count": 1998
+      },
+      "project": "CYBER-14",
+      "reasons": [
+        "Comparison executed against the supplied threshold."
+      ],
+      "sample_fixture_identifier": null,
+      "status": "PASS",
+      "test_id": "KPI-6",
+      "test_name": "False-Positive Rate",
+      "timestamp": "2026-09-29T03:55:02.364237+00:00"
+    }
+  },
+  "limitations": [
+    "Official multi-million row full-scale benchmark remains separate from demonstration sample.",
+    "AC-3 independent reviewer sign-off remains pending external human review."
+  ],
+  "model_versions": {
+    "o2": "0.1.0",
+    "o3": "0.1.0"
+  },
+  "official_cyber14_kpi_result": false,
+  "recorded_at_utc": "2026-09-29T03:55:03.197406+00:00",
+  "run_id": "acceptance-20260929T035431Z-d9c8b793",
+  "run_type": "acceptance",
+  "status": "FAIL"
+}

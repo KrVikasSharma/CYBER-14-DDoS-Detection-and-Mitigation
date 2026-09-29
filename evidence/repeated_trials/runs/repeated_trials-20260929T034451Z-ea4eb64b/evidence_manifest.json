@@ -1,0 +1,21 @@
+{
+  "dataset_hash": "1302dececdb52d0835e1022c23cf4b98a4dd0e4a0bb88c759041d719b3f35449",
+  "dataset_path": "data\\demo\\processed\\test.csv",
+  "o2_model_hash": "47ab64235dc87bc5381727fc71236f7497ff68b47f6a38fb634160a58146f61d",
+  "o3_model_hash": "e357d41a9300c79cd497f5f94c6096ea39590fea0f77b96f35eb49558e8d6b90",
+  "output_references": [
+    "result.json",
+    "metrics.json",
+    "trial_results.json",
+    "condition_summary.json",
+    "stability_metrics.json",
+    "latency.json",
+    "scenarios.json",
+    "environment.json"
+  ],
+  "run_id": "repeated_trials-20260929T034451Z-ea4eb64b",
+  "run_type": "condition_wise_repeated_trials",
+  "scenarios_hash": "d9e28dff22a1467586db932df31daf6c1b77a823b35a988c311b828561fbc601",
+  "scenarios_path": "data\\demo\\repeated_trials\\repeated_trial_scenarios.json",
+  "status": "PASS"
+}

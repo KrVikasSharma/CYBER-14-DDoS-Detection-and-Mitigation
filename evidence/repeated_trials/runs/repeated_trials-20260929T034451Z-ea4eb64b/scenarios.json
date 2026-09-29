@@ -1,0 +1,97 @@
+{
+  "conditions": [
+    {
+      "condition_id": "RT-01",
+      "description": "Legitimate baseline network traffic with standard packet rates well below surge thresholds.",
+      "expected_ground_truth": "BENIGN",
+      "expected_mitigation_action": "ALLOW",
+      "expected_o2_binary": 0,
+      "name": "Normal BENIGN Traffic",
+      "prohibited_actions": [
+        "BLOCK",
+        "RATE_LIMIT"
+      ],
+      "traffic_rate_req_per_sec": 50.0,
+      "trial_count": 50
+    },
+    {
+      "condition_id": "RT-02",
+      "description": "High-volume benign traffic surge crossing volumetric threshold (1000..2500 req/s); requires rate containment without blocking.",
+      "expected_ground_truth": "BENIGN",
+      "expected_mitigation_action": "RATE_LIMIT",
+      "expected_o2_binary": 0,
+      "name": "Legitimate Flash-Crowd Surge",
+      "prohibited_actions": [
+        "BLOCK"
+      ],
+      "rate_variants": [
+        1000.0,
+        1500.0,
+        2500.0
+      ],
+      "traffic_rate_req_per_sec": 1500.0,
+      "trial_count": 50
+    },
+    {
+      "attack_classes": [
+        "SYN",
+        "UDP",
+        "DRDOS_DNS",
+        "DRDOS_LDAP",
+        "DRDOS_NTP",
+        "DRDOS_SNMP",
+        "DRDOS_MSSQL",
+        "DRDOS_NETBIOS",
+        "DRDOS_UDP",
+        "DRDOS_SSDP",
+        "TFTP",
+        "PORTMAP"
+      ],
+      "condition_id": "RT-03",
+      "description": "Authentic CIC-DDoS2019 attack vectors across 12+ verified attack classes evaluated for threat detection and mitigation.",
+      "expected_ground_truth": "ATTACK",
+      "expected_mitigation_action": "BLOCK",
+      "expected_o2_binary": 1,
+      "name": "Confirmed Diverse Attack Vectors",
+      "prohibited_actions": [
+        "ALLOW"
+      ],
+      "traffic_rate_req_per_sec": 2000.0,
+      "trial_count": 50
+    },
+    {
+      "condition_id": "RT-04",
+      "description": "Authentic attack vectors producing lower posterior confidence (< 0.80) to evaluate bounded temporary rate-limiting containment.",
+      "expected_ground_truth": "ATTACK",
+      "expected_mitigation_action": "RATE_LIMIT",
+      "expected_o2_binary": 1,
+      "name": "Low-Confidence / Borderline Attack Vectors",
+      "prohibited_actions": [
+        "ALLOW"
+      ],
+      "traffic_rate_req_per_sec": 1500.0,
+      "trial_count": 50
+    },
+    {
+      "condition_id": "RT-05",
+      "description": "Negative input stress, missing features, extreme rate anomalies, and NaN feature values ensuring fail-closed safety.",
+      "expected_behavior": "FAIL_CLOSED_NO_CRASH",
+      "expected_ground_truth": "BOUNDARY_OR_MALFORMED",
+      "name": "Boundary & Malformed Inputs",
+      "prohibited_actions": [
+        "UNHANDLED_CRASH"
+      ],
+      "trial_count": 50
+    }
+  ],
+  "created_at_utc": "2026-09-29T03:45:00.000000+00:00",
+  "protocol_version": "cyber14-repeated-trials-0.1.0",
+  "provenance": {
+    "feature_count": 78,
+    "feature_manifest": "evidence/cic_ddos2019_feature_manifest.json",
+    "random_seed": 42,
+    "source_dataset": "Canadian Institute for Cybersecurity CIC-DDoS2019",
+    "source_file": "data/demo/processed/test.csv",
+    "trials_per_condition": 50
+  }
+}

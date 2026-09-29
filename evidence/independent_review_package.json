@@ -1,0 +1,343 @@
+{
+  "package_metadata": {
+    "project_name": "CYBER-14: Real-Time DDoS Detection & Mitigation",
+    "package_type": "independent_acceptance_review_package",
+    "version": "1.0.0",
+    "generated_at_utc": "2026-09-29T05:20:00Z",
+    "audit_standard": "Strict Academic & Forensic Compliance",
+    "operating_environment": {
+      "os": "Windows 11 (AMD64)",
+      "cpu_logical_cores": 12,
+      "total_ram_gb": 15.65,
+      "python_version": "3.12.10",
+      "node_version": "v20+"
+    }
+  },
+  "acceptance_summary": {
+    "total_official_tests": 15,
+    "passed": 13,
+    "failed": 0,
+    "not_executed": 2,
+    "blocked": 0,
+    "degraded_mode_scenarios_passed": 8,
+    "overall_compliance_status": "AUDIT_READY / PARTIAL (13/15 PASS, 2 NOT_EXECUTED)"
+  },
+  "official_kpis": [
+    {
+      "kpi_id": "KPI-1",
+      "name": "Binary Detection Accuracy",
+      "official_threshold": ">= 0.9500 (95.0%)",
+      "observed_value": 0.9990,
+      "observed_display": "99.90% (1,996 / 1,998 test flows)",
+      "evaluation_scope": "Held-out test partition of authentic CIC-DDoS2019 sample (1,998 rows)",
+      "status": "PASS",
+      "evidence_run_id": "acceptance-20260929T050307Z-c268514a",
+      "artifact_reference": "evidence/acceptance/runs/acceptance-20260929T050307Z-c268514a/result.json"
+    },
+    {
+      "kpi_id": "KPI-2",
+      "name": "Flash-Crowd False-Positive Rate",
+      "official_threshold": "Pending formal acceptance threshold calibration",
+      "observed_value": {
+        "destructive_mitigation_fpr": 0.0,
+        "classification_fpr": 0.0139
+      },
+      "observed_display": "0.0% destructive drops (0/432 surge flows); 1.39% benign containment",
+      "evaluation_scope": "Independent flash-crowd benchmark fixture (432 flows, 10 to 5,000 req/s)",
+      "status": "NOT_EXECUTED",
+      "evidence_run_id": "acceptance-20260929T050307Z-c268514a",
+      "artifact_reference": "evidence/flash_crowd/runs/flash_crowd_benchmark_manifest.json"
+    },
+    {
+      "kpi_id": "KPI-3",
+      "name": "Detection Latency (P95 Single-Flow Inference)",
+      "official_threshold": "<= 30.00 ms (P95)",
+      "observed_value": {
+        "p50_ms": 5.19,
+        "p95_ms": 8.21,
+        "p99_ms": 10.34,
+        "mean_ms": 5.48
+      },
+      "observed_display": "8.21 ms P95 (5.19 ms P50, 10.34 ms P99)",
+      "evaluation_scope": "In-memory isolated single-flow model inference (100 warmup + 1,000 trials)",
+      "status": "PASS",
+      "evidence_run_id": "acceptance-20260929T050307Z-c268514a",
+      "artifact_reference": "evidence/acceptance/runs/acceptance-20260929T050307Z-c268514a/result.json"
+    },
+    {
+      "kpi_id": "KPI-4",
+      "name": "Unsafe/Unauthorized Outcome Count",
+      "official_threshold": "== 0 unsafe outcomes",
+      "observed_value": 0,
+      "observed_display": "0 violations across 4 invariant safety contracts",
+      "evaluation_scope": "Policy engine invariant safety contracts (Benign, Surge, Attack, Borderline)",
+      "status": "PASS",
+      "evidence_run_id": "acceptance-20260929T050307Z-c268514a",
+      "artifact_reference": "evidence/acceptance/runs/acceptance-20260929T050307Z-c268514a/result.json"
+    },
+    {
+      "kpi_id": "KPI-5",
+      "name": "Attack-Path Detection/Prevention Rate",
+      "official_threshold": ">= 0.9500 (95.0%)",
+      "observed_value": 1.0000,
+      "observed_display": "100.00% (1,854 / 1,854 true attack flows detected and mitigated)",
+      "evaluation_scope": "All true positive attack flows across 11 CIC-DDoS2019 attack vectors",
+      "status": "PASS",
+      "evidence_run_id": "acceptance-20260929T050307Z-c268514a",
+      "artifact_reference": "evidence/acceptance/runs/acceptance-20260929T050307Z-c268514a/result.json"
+    },
+    {
+      "kpi_id": "KPI-6",
+      "name": "False-Positive Rate on Legitimate Traffic",
+      "official_threshold": "<= 0.0200 (2.0%)",
+      "observed_value": 0.0139,
+      "observed_display": "1.39% (2 / 144 benign flows flagged)",
+      "evaluation_scope": "Normal baseline benign traffic evaluation (144 flows)",
+      "status": "PASS",
+      "evidence_run_id": "acceptance-20260929T050307Z-c268514a",
+      "artifact_reference": "evidence/acceptance/runs/acceptance-20260929T050307Z-c268514a/result.json"
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "ac_id": "AC-1",
+      "name": "Representative Operation",
+      "official_threshold": "78-feature frozen contract, O2 Acc >= 0.95, valid mitigation actions",
+      "observed_value": {
+        "features_count": 78,
+        "o2_accuracy": 0.9990,
+        "o3_accuracy": 0.7077,
+        "benign_action": "ALLOW",
+        "flash_crowd_action": "RATE_LIMIT",
+        "attack_action": "BLOCK"
+      },
+      "observed_display": "78/78 features, O2 Acc: 99.90%, O3 Acc: 70.77%, compliant actions",
+      "status": "PASS",
+      "evidence_run_id": "acceptance-20260929T050307Z-c268514a",
+      "artifact_reference": "evidence/acceptance/runs/acceptance-20260929T050307Z-c268514a/result.json"
+    },
+    {
+      "ac_id": "AC-2",
+      "name": "Boundary / Failure Operation",
+      "official_threshold": "All 5 edge/failure checks pass without unhandled panic",
+      "observed_value": {
+        "total_checks": 5,
+        "passed_checks": 5,
+        "checks": [
+          {"test": "missing_features_fail_closed", "passed": true},
+          {"test": "benign_flow", "action": "ALLOW", "passed": true},
+          {"test": "extreme_volumetric_rate", "action": "RATE_LIMIT", "passed": true},
+          {"test": "low_confidence_attack_containment", "action": "RATE_LIMIT", "passed": true},
+          {"test": "ipv6_loopback_handling", "action": "ALLOW", "passed": true}
+        ]
+      },
+      "observed_display": "5/5 checks passed (schema validation, volumetric rate, IPv6 loopback)",
+      "status": "PASS",
+      "evidence_run_id": "acceptance-20260929T050307Z-c268514a",
+      "artifact_reference": "evidence/acceptance/runs/acceptance-20260929T050307Z-c268514a/result.json"
+    },
+    {
+      "ac_id": "AC-3",
+      "name": "Independent Acceptance Preparation",
+      "official_threshold": "Independent human examiner verification sign-off required",
+      "observed_value": {
+        "review_bundle_generated": true,
+        "package_path": "evidence/independent_review_package.json"
+      },
+      "observed_display": "Review bundle generated; awaiting external human auditor sign-off",
+      "status": "NOT_EXECUTED",
+      "evidence_run_id": "acceptance-20260929T050307Z-c268514a",
+      "artifact_reference": "evidence/independent_review_package.json"
+    },
+    {
+      "ac_id": "AC-4",
+      "name": "Frozen Resource Envelope",
+      "official_threshold": "Process RSS <= 2,048.0 MB, CPU logical cores <= 16",
+      "observed_value": {
+        "cpu_cores": 12,
+        "total_ram_gb": 15.65,
+        "process_rss_mb": 224.62,
+        "model_inference_throughput_flows_per_sec": 37961.55
+      },
+      "observed_display": "224.62 MB RSS (11.0% limit), 12 AMD64 cores, 37,961 flows/sec",
+      "status": "PASS",
+      "evidence_run_id": "acceptance-20260929T050307Z-c268514a",
+      "artifact_reference": "evidence/acceptance/runs/acceptance-20260929T050307Z-c268514a/result.json"
+    }
+  ],
+  "negative_tests": [
+    {
+      "nt_id": "NT-1",
+      "name": "Flash-Crowd False-Positive Containment and Recovery",
+      "condition_injected": "Volumetric benign surge (2,500 req/s) subsiding back to baseline (10 req/s)",
+      "observed_behavior": "Baseline: ALLOW -> Surge: RATE_LIMIT (0 drops) -> Recovery: ALLOW",
+      "status": "PASS",
+      "evidence_run_id": "negative-20260929T050323Z-378439ec"
+    },
+    {
+      "nt_id": "NT-2",
+      "name": "Attack-Type Diversity with Preserved Safe Behavior",
+      "condition_injected": "11 distinct DDoS attack vectors across transport and application protocols",
+      "observed_behavior": "11/11 attack vectors contained with BLOCK decision and audit logging",
+      "status": "PASS",
+      "evidence_run_id": "negative-20260929T050323Z-378439ec"
+    },
+    {
+      "nt_id": "NT-3",
+      "name": "Speed-versus-Accuracy Conditions Under System Load",
+      "condition_injected": "High-throughput burst batch inference over 1,998 flow vectors",
+      "observed_behavior": "Accuracy: 99.90%, ML batch throughput: 37,961 flows/sec",
+      "status": "PASS",
+      "evidence_run_id": "negative-20260929T050323Z-378439ec"
+    },
+    {
+      "nt_id": "NT-4",
+      "name": "Trust, Identity, and Authorization Bypass Resistance",
+      "condition_injected": "Forged HMAC-SHA256 tokens and missing bearer headers on protected endpoints",
+      "observed_behavior": "Tampered token rejected cryptographically & via HTTP 401; IP isolated from ML",
+      "status": "PASS",
+      "evidence_run_id": "negative-20260929T050323Z-378439ec"
+    },
+    {
+      "nt_id": "NT-5",
+      "name": "Deny, Revoke, and Expiry Propagation",
+      "condition_injected": "Expired authorization tokens and temporary mitigation block windows",
+      "observed_behavior": "Expired token rejected immediately; mitigation block window expires safely",
+      "status": "PASS",
+      "evidence_run_id": "negative-20260929T050323Z-378439ec"
+    }
+  ],
+  "degraded_mode_scenarios": [
+    {
+      "scenario_id": "DM-01",
+      "title": "ML Model Unavailable",
+      "fault_injected": "Missing / unreadable serialized model file",
+      "safety_behavior": "Fallback to signature/heuristic rate-limiting (0 unhandled exceptions)",
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "DM-02",
+      "title": "Mitigation Policy Engine Exception",
+      "fault_injected": "Execution crash simulated in policy arbitration",
+      "safety_behavior": "Fail-safe default rate-limiting applied (0 drops)",
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "DM-03",
+      "title": "Feature Vector Truncation",
+      "fault_injected": "Missing required 78-feature columns in HTTP payload",
+      "safety_behavior": "HTTP 422 Unprocessable Entity schema rejection",
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "DM-04",
+      "title": "Extreme Volumetric Flow Surge",
+      "fault_injected": "> 100,000 req/s volumetric flow surge",
+      "safety_behavior": "Adaptive queue throttling with bounded latency",
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "DM-05",
+      "title": "Preprocessor / Scaler Corruption",
+      "fault_injected": "Corrupted or non-invertible scaler state",
+      "safety_behavior": "Train-only median imputation fallback",
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "DM-06",
+      "title": "Database Connection Loss",
+      "fault_injected": "MySQL database connection unavailable",
+      "safety_behavior": "In-memory ring buffer logging, zero pipeline stall",
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "DM-07",
+      "title": "Inconsistent Multi-Class Output",
+      "fault_injected": "O2 Attack (1) vs O3 Benign (0) conflicting outputs",
+      "safety_behavior": "Hierarchical arbitration defaults safely to RATE_LIMIT",
+      "status": "PASS"
+    },
+    {
+      "scenario_id": "DM-08",
+      "title": "Flash-Crowd vs Volumetric Flood",
+      "fault_injected": "Borderline legitimate surge traffic",
+      "safety_behavior": "Source-isolated rate-limiting, zero benign blacklisting",
+      "status": "PASS"
+    }
+  ],
+  "resource_and_capacity_profile": {
+    "system_specs": {
+      "cpu_logical_cores": 12,
+      "ram_total_gb": 15.65,
+      "process_rss_mb": 224.62,
+      "rss_ceiling_mb": 2048.0
+    },
+    "model_footprints": {
+      "o2_binary_detector_kb": 293.06,
+      "o2_architecture": "RandomForestClassifier (50 estimators, max_depth=8)",
+      "o3_multiclass_classifier_kb": 9326.02,
+      "o3_architecture": "RandomForestClassifier (60 estimators, max_depth=12)"
+    },
+    "latencies_ms": {
+      "layer1_o2_in_memory_p50": 5.19,
+      "layer1_o2_in_memory_p95": 8.21,
+      "layer1_o2_in_memory_p99": 10.34,
+      "layer2_hierarchical_p50": 290.85,
+      "layer2_hierarchical_p95": 329.07,
+      "layer3_http_api_p50": 144.13,
+      "layer3_http_api_p95": 168.18,
+      "layer4_websocket_streaming_p50": 132.51,
+      "layer4_websocket_streaming_p95": 143.32
+    },
+    "batch_scaling": [
+      {"batch_size": 1, "throughput_flows_sec": 50.41, "per_sample_ms": 19.84},
+      {"batch_size": 10, "throughput_flows_sec": 535.66, "per_sample_ms": 1.87},
+      {"batch_size": 50, "throughput_flows_sec": 2476.51, "per_sample_ms": 0.40},
+      {"batch_size": 100, "throughput_flows_sec": 4820.14, "per_sample_ms": 0.21},
+      {"batch_size": 500, "throughput_flows_sec": 16934.18, "per_sample_ms": 0.059},
+      {"batch_size": 1000, "throughput_flows_sec": 34159.20, "per_sample_ms": 0.029},
+      {"batch_size": 1998, "throughput_flows_sec": 59717.26, "per_sample_ms": 0.017}
+    ],
+    "rate_capacity_summary": "10 to 100,000 req/s with 0 destructive blocks and 0 silent allows"
+  },
+  "cryptographic_manifest_summary": {
+    "manifest_file": "evidence/evidence_manifest.json",
+    "checksums_file": "evidence/SHA256SUMS.txt",
+    "total_tracked_artifacts": 68,
+    "sha256_verification_status": "PASS (0 mismatches, 0 missing files)",
+    "secret_leak_audit": "PASS (0 private keys, passwords, or live tokens detected)",
+    "reproducibility_command": "python scripts/run_acceptance.py --all"
+  },
+  "known_limitations_and_disclaimers": [
+    {
+      "id": "LIM-1",
+      "title": "KPI-2 Flash-Crowd Calibration Pending",
+      "status": "NOT_EXECUTED",
+      "description": "KPI-2 remains explicitly NOT_EXECUTED pending formal acceptance threshold calibration. In empirical testing, 0 destructive drops occurred across 432 legitimate surge flows."
+    },
+    {
+      "id": "LIM-2",
+      "title": "AC-3 Independent Human Audit Required",
+      "status": "NOT_EXECUTED",
+      "description": "AC-3 remains explicitly NOT_EXECUTED until an external independent human examiner completes and signs off on the acceptance audit."
+    },
+    {
+      "id": "LIM-3",
+      "title": "Representative Partition Scope",
+      "status": "PASS (Scope Bounded)",
+      "description": "Evaluations execute against the authentic frozen 1,998-row 78-feature test partition extracted from the 18 CIC-DDoS2019 CSV files with deterministic seed 42 (not the 50GB raw PCAP stream)."
+    },
+    {
+      "id": "LIM-4",
+      "title": "Simulation-Only Mitigation Execution",
+      "status": "PASS (Simulation Only)",
+      "description": "Mitigation actions (BLOCK, RATE_LIMIT, SCRUB) execute within safe in-memory simulation and software policy engine without physical hardware SDN switch drops."
+    },
+    {
+      "id": "LIM-5",
+      "title": "Academic Research Scope",
+      "status": "PASS (Academic Scope)",
+      "description": "Multi-class classification achieves 70.77% across 17 granular classes on the demo partition, reflecting research-grade trade-offs and rare-class sample constraints."
+    }
+  ]
+}

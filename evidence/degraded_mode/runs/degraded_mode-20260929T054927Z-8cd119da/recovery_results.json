@@ -1,0 +1,32 @@
+[
+  {
+    "component": "O3_CLASSIFIER",
+    "mitigation_decision": "BLOCK",
+    "o3_available": true,
+    "observed_attack_type": "SYN",
+    "recovery_status": "SUCCESS",
+    "scenario_id": "DM-02"
+  },
+  {
+    "component": "DATABASE_PERSISTENCE",
+    "persisted_detection_id": 1,
+    "persisted_traffic_event_id": 1,
+    "recovery_status": "SUCCESS",
+    "scenario_id": "DM-03"
+  },
+  {
+    "component": "WEBSOCKET_STREAMING",
+    "final_server_connections": 0,
+    "initial_connection_id": "59d1c852-a0db-44e6-b93d-12f619a3ffd1",
+    "recovery_status": "SUCCESS",
+    "resumed_connection_id": "59d7be2c-95a4-4f73-a0e9-7ff2bb8e632d",
+    "scenario_id": "DM-04"
+  },
+  {
+    "authenticated_role": "admin",
+    "authenticated_username": "admin",
+    "component": "AUTHENTICATION_SESSION",
+    "recovery_status": "SUCCESS",
+    "scenario_id": "DM-07"
+  }
+]

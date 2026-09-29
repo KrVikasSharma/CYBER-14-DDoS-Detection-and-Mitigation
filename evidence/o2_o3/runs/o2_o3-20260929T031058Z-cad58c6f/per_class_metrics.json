@@ -1,0 +1,104 @@
+{
+  "BENIGN": {
+    "f1": 0.9965,
+    "precision": 1.0,
+    "recall": 0.9931,
+    "support": 144
+  },
+  "DRDOS_DNS": {
+    "f1": 0.6479,
+    "precision": 0.8846,
+    "recall": 0.5111,
+    "support": 90
+  },
+  "DRDOS_LDAP": {
+    "f1": 0.4741,
+    "precision": 0.3787,
+    "recall": 0.6337,
+    "support": 101
+  },
+  "DRDOS_MSSQL": {
+    "f1": 0.129,
+    "precision": 0.2857,
+    "recall": 0.0833,
+    "support": 96
+  },
+  "DRDOS_NETBIOS": {
+    "f1": 0.6893,
+    "precision": 0.663,
+    "recall": 0.7176,
+    "support": 85
+  },
+  "DRDOS_NTP": {
+    "f1": 0.9591,
+    "precision": 0.9425,
+    "recall": 0.9762,
+    "support": 84
+  },
+  "DRDOS_SNMP": {
+    "f1": 0.829,
+    "precision": 0.9195,
+    "recall": 0.7547,
+    "support": 106
+  },
+  "DRDOS_SSDP": {
+    "f1": 0.6572,
+    "precision": 0.5167,
+    "recall": 0.9029,
+    "support": 103
+  },
+  "DRDOS_UDP": {
+    "f1": 0.7072,
+    "precision": 0.5776,
+    "recall": 0.9118,
+    "support": 102
+  },
+  "LDAP": {
+    "f1": 0.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "support": 40
+  },
+  "MSSQL": {
+    "f1": 0.7702,
+    "precision": 0.7898,
+    "recall": 0.7515,
+    "support": 165
+  },
+  "NETBIOS": {
+    "f1": 0.7596,
+    "precision": 0.7861,
+    "recall": 0.7349,
+    "support": 215
+  },
+  "PORTMAP": {
+    "f1": 0.6486,
+    "precision": 0.576,
+    "recall": 0.7423,
+    "support": 97
+  },
+  "SYN": {
+    "f1": 0.8224,
+    "precision": 0.967,
+    "recall": 0.7154,
+    "support": 246
+  },
+  "TFTP": {
+    "f1": 0.744,
+    "precision": 0.6089,
+    "recall": 0.9561,
+    "support": 114
+  },
+  "UDP": {
+    "f1": 0.7644,
+    "precision": 0.735,
+    "recall": 0.7963,
+    "support": 108
+  },
+  "UDP-LAG": {
+    "f1": 0.2794,
+    "precision": 0.5588,
+    "recall": 0.1863,
+    "support": 102
+  }
+}

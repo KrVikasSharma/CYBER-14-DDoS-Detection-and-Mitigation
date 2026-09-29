@@ -1,0 +1,17 @@
+[
+  {
+    "component": "O3_CLASSIFIER",
+    "mitigation_decision": "BLOCK",
+    "o3_available": true,
+    "observed_attack_type": "SYN",
+    "recovery_status": "SUCCESS",
+    "scenario_id": "DM-02"
+  },
+  {
+    "component": "DATABASE_PERSISTENCE",
+    "persisted_detection_id": 1,
+    "persisted_traffic_event_id": 1,
+    "recovery_status": "SUCCESS",
+    "scenario_id": "DM-03"
+  }
+]

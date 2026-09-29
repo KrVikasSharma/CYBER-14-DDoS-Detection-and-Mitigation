@@ -1,0 +1,34 @@
+{
+  "layer_1_o2_in_memory_inference": {
+    "max_ms": 4.77,
+    "mean_ms": 3.86,
+    "min_ms": 3.348,
+    "p50_ms": 3.805,
+    "p95_ms": 4.495,
+    "p99_ms": 4.702
+  },
+  "layer_2_o2_o3_mitigation_hierarchical": {
+    "max_ms": 87.545,
+    "mean_ms": 78.02,
+    "min_ms": 75.216,
+    "p50_ms": 77.431,
+    "p95_ms": 81.926,
+    "p99_ms": 86.853
+  },
+  "layer_3_http_api_end_to_end": {
+    "max_ms": 48.203,
+    "mean_ms": 41.421,
+    "min_ms": 39.663,
+    "p50_ms": 41.144,
+    "p95_ms": 44.354,
+    "p99_ms": 47.416
+  },
+  "layer_4_websocket_streaming_end_to_end": {
+    "max_ms": 48.24,
+    "mean_ms": 39.212,
+    "min_ms": 37.309,
+    "p50_ms": 38.382,
+    "p95_ms": 43.006,
+    "p99_ms": 46.997
+  }
+}

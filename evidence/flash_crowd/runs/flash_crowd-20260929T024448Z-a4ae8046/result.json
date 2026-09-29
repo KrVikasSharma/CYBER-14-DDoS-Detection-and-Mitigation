@@ -1,0 +1,166 @@
+{
+  "metrics": {
+    "benchmark_summary": {
+      "flash_crowd_observations": 432,
+      "rate_conditions_tested": 5,
+      "sub_threshold_observations": 288,
+      "total_observations": 720,
+      "unique_benign_vectors": 144
+    },
+    "classification_metrics": {
+      "benign_base_vector_fpr": 0.0139,
+      "overall_classification_fpr": 0.0139
+    },
+    "conditions": [
+      {
+        "allow_count": 142,
+        "block_count": 0,
+        "classification_false_positives": 2,
+        "classification_fpr": 0.0139,
+        "condition_id": "FC-COND-01-BASELINE",
+        "condition_name": "Baseline Legitimate Traffic",
+        "confidence_stats": {
+          "max": 1.0,
+          "mean": 0.9353,
+          "min": 0.5175
+        },
+        "destructive_block_count": 0,
+        "destructive_mitigation_fpr": 0.0,
+        "expected_mitigation_action": "ALLOW",
+        "is_flash_crowd": false,
+        "latency_stats_ms": {
+          "mean": 18.9,
+          "p50": 18.59,
+          "p95": 21.23,
+          "p99": 21.81
+        },
+        "observations_count": 144,
+        "rate_limit_count": 2,
+        "traffic_rate_req_per_sec": 50.0
+      },
+      {
+        "allow_count": 142,
+        "block_count": 0,
+        "classification_false_positives": 2,
+        "classification_fpr": 0.0139,
+        "condition_id": "FC-COND-02-SUB-THRESHOLD",
+        "condition_name": "Moderate High-Rate Legitimate Traffic (500 req/s)",
+        "confidence_stats": {
+          "max": 1.0,
+          "mean": 0.9353,
+          "min": 0.5175
+        },
+        "destructive_block_count": 0,
+        "destructive_mitigation_fpr": 0.0,
+        "expected_mitigation_action": "ALLOW",
+        "is_flash_crowd": false,
+        "latency_stats_ms": {
+          "mean": 18.5,
+          "p50": 18.14,
+          "p95": 20.05,
+          "p99": 22.61
+        },
+        "observations_count": 144,
+        "rate_limit_count": 2,
+        "traffic_rate_req_per_sec": 500.0
+      },
+      {
+        "allow_count": 142,
+        "block_count": 0,
+        "classification_false_positives": 2,
+        "classification_fpr": 0.0139,
+        "condition_id": "FC-COND-03-BOUNDARY",
+        "condition_name": "Threshold Boundary Traffic (1000 req/s)",
+        "confidence_stats": {
+          "max": 1.0,
+          "mean": 0.9353,
+          "min": 0.5175
+        },
+        "destructive_block_count": 0,
+        "destructive_mitigation_fpr": 0.0,
+        "expected_mitigation_action": "RATE_LIMIT",
+        "is_flash_crowd": true,
+        "latency_stats_ms": {
+          "mean": 17.91,
+          "p50": 17.63,
+          "p95": 20.43,
+          "p99": 22.44
+        },
+        "observations_count": 144,
+        "rate_limit_count": 2,
+        "traffic_rate_req_per_sec": 1000.0
+      },
+      {
+        "allow_count": 11,
+        "block_count": 0,
+        "classification_false_positives": 2,
+        "classification_fpr": 0.0139,
+        "condition_id": "FC-COND-04-FLASH-SURGE",
+        "condition_name": "Volumetric Flash-Crowd Surge (1500 req/s)",
+        "confidence_stats": {
+          "max": 1.0,
+          "mean": 0.9353,
+          "min": 0.5175
+        },
+        "destructive_block_count": 0,
+        "destructive_mitigation_fpr": 0.0,
+        "expected_mitigation_action": "RATE_LIMIT",
+        "is_flash_crowd": true,
+        "latency_stats_ms": {
+          "mean": 19.01,
+          "p50": 18.39,
+          "p95": 22.53,
+          "p99": 23.19
+        },
+        "observations_count": 144,
+        "rate_limit_count": 133,
+        "traffic_rate_req_per_sec": 1500.0
+      },
+      {
+        "allow_count": 11,
+        "block_count": 0,
+        "classification_false_positives": 2,
+        "classification_fpr": 0.0139,
+        "condition_id": "FC-COND-05-EXTREME-SURGE",
+        "condition_name": "Extreme Flash-Crowd Surge (2500 req/s)",
+        "confidence_stats": {
+          "max": 1.0,
+          "mean": 0.9353,
+          "min": 0.5175
+        },
+        "destructive_block_count": 0,
+        "destructive_mitigation_fpr": 0.0,
+        "expected_mitigation_action": "RATE_LIMIT",
+        "is_flash_crowd": true,
+        "latency_stats_ms": {
+          "mean": 17.85,
+          "p50": 17.5,
+          "p95": 20.1,
+          "p99": 21.9
+        },
+        "observations_count": 144,
+        "rate_limit_count": 133,
+        "traffic_rate_req_per_sec": 2500.0
+      }
+    ],
+    "flash_crowd_mitigation_metrics": {
+      "allow_count": 164,
+      "destructive_block_count": 0,
+      "destructive_mitigation_fpr": 0.0,
+      "rate_limit_containment_count": 268,
+      "threshold_destructive_fpr": 0.02
+    }
+  },
+  "provenance": {
+    "benign_sample_count": 144,
+    "feature_count": 78,
+    "random_seed": 42,
+    "rate_injection_method": "External policy/scenario layer (78 ML features untouched)",
+    "source_dataset": "Canadian Institute for Cybersecurity CIC-DDoS2019",
+    "source_file": "data/demo/processed/test.csv"
+  },
+  "recorded_at_utc": "2026-09-29T02:45:16.672071+00:00",
+  "run_id": "flash_crowd-20260929T024448Z-a4ae8046",
+  "run_type": "flash_crowd",
+  "status": "PASS"
+}

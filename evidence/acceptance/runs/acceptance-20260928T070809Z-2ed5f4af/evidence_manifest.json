@@ -1,0 +1,17 @@
+{
+  "configuration_hash": "8bb925655b8dd20fe3e26bf22c100d0172618f050167e5bd9ac1a48b279ecde0",
+  "configuration_reference": "evidence/acceptance/acceptance_config.json",
+  "fixture_only": false,
+  "input_references": [
+    "data/fixtures/o3_tiny_processed_fixture.csv"
+  ],
+  "output_references": [
+    "result.json",
+    "metrics.json",
+    "environment.json"
+  ],
+  "result_reference": "result.json",
+  "run_id": "acceptance-20260928T070809Z-2ed5f4af",
+  "run_type": "acceptance",
+  "status": "FAIL"
+}

@@ -1,0 +1,425 @@
+{
+  "batch_scaling_summary": [
+    {
+      "batch_latency_ms": {
+        "max": 13.099,
+        "mean": 9.432,
+        "min": 4.627,
+        "p50": 9.528,
+        "p95": 12.72,
+        "p99": 13.023
+      },
+      "batch_size": 1,
+      "failures": 0,
+      "memory_delta_mb": 0.0,
+      "per_sample_latency_ms": {
+        "mean": 9.43151,
+        "p50": 9.5282,
+        "p95": 12.72021
+      },
+      "throughput_flows_per_sec": {
+        "mean": 116.2,
+        "p50": 104.95,
+        "p95": 203.13
+      },
+      "trials": 15
+    },
+    {
+      "batch_latency_ms": {
+        "max": 9.88,
+        "mean": 6.014,
+        "min": 4.553,
+        "p50": 5.357,
+        "p95": 9.078,
+        "p99": 9.72
+      },
+      "batch_size": 10,
+      "failures": 0,
+      "memory_delta_mb": 0.0,
+      "per_sample_latency_ms": {
+        "mean": 0.60137,
+        "p50": 0.53574,
+        "p95": 0.90776
+      },
+      "throughput_flows_per_sec": {
+        "mean": 1745.89,
+        "p50": 1866.58,
+        "p95": 2143.72
+      },
+      "trials": 15
+    },
+    {
+      "batch_latency_ms": {
+        "max": 14.254,
+        "mean": 12.015,
+        "min": 8.096,
+        "p50": 12.191,
+        "p95": 13.398,
+        "p99": 14.083
+      },
+      "batch_size": 50,
+      "failures": 0,
+      "memory_delta_mb": 0.0,
+      "per_sample_latency_ms": {
+        "mean": 0.24031,
+        "p50": 0.24381,
+        "p95": 0.26795
+      },
+      "throughput_flows_per_sec": {
+        "mean": 4225.71,
+        "p50": 4101.55,
+        "p95": 5266.8
+      },
+      "trials": 15
+    },
+    {
+      "batch_latency_ms": {
+        "max": 10.617,
+        "mean": 6.386,
+        "min": 4.723,
+        "p50": 6.187,
+        "p95": 9.34,
+        "p99": 10.362
+      },
+      "batch_size": 100,
+      "failures": 0,
+      "memory_delta_mb": 0.0,
+      "per_sample_latency_ms": {
+        "mean": 0.06386,
+        "p50": 0.06187,
+        "p95": 0.0934
+      },
+      "throughput_flows_per_sec": {
+        "mean": 16473.35,
+        "p50": 16161.88,
+        "p95": 21040.28
+      },
+      "trials": 15
+    },
+    {
+      "batch_latency_ms": {
+        "max": 7.539,
+        "mean": 6.339,
+        "min": 5.785,
+        "p50": 6.125,
+        "p95": 7.24,
+        "p99": 7.479
+      },
+      "batch_size": 500,
+      "failures": 0,
+      "memory_delta_mb": 0.0,
+      "per_sample_latency_ms": {
+        "mean": 0.01268,
+        "p50": 0.01225,
+        "p95": 0.01448
+      },
+      "throughput_flows_per_sec": {
+        "mean": 79394.02,
+        "p50": 81640.97,
+        "p95": 86215.25
+      },
+      "trials": 10
+    },
+    {
+      "batch_latency_ms": {
+        "max": 11.711,
+        "mean": 7.665,
+        "min": 6.529,
+        "p50": 7.254,
+        "p95": 10.141,
+        "p99": 11.397
+      },
+      "batch_size": 1000,
+      "failures": 0,
+      "memory_delta_mb": 0.0,
+      "per_sample_latency_ms": {
+        "mean": 0.00767,
+        "p50": 0.00725,
+        "p95": 0.01014
+      },
+      "throughput_flows_per_sec": {
+        "mean": 134063.45,
+        "p50": 137853.24,
+        "p95": 152482.63
+      },
+      "trials": 10
+    },
+    {
+      "batch_latency_ms": {
+        "max": 11.841,
+        "mean": 9.324,
+        "min": 8.359,
+        "p50": 8.731,
+        "p95": 11.509,
+        "p99": 11.774
+      },
+      "batch_size": 1998,
+      "failures": 0,
+      "memory_delta_mb": 0.0,
+      "per_sample_latency_ms": {
+        "mean": 0.00467,
+        "p50": 0.00437,
+        "p95": 0.00576
+      },
+      "throughput_flows_per_sec": {
+        "mean": 217209.58,
+        "p50": 228898.36,
+        "p95": 237254.24
+      },
+      "trials": 10
+    }
+  ],
+  "contract_compliance": {
+    "AC-4_satisfied": true,
+    "KPI-3_single_flow_satisfied": true,
+    "NT-3_satisfied": true,
+    "peak_batch_throughput_flows_per_sec": 228898.36,
+    "zero_destructive_blocks_on_benign": true,
+    "zero_silent_allows_on_attacks": true
+  },
+  "dataset_reference": "data\\demo\\processed\\test.csv",
+  "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+  "hardware_profile": {
+    "cpu_cores": 12,
+    "memory_load_percent": 57.0,
+    "process_working_set_mb": 0.0,
+    "total_ram_gb": 15.65,
+    "used_ram_gb": 9.07
+  },
+  "latency_breakdown": {
+    "layer_1_o2_in_memory_inference": {
+      "max_ms": 16.887,
+      "mean_ms": 6.9,
+      "min_ms": 4.408,
+      "p50_ms": 6.022,
+      "p95_ms": 10.695,
+      "p99_ms": 14.794
+    },
+    "layer_2_o2_o3_mitigation_hierarchical": {
+      "max_ms": 339.154,
+      "mean_ms": 294.009,
+      "min_ms": 150.848,
+      "p50_ms": 301.325,
+      "p95_ms": 328.5,
+      "p99_ms": 335.772
+    },
+    "layer_3_http_api_end_to_end": {
+      "max_ms": 181.284,
+      "mean_ms": 149.476,
+      "min_ms": 132.852,
+      "p50_ms": 148.28,
+      "p95_ms": 168.894,
+      "p99_ms": 178.204
+    },
+    "layer_4_websocket_streaming_end_to_end": {
+      "max_ms": 149.182,
+      "mean_ms": 133.779,
+      "min_ms": 119.271,
+      "p50_ms": 132.56,
+      "p95_ms": 147.511,
+      "p99_ms": 148.736
+    }
+  },
+  "model_footprint": {
+    "o2_binary_detector": {
+      "classes": [
+        0,
+        1
+      ],
+      "file_path": "data\\demo\\models\\o2\\model.joblib",
+      "file_size_kb": 293.06,
+      "max_depth": 8,
+      "model_type": "RandomForestClassifier",
+      "n_estimators": 50,
+      "n_features_in": 78,
+      "sha256": "47ab64235dc87bc5381727fc71236f7497ff68b47f6a38fb634160a58146f61d"
+    },
+    "o3_multiclass_classifier": {
+      "classes": [
+        "BENIGN",
+        "DRDOS_DNS",
+        "DRDOS_LDAP",
+        "DRDOS_MSSQL",
+        "DRDOS_NETBIOS",
+        "DRDOS_NTP",
+        "DRDOS_SNMP",
+        "DRDOS_SSDP",
+        "DRDOS_UDP",
+        "LDAP",
+        "MSSQL",
+        "NETBIOS",
+        "PORTMAP",
+        "SYN",
+        "TFTP",
+        "UDP",
+        "UDP-LAG"
+      ],
+      "file_path": "data\\demo\\models\\o3\\model.joblib",
+      "file_size_kb": 9326.02,
+      "max_depth": 12,
+      "model_type": "RandomForestClassifier",
+      "n_estimators": 60,
+      "n_features_in": 78,
+      "sha256": "e357d41a9300c79cd497f5f94c6096ea39590fea0f77b96f35eb49558e8d6b90"
+    }
+  },
+  "rate_capacity_summary": [
+    {
+      "attack_action_distribution": {
+        "ALLOW": 0,
+        "BLOCK": 50,
+        "RATE_LIMIT": 0
+      },
+      "benign_action_distribution": {
+        "ALLOW": 50,
+        "BLOCK": 0,
+        "RATE_LIMIT": 0
+      },
+      "destructive_block_on_benign": false,
+      "policy_decisions_executed": 100,
+      "policy_throughput_decisions_per_sec": 6778.19,
+      "silent_attack_allow": false,
+      "traffic_rate_req_sec": 10.0
+    },
+    {
+      "attack_action_distribution": {
+        "ALLOW": 0,
+        "BLOCK": 50,
+        "RATE_LIMIT": 0
+      },
+      "benign_action_distribution": {
+        "ALLOW": 50,
+        "BLOCK": 0,
+        "RATE_LIMIT": 0
+      },
+      "destructive_block_on_benign": false,
+      "policy_decisions_executed": 100,
+      "policy_throughput_decisions_per_sec": 5580.48,
+      "silent_attack_allow": false,
+      "traffic_rate_req_sec": 100.0
+    },
+    {
+      "attack_action_distribution": {
+        "ALLOW": 0,
+        "BLOCK": 50,
+        "RATE_LIMIT": 0
+      },
+      "benign_action_distribution": {
+        "ALLOW": 50,
+        "BLOCK": 0,
+        "RATE_LIMIT": 0
+      },
+      "destructive_block_on_benign": false,
+      "policy_decisions_executed": 100,
+      "policy_throughput_decisions_per_sec": 4797.27,
+      "silent_attack_allow": false,
+      "traffic_rate_req_sec": 500.0
+    },
+    {
+      "attack_action_distribution": {
+        "ALLOW": 0,
+        "BLOCK": 50,
+        "RATE_LIMIT": 0
+      },
+      "benign_action_distribution": {
+        "ALLOW": 50,
+        "BLOCK": 0,
+        "RATE_LIMIT": 0
+      },
+      "destructive_block_on_benign": false,
+      "policy_decisions_executed": 100,
+      "policy_throughput_decisions_per_sec": 3944.7,
+      "silent_attack_allow": false,
+      "traffic_rate_req_sec": 1000.0
+    },
+    {
+      "attack_action_distribution": {
+        "ALLOW": 0,
+        "BLOCK": 50,
+        "RATE_LIMIT": 0
+      },
+      "benign_action_distribution": {
+        "ALLOW": 0,
+        "BLOCK": 0,
+        "RATE_LIMIT": 50
+      },
+      "destructive_block_on_benign": false,
+      "policy_decisions_executed": 100,
+      "policy_throughput_decisions_per_sec": 2932.22,
+      "silent_attack_allow": false,
+      "traffic_rate_req_sec": 2500.0
+    },
+    {
+      "attack_action_distribution": {
+        "ALLOW": 0,
+        "BLOCK": 50,
+        "RATE_LIMIT": 0
+      },
+      "benign_action_distribution": {
+        "ALLOW": 0,
+        "BLOCK": 0,
+        "RATE_LIMIT": 50
+      },
+      "destructive_block_on_benign": false,
+      "policy_decisions_executed": 100,
+      "policy_throughput_decisions_per_sec": 2623.03,
+      "silent_attack_allow": false,
+      "traffic_rate_req_sec": 5000.0
+    },
+    {
+      "attack_action_distribution": {
+        "ALLOW": 0,
+        "BLOCK": 50,
+        "RATE_LIMIT": 0
+      },
+      "benign_action_distribution": {
+        "ALLOW": 0,
+        "BLOCK": 0,
+        "RATE_LIMIT": 50
+      },
+      "destructive_block_on_benign": false,
+      "policy_decisions_executed": 100,
+      "policy_throughput_decisions_per_sec": 2823.46,
+      "silent_attack_allow": false,
+      "traffic_rate_req_sec": 10000.0
+    },
+    {
+      "attack_action_distribution": {
+        "ALLOW": 0,
+        "BLOCK": 50,
+        "RATE_LIMIT": 0
+      },
+      "benign_action_distribution": {
+        "ALLOW": 0,
+        "BLOCK": 0,
+        "RATE_LIMIT": 50
+      },
+      "destructive_block_on_benign": false,
+      "policy_decisions_executed": 100,
+      "policy_throughput_decisions_per_sec": 2107.05,
+      "silent_attack_allow": false,
+      "traffic_rate_req_sec": 50000.0
+    },
+    {
+      "attack_action_distribution": {
+        "ALLOW": 0,
+        "BLOCK": 50,
+        "RATE_LIMIT": 0
+      },
+      "benign_action_distribution": {
+        "ALLOW": 0,
+        "BLOCK": 0,
+        "RATE_LIMIT": 50
+      },
+      "destructive_block_on_benign": false,
+      "policy_decisions_executed": 100,
+      "policy_throughput_decisions_per_sec": 1537.17,
+      "silent_attack_allow": false,
+      "traffic_rate_req_sec": 100000.0
+    }
+  ],
+  "recorded_at_utc": "2026-09-29T05:04:30.718856+00:00",
+  "run_id": "resource_profile-20260929T050403Z-fc348342",
+  "status": "PASS",
+  "total_test_samples": 1998
+}

@@ -1,0 +1,43 @@
+{
+  "conditions_evaluated": [
+    "RT-01",
+    "RT-02",
+    "RT-03",
+    "RT-04",
+    "RT-05"
+  ],
+  "dataset_reference": "data\\demo\\processed\\test.csv",
+  "latency_summary": {
+    "combined_pipeline_latency_ms": {
+      "max": 115.6076,
+      "mean": 50.8709,
+      "min": 0.3879,
+      "p50": 38.0036,
+      "p95": 76.8582,
+      "p99": 80.6503,
+      "std": 21.2936
+    },
+    "model_only_latency_ms": {
+      "max": 115.3663,
+      "mean": 50.702,
+      "min": 0.3879,
+      "p50": 37.8447,
+      "p95": 76.6849,
+      "p99": 80.361,
+      "std": 21.2333
+    }
+  },
+  "run_id": "repeated_trials-20260929T035326Z-f8398934",
+  "scenarios_reference": "data\\demo\\repeated_trials\\repeated_trial_scenarios.json",
+  "status": "PASS",
+  "summary": {
+    "rt01_oracle_pass_pct": 100.0,
+    "rt02_oracle_pass_pct": 96.0,
+    "rt03_oracle_pass_pct": 100.0,
+    "rt04_oracle_pass_pct": 100.0,
+    "rt05_safe_handling": true,
+    "total_unsafe_outcomes": 0
+  },
+  "timestamp_utc": "2026-09-29T03:53:26.888906+00:00",
+  "total_trials": 250
+}

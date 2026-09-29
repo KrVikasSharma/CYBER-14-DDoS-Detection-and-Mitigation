@@ -1,0 +1,80 @@
+{
+  "protocol_version": "cyber14-degraded-mode-0.1.0",
+  "created_at_utc": "2026-09-29T04:00:00.000000+00:00",
+  "provenance": {
+    "project": "CYBER-14",
+    "evaluation_target": "Failure and Degraded-Mode Operational Resilience",
+    "dataset_source": "data/demo/processed/test.csv",
+    "scenarios_source": "data/demo/demo_scenarios.json"
+  },
+  "scenarios": [
+    {
+      "scenario_id": "DM-01",
+      "name": "O2 ML Model Unavailable",
+      "fault_type": "MISSING_O2_ARTIFACT",
+      "description": "Simulates missing or unloadable O2 binary model artifact; must fail closed safely without crashing process or misclassifying threats as BENIGN.",
+      "expected_behavior": "FAIL_CLOSED_OR_UNAVAILABLE_ERROR",
+      "prohibited_actions": ["SILENT_BENIGN_REPORT", "UNHANDLED_CRASH"]
+    },
+    {
+      "scenario_id": "DM-02",
+      "name": "O3 Classification Model Unavailable",
+      "fault_type": "MISSING_O3_ARTIFACT",
+      "description": "O2 binary detection is active and flags an attack, but O3 multiclass model is unavailable; must fall back to generic threat mitigation without crashing.",
+      "expected_behavior": "DEGRADED_ATTACK_MITIGATION",
+      "prohibited_actions": ["SILENT_BENIGN_REPORT", "ALLOW_ATTACK", "UNHANDLED_CRASH"],
+      "recoverable": true
+    },
+    {
+      "scenario_id": "DM-03",
+      "name": "MySQL Persistence Unavailable",
+      "fault_type": "DATABASE_DISCONNECTED",
+      "description": "MySQL database is unreachable; core in-memory detection, WebSocket streaming, and simulated mitigation must continue operating safely while reporting degraded persistence.",
+      "expected_behavior": "IN_MEMORY_DETECTION_HEALTHY_WITH_DEGRADED_STORAGE",
+      "prohibited_actions": ["DETECTION_PIPELINE_CRASH"],
+      "recoverable": true
+    },
+    {
+      "scenario_id": "DM-04",
+      "name": "WebSocket Client Disconnect & Reconnect",
+      "fault_type": "CLIENT_SOCKET_DISCONNECT",
+      "description": "Streaming client disconnects abruptly during active simulation and reconnects; server state must clean up connections, avoid event bursts, and resume streaming safely.",
+      "expected_behavior": "CLEAN_SOCKET_DISCONNECT_AND_RECONNECT",
+      "prohibited_actions": ["EVENT_EXPLOSION", "STALE_LIVE_STATUS", "UNHANDLED_CRASH"],
+      "recoverable": true
+    },
+    {
+      "scenario_id": "DM-05",
+      "name": "Malformed and Incomplete Input Ingestion",
+      "fault_type": "MALFORMED_FEATURE_PAYLOAD",
+      "description": "Ingestion of truncated columns, non-numeric strings, and high-NaN vectors; must be rejected with 422 or fail-closed without server process crashes.",
+      "expected_behavior": "SAFE_SCHEMA_REJECTION_OR_FAIL_CLOSED",
+      "prohibited_actions": ["UNHANDLED_SERVER_CRASH", "SILENT_BENIGN_REPORT"]
+    },
+    {
+      "scenario_id": "DM-06",
+      "name": "Extreme Traffic-Rate Boundary Surge",
+      "fault_type": "RATE_BOUNDARY_SURGE",
+      "description": "Volumetric traffic rates from 0 to 100,000 req/s on authentic benign and attack vectors; verifies deterministic policy output and guarantees benign traffic is never blocked.",
+      "expected_behavior": "DETERMINISTIC_POLICY_CONTAINMENT",
+      "prohibited_actions": ["DESTRUCTIVE_BLOCK_ON_BENIGN", "ALLOW_ATTACK"]
+    },
+    {
+      "scenario_id": "DM-07",
+      "name": "Invalid, Expired, and Tampered Authentication",
+      "fault_type": "AUTH_CREDENTIAL_FAULT",
+      "description": "Requests with expired tokens, tampered signatures, and missing authorization headers; must return 401 without protected telemetry/incident leakage.",
+      "expected_behavior": "HTTP_401_UNAUTHORIZED_REJECTION",
+      "prohibited_actions": ["PROTECTED_DATA_LEAKAGE", "ALLOW_UNAUTHENTICATED_ACCESS"],
+      "recoverable": true
+    },
+    {
+      "scenario_id": "DM-08",
+      "name": "Mitigation Engine Invalid Input Handling",
+      "fault_type": "POLICY_INPUT_FAULT",
+      "description": "Mitigation engine invoked with invalid attack labels or missing telemetry metadata; must fall back to safe containment or reject safely.",
+      "expected_behavior": "SAFE_POLICY_FALLBACK_OR_INPUT_REJECTION",
+      "prohibited_actions": ["UNSAFE_ALLOW", "UNHANDLED_CRASH"]
+    }
+  ]
+}

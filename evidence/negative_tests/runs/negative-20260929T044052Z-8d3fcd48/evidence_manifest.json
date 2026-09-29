@@ -1,0 +1,11 @@
+{
+  "configuration_hash": "8bb925655b8dd20fe3e26bf22c100d0172618f050167e5bd9ac1a48b279ecde0",
+  "fixture_only": false,
+  "output_references": [
+    "result.json",
+    "environment.json"
+  ],
+  "run_id": "negative-20260929T044052Z-8d3fcd48",
+  "run_type": "negative_tests",
+  "status": "PASS"
+}

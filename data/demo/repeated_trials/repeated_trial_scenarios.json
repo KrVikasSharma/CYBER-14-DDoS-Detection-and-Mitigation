@@ -1,0 +1,73 @@
+{
+  "protocol_version": "cyber14-repeated-trials-0.1.0",
+  "created_at_utc": "2026-09-29T03:45:00.000000+00:00",
+  "provenance": {
+    "source_dataset": "Canadian Institute for Cybersecurity CIC-DDoS2019",
+    "source_file": "data/demo/processed/test.csv",
+    "feature_manifest": "evidence/cic_ddos2019_feature_manifest.json",
+    "feature_count": 78,
+    "trials_per_condition": 50,
+    "random_seed": 42
+  },
+  "conditions": [
+    {
+      "condition_id": "RT-01",
+      "name": "Normal BENIGN Traffic",
+      "description": "Legitimate baseline network traffic with standard packet rates well below surge thresholds.",
+      "traffic_rate_req_per_sec": 50.0,
+      "expected_ground_truth": "BENIGN",
+      "expected_o2_binary": 0,
+      "expected_mitigation_action": "ALLOW",
+      "prohibited_actions": ["BLOCK", "RATE_LIMIT"],
+      "trial_count": 50
+    },
+    {
+      "condition_id": "RT-02",
+      "name": "Legitimate Flash-Crowd Surge",
+      "description": "High-volume benign traffic surge crossing volumetric threshold (1000..2500 req/s); requires rate containment without blocking.",
+      "traffic_rate_req_per_sec": 1500.0,
+      "rate_variants": [1000.0, 1500.0, 2500.0],
+      "expected_ground_truth": "BENIGN",
+      "expected_o2_binary": 0,
+      "expected_mitigation_action": "RATE_LIMIT",
+      "prohibited_actions": ["BLOCK"],
+      "trial_count": 50
+    },
+    {
+      "condition_id": "RT-03",
+      "name": "Confirmed Diverse Attack Vectors",
+      "description": "Authentic CIC-DDoS2019 attack vectors across 12+ verified attack classes evaluated for threat detection and mitigation.",
+      "traffic_rate_req_per_sec": 2000.0,
+      "expected_ground_truth": "ATTACK",
+      "expected_o2_binary": 1,
+      "expected_mitigation_action": "BLOCK",
+      "prohibited_actions": ["ALLOW"],
+      "attack_classes": [
+        "SYN", "UDP", "DRDOS_DNS", "DRDOS_LDAP", "DRDOS_NTP",
+        "DRDOS_SNMP", "DRDOS_MSSQL", "DRDOS_NETBIOS", "DRDOS_UDP",
+        "DRDOS_SSDP", "TFTP", "PORTMAP"
+      ],
+      "trial_count": 50
+    },
+    {
+      "condition_id": "RT-04",
+      "name": "Low-Confidence / Borderline Attack Vectors",
+      "description": "Authentic attack vectors producing lower posterior confidence (< 0.80) to evaluate bounded temporary rate-limiting containment.",
+      "traffic_rate_req_per_sec": 1500.0,
+      "expected_ground_truth": "ATTACK",
+      "expected_o2_binary": 1,
+      "expected_mitigation_action": "RATE_LIMIT",
+      "prohibited_actions": ["ALLOW"],
+      "trial_count": 50
+    },
+    {
+      "condition_id": "RT-05",
+      "name": "Boundary & Malformed Inputs",
+      "description": "Negative input stress, missing features, extreme rate anomalies, and NaN feature values ensuring fail-closed safety.",
+      "expected_ground_truth": "BOUNDARY_OR_MALFORMED",
+      "expected_behavior": "FAIL_CLOSED_NO_CRASH",
+      "prohibited_actions": ["UNHANDLED_CRASH"],
+      "trial_count": 50
+    }
+  ]
+}

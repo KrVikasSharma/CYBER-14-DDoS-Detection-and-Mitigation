@@ -47,7 +47,7 @@ def test_evidence_and_evaluation_endpoints_preserve_fixture_statuses():
     assert kpis.status_code == 200
     records = kpis.json()["records"]
     assert len(records) == 6
-    assert all(record["status"] in {"PASS", "FAIL", "NOT_EXECUTED", "BLOCKED"} for record in records)
+    assert all(record["status"] in {"PASS", "FAIL", "NOT_EXECUTED", "BLOCKED", "FIXTURE_ONLY", "EXECUTED_NON_OFFICIAL", "OFFICIAL_INCOMPLETE"} for record in records)
     assert all(record["official_result"] is False for record in records)
 
     acceptance = client.get("/api/v1/evaluation/acceptance")
@@ -170,3 +170,36 @@ def test_summary_does_not_call_fixture_statuses_complete(tmp_path):
     summary = service.summary()
     assert summary.state == "FIXTURE_ONLY"
     assert summary.evidence_complete is False
+
+
+def test_acceptance_dashboard_endpoint_structure():
+    client = TestClient(create_app())
+    response = client.get("/api/v1/evidence/acceptance-dashboard")
+    assert response.status_code == 200
+    data = response.json()
+    assert "acceptance_summary" in data
+    assert "kpi_status" in data
+    assert "acceptance_criteria" in data
+    assert "negative_tests" in data
+    assert "degraded_mode" in data
+    assert "resource_evidence" in data
+    assert "evidence_integrity" in data
+    assert "limitations" in data
+
+    # Verify summary counts
+    summary = data["acceptance_summary"]
+    assert summary["total_tests"] == 15
+    assert summary["passed"] == 13
+    assert summary["failed"] == 0
+    assert summary["not_executed"] == 2
+
+    # Verify KPI-2 and AC-3 are NOT_EXECUTED
+    kpis = {k["id"]: k for k in data["kpi_status"]}
+    assert kpis["KPI-2"]["status"] == "NOT_EXECUTED"
+    acs = {a["id"]: a for a in data["acceptance_criteria"]}
+    assert acs["AC-3"]["status"] == "NOT_EXECUTED"
+
+    # Verify integrity and secrets
+    integrity = data["evidence_integrity"]
+    assert integrity["sha256_verification_status"] == "PASS"
+    assert integrity["secrets_detected"] == 0

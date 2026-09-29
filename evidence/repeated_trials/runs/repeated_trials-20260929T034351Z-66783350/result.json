@@ -1,0 +1,32 @@
+{
+  "conditions_evaluated": [
+    "RT-01",
+    "RT-02",
+    "RT-03",
+    "RT-04",
+    "RT-05"
+  ],
+  "dataset_reference": "data\\demo\\processed\\test.csv",
+  "overall_latency_summary": {
+    "max": 108.9494,
+    "mean": 50.3742,
+    "min": 0.3877,
+    "p50": 38.2094,
+    "p95": 76.6973,
+    "p99": 86.0286,
+    "std": 21.1537
+  },
+  "run_id": "repeated_trials-20260929T034351Z-66783350",
+  "scenarios_reference": "data\\demo\\repeated_trials\\repeated_trial_scenarios.json",
+  "status": "PASS",
+  "summary": {
+    "rt01_consistency": 100.0,
+    "rt02_consistency": 66.0,
+    "rt03_consistency": 22.0,
+    "rt04_consistency": 100.0,
+    "rt05_safe_handling": true,
+    "total_unsafe_outcomes": 0
+  },
+  "timestamp_utc": "2026-09-29T03:43:51.663559+00:00",
+  "total_trials": 250
+}

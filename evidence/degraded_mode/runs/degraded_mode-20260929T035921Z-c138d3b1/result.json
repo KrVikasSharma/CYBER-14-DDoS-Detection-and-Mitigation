@@ -1,0 +1,12 @@
+{
+  "dataset_reference": "data\\demo\\processed\\test.csv",
+  "failed_scenarios": 2,
+  "passed_scenarios": 6,
+  "recovery_success_count": 2,
+  "run_id": "degraded_mode-20260929T035921Z-c138d3b1",
+  "scenarios_reference": "data\\demo\\degraded_mode\\degraded_mode_scenarios.json",
+  "status": "FAIL",
+  "timestamp_utc": "2026-09-29T03:59:21.022599+00:00",
+  "total_scenarios": 8,
+  "unsafe_outcomes": 2
+}

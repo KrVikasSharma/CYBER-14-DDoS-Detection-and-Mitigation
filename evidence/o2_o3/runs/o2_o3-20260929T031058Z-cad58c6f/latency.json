@@ -1,0 +1,22 @@
+{
+  "cascade_inference_ms": {
+    "mean": 34.75,
+    "p50": 34.62,
+    "p95": 35.93,
+    "p99": 36.17
+  },
+  "measurement_scope": "Single-sample in-memory CPU model inference latency",
+  "o2_inference_ms": {
+    "mean": 17.41,
+    "p50": 17.35,
+    "p95": 18.19,
+    "p99": 18.32
+  },
+  "o3_inference_ms": {
+    "mean": 18.45,
+    "p50": 17.27,
+    "p95": 18.61,
+    "p99": 42.24
+  },
+  "trials_count": 35
+}

@@ -1,0 +1,176 @@
+{
+  "RT-01": {
+    "combined_latency_stats_ms": {
+      "max": 78.6039,
+      "mean": 38.7266,
+      "min": 34.7124,
+      "p50": 37.5407,
+      "p95": 45.6857,
+      "p99": 63.0088,
+      "std": 6.191
+    },
+    "condition_id": "RT-01",
+    "condition_name": "Normal BENIGN Traffic",
+    "confidence_mean": 0.955,
+    "confidence_std": 0.0764,
+    "mitigation_action_distribution": {
+      "ALLOW": 50
+    },
+    "model_latency_stats_ms": {
+      "max": 78.4464,
+      "mean": 38.5573,
+      "min": 34.5744,
+      "p50": 37.3765,
+      "p95": 45.5214,
+      "p99": 62.7447,
+      "std": 6.1854
+    },
+    "o2_binary_accuracy": 1.0,
+    "o2_binary_correct_predictions": 50,
+    "oracle_pass_percentage": 100.0,
+    "oracle_passed_count": 50,
+    "trial_count": 50,
+    "unsafe_outcomes_count": 0
+  },
+  "RT-02": {
+    "combined_latency_stats_ms": {
+      "max": 45.2748,
+      "mean": 37.4904,
+      "min": 34.4181,
+      "p50": 37.1412,
+      "p95": 41.0244,
+      "p99": 44.2509,
+      "std": 2.1014
+    },
+    "condition_id": "RT-02",
+    "condition_name": "Legitimate Flash-Crowd Surge",
+    "confidence_mean": 0.93,
+    "confidence_std": 0.0794,
+    "mitigation_action_distribution": {
+      "ALLOW": 17,
+      "RATE_LIMIT": 33
+    },
+    "model_latency_stats_ms": {
+      "max": 45.0995,
+      "mean": 37.2958,
+      "min": 34.2437,
+      "p50": 36.9566,
+      "p95": 40.8232,
+      "p99": 44.0574,
+      "std": 2.0915
+    },
+    "o2_binary_accuracy": 0.96,
+    "o2_binary_correct_predictions": 48,
+    "oracle_pass_percentage": 96.0,
+    "oracle_passed_count": 48,
+    "trial_count": 50,
+    "unsafe_outcomes_count": 0
+  },
+  "RT-03": {
+    "attack_class_coverage": [
+      "SYN",
+      "UDP",
+      "DRDOS_DNS",
+      "DRDOS_LDAP",
+      "DRDOS_NTP",
+      "DRDOS_SNMP",
+      "DRDOS_MSSQL",
+      "DRDOS_NETBIOS",
+      "DRDOS_UDP",
+      "DRDOS_SSDP",
+      "TFTP",
+      "PORTMAP"
+    ],
+    "combined_latency_stats_ms": {
+      "max": 114.2816,
+      "mean": 76.4722,
+      "min": 71.5098,
+      "p50": 74.9294,
+      "p95": 80.9245,
+      "p99": 104.7813,
+      "std": 6.5073
+    },
+    "condition_id": "RT-03",
+    "condition_name": "Confirmed Diverse Attack Traffic",
+    "confidence_mean": 0.6349,
+    "confidence_std": 0.1941,
+    "mitigation_action_distribution": {
+      "BLOCK": 11,
+      "RATE_LIMIT": 39
+    },
+    "model_latency_stats_ms": {
+      "max": 114.1051,
+      "mean": 76.2512,
+      "min": 71.1952,
+      "p50": 74.7186,
+      "p95": 80.6908,
+      "p99": 104.5778,
+      "std": 6.51
+    },
+    "o2_binary_accuracy": 1.0,
+    "o2_binary_correct_predictions": 50,
+    "oracle_pass_percentage": 100.0,
+    "oracle_passed_count": 50,
+    "trial_count": 50,
+    "unsafe_outcomes_count": 0
+  },
+  "RT-04": {
+    "combined_latency_stats_ms": {
+      "max": 96.3614,
+      "mean": 75.734,
+      "min": 71.8316,
+      "p50": 74.9124,
+      "p95": 82.9827,
+      "p99": 91.8636,
+      "std": 4.1511
+    },
+    "condition_id": "RT-04",
+    "condition_name": "Low-Confidence / Borderline Attack",
+    "confidence_mean": 0.5583,
+    "confidence_std": 0.1065,
+    "mitigation_action_distribution": {
+      "RATE_LIMIT": 50
+    },
+    "model_latency_stats_ms": {
+      "max": 96.1272,
+      "mean": 75.4892,
+      "min": 71.5825,
+      "p50": 74.6522,
+      "p95": 82.7596,
+      "p99": 91.5571,
+      "std": 4.141
+    },
+    "o2_binary_accuracy": 1.0,
+    "o2_binary_correct_predictions": 50,
+    "oracle_pass_percentage": 100.0,
+    "oracle_passed_count": 50,
+    "trial_count": 50,
+    "unsafe_outcomes_count": 0
+  },
+  "RT-05": {
+    "all_handled_safely_without_crash": true,
+    "combined_latency_stats_ms": {
+      "max": 43.8693,
+      "mean": 30.2824,
+      "min": 0.4055,
+      "p50": 36.2873,
+      "p95": 41.6985,
+      "p99": 43.836,
+      "std": 14.9827
+    },
+    "condition_id": "RT-05",
+    "condition_name": "Boundary & Malformed Inputs",
+    "model_latency_stats_ms": {
+      "max": 43.8693,
+      "mean": 30.2824,
+      "min": 0.4055,
+      "p50": 36.2873,
+      "p95": 41.6985,
+      "p99": 43.836,
+      "std": 14.9827
+    },
+    "oracle_pass_percentage": 100.0,
+    "trial_count": 50,
+    "unsafe_outcomes_count": 0
+  }
+}

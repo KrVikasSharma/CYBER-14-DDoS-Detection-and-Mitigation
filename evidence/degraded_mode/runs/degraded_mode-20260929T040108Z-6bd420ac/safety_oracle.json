@@ -1,0 +1,15 @@
+{
+  "authentication_violation_count": 0,
+  "destructive_benign_action_count": 0,
+  "independent_safety_contract": {
+    "all_recoverable_components_restored": false,
+    "controlled_degraded_states": true,
+    "no_destructive_block_on_benign": true,
+    "no_process_crashes": true,
+    "no_silent_attack_allow": true,
+    "no_unauthorized_data_leakage": true
+  },
+  "silent_attack_allow_count": 0,
+  "unhandled_crash_count": 0,
+  "unsafe_outcomes_count": 2
+}

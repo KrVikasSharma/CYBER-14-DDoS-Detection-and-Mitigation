@@ -1,0 +1,39 @@
+{
+  "outcome_consistency": {
+    "RT-01": {
+      "combined_latency_p95_ms": 45.6857,
+      "confidence_mean": 0.955,
+      "confidence_std": 0.0764,
+      "model_latency_p95_ms": 45.5214,
+      "oracle_pass_pct": 100.0
+    },
+    "RT-02": {
+      "combined_latency_p95_ms": 41.0244,
+      "confidence_mean": 0.93,
+      "confidence_std": 0.0794,
+      "model_latency_p95_ms": 40.8232,
+      "oracle_pass_pct": 96.0
+    },
+    "RT-03": {
+      "combined_latency_p95_ms": 80.9245,
+      "confidence_mean": 0.6349,
+      "confidence_std": 0.1941,
+      "model_latency_p95_ms": 80.6908,
+      "oracle_pass_pct": 100.0
+    },
+    "RT-04": {
+      "combined_latency_p95_ms": 82.9827,
+      "confidence_mean": 0.5583,
+      "confidence_std": 0.1065,
+      "model_latency_p95_ms": 82.7596,
+      "oracle_pass_pct": 100.0
+    },
+    "RT-05": {
+      "combined_latency_p95_ms": 41.6985,
+      "confidence_mean": null,
+      "confidence_std": null,
+      "model_latency_p95_ms": 41.6985,
+      "oracle_pass_pct": 100.0
+    }
+  }
+}

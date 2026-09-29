@@ -1,0 +1,20 @@
+{
+  "dataset_hash": "1302dececdb52d0835e1022c23cf4b98a4dd0e4a0bb88c759041d719b3f35449",
+  "dataset_path": "data\\demo\\processed\\test.csv",
+  "o2_model_hash": "47ab64235dc87bc5381727fc71236f7497ff68b47f6a38fb634160a58146f61d",
+  "o3_model_hash": "e357d41a9300c79cd497f5f94c6096ea39590fea0f77b96f35eb49558e8d6b90",
+  "output_references": [
+    "result.json",
+    "failure_results.json",
+    "recovery_results.json",
+    "safety_oracle.json",
+    "metrics.json",
+    "scenarios.json",
+    "environment.json"
+  ],
+  "run_id": "degraded_mode-20260929T052706Z-1c22ff23",
+  "run_type": "failure_degraded_mode_evaluation",
+  "scenarios_hash": "411c385920805969097ff231b8faa2c28c8eed5de138a489a5728cce3331d043",
+  "scenarios_path": "data\\demo\\degraded_mode\\degraded_mode_scenarios.json",
+  "status": "PASS"
+}

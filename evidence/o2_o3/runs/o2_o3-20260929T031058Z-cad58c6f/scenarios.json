@@ -1,0 +1,34 @@
+{
+  "mitigation_linkage": [
+    {
+      "compliant": true,
+      "input": "BENIGN normal traffic (10 req/s)",
+      "mitigation_action": "ALLOW",
+      "o2_pred": "BENIGN",
+      "o3_invoked": false
+    },
+    {
+      "compliant": true,
+      "input": "Flash crowd benign surge (2000 req/s)",
+      "mitigation_action": "RATE_LIMIT",
+      "o2_pred": "BENIGN",
+      "o3_invoked": false
+    },
+    {
+      "compliant": true,
+      "input": "SYN attack (1500 req/s)",
+      "mitigation_action": "BLOCK",
+      "o2_pred": "ATTACK",
+      "o3_class": "SYN",
+      "o3_invoked": true
+    },
+    {
+      "compliant": true,
+      "input": "DrDoS_DNS attack (1500 req/s)",
+      "mitigation_action": "BLOCK",
+      "o2_pred": "ATTACK",
+      "o3_class": "DRDOS_DNS",
+      "o3_invoked": true
+    }
+  ]
+}

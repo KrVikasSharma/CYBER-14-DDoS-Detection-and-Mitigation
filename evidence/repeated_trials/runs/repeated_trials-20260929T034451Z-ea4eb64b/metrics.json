@@ -1,0 +1,142 @@
+{
+  "condition_metrics": {
+    "RT-01": {
+      "condition_id": "RT-01",
+      "condition_name": "Normal BENIGN Traffic",
+      "confidence_mean": 0.955,
+      "confidence_std": 0.0764,
+      "consistency_percentage": 100.0,
+      "expected_mitigation_action": "ALLOW",
+      "latency_stats_ms": {
+        "max": 69.7956,
+        "mean": 35.0261,
+        "min": 33.5413,
+        "p50": 34.253,
+        "p95": 35.0361,
+        "p99": 52.7918,
+        "std": 4.9814
+      },
+      "mitigation_action_distribution": {
+        "ALLOW": 50
+      },
+      "o2_binary_accuracy": 1.0,
+      "o2_binary_correct_predictions": 50,
+      "trial_count": 50,
+      "unsafe_outcomes_count": 0
+    },
+    "RT-02": {
+      "condition_id": "RT-02",
+      "condition_name": "Legitimate Flash-Crowd Surge",
+      "confidence_mean": 0.93,
+      "confidence_std": 0.0794,
+      "consistency_percentage": 66.0,
+      "expected_mitigation_action": "RATE_LIMIT",
+      "latency_stats_ms": {
+        "max": 36.4518,
+        "mean": 34.2705,
+        "min": 33.2313,
+        "p50": 34.1501,
+        "p95": 35.1225,
+        "p99": 35.8763,
+        "std": 0.5611
+      },
+      "mitigation_action_distribution": {
+        "ALLOW": 17,
+        "RATE_LIMIT": 33
+      },
+      "o2_binary_accuracy": 0.96,
+      "o2_binary_correct_predictions": 48,
+      "trial_count": 50,
+      "unsafe_outcomes_count": 0
+    },
+    "RT-03": {
+      "attack_class_coverage": [
+        "SYN",
+        "UDP",
+        "DRDOS_DNS",
+        "DRDOS_LDAP",
+        "DRDOS_NTP",
+        "DRDOS_SNMP",
+        "DRDOS_MSSQL",
+        "DRDOS_NETBIOS",
+        "DRDOS_UDP",
+        "DRDOS_SSDP",
+        "TFTP",
+        "PORTMAP"
+      ],
+      "condition_id": "RT-03",
+      "condition_name": "Confirmed Diverse Attack Traffic",
+      "confidence_mean": 0.6349,
+      "confidence_std": 0.1941,
+      "consistency_percentage": 22.0,
+      "expected_mitigation_action": "BLOCK",
+      "latency_stats_ms": {
+        "max": 113.1842,
+        "mean": 71.8099,
+        "min": 67.6061,
+        "p50": 70.3632,
+        "p95": 76.1485,
+        "p99": 95.2442,
+        "std": 6.4483
+      },
+      "mitigation_action_distribution": {
+        "BLOCK": 11,
+        "RATE_LIMIT": 39
+      },
+      "o2_binary_accuracy": 1.0,
+      "o2_binary_correct_predictions": 50,
+      "trial_count": 50,
+      "unsafe_outcomes_count": 0
+    },
+    "RT-04": {
+      "condition_id": "RT-04",
+      "condition_name": "Low-Confidence / Borderline Attack",
+      "confidence_mean": 0.5583,
+      "confidence_std": 0.1065,
+      "consistency_percentage": 100.0,
+      "expected_mitigation_action": "RATE_LIMIT",
+      "latency_stats_ms": {
+        "max": 90.6204,
+        "mean": 74.3978,
+        "min": 67.6804,
+        "p50": 74.0948,
+        "p95": 82.5997,
+        "p99": 88.5497,
+        "std": 5.0307
+      },
+      "mitigation_action_distribution": {
+        "RATE_LIMIT": 50
+      },
+      "o2_binary_accuracy": 1.0,
+      "o2_binary_correct_predictions": 50,
+      "trial_count": 50,
+      "unsafe_outcomes_count": 0
+    },
+    "RT-05": {
+      "all_handled_safely_without_crash": true,
+      "condition_id": "RT-05",
+      "condition_name": "Boundary & Malformed Inputs",
+      "consistency_percentage": 100.0,
+      "latency_stats_ms": {
+        "max": 42.7832,
+        "mean": 29.9929,
+        "min": 0.3874,
+        "p50": 35.8596,
+        "p95": 41.6637,
+        "p99": 42.7043,
+        "std": 14.9427
+      },
+      "trial_count": 50,
+      "unsafe_outcomes_count": 0
+    }
+  },
+  "overall_latency": {
+    "max": 113.1842,
+    "mean": 49.0994,
+    "min": 0.3874,
+    "p50": 36.1195,
+    "p95": 77.0422,
+    "p99": 84.9721,
+    "std": 21.2325
+  }
+}

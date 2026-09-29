@@ -1,0 +1,59 @@
+{
+  "protocol_version": "cyber14-flash-crowd-benchmark-0.1.0",
+  "created_at_utc": "2026-09-29T02:43:26.063492+00:00",
+  "provenance": {
+    "source_dataset": "Canadian Institute for Cybersecurity CIC-DDoS2019",
+    "source_file": "data/demo/processed/test.csv",
+    "benign_sample_count": 144,
+    "feature_count": 78,
+    "random_seed": 42,
+    "rate_injection_method": "External policy/scenario layer (78 ML features untouched)"
+  },
+  "rate_conditions": [
+    {
+      "condition_id": "FC-COND-01-BASELINE",
+      "name": "Baseline Legitimate Traffic",
+      "traffic_rate_req_per_sec": 50.0,
+      "is_flash_crowd": false,
+      "expected_ground_truth": "BENIGN",
+      "expected_mitigation_action": "ALLOW",
+      "threshold_comparison": "sub_threshold (< 1000 req/s)"
+    },
+    {
+      "condition_id": "FC-COND-02-SUB-THRESHOLD",
+      "name": "Moderate High-Rate Legitimate Traffic (500 req/s)",
+      "traffic_rate_req_per_sec": 500.0,
+      "is_flash_crowd": false,
+      "expected_ground_truth": "BENIGN",
+      "expected_mitigation_action": "ALLOW",
+      "threshold_comparison": "sub_threshold (< 1000 req/s)"
+    },
+    {
+      "condition_id": "FC-COND-03-BOUNDARY",
+      "name": "Threshold Boundary Traffic (1000 req/s)",
+      "traffic_rate_req_per_sec": 1000.0,
+      "is_flash_crowd": true,
+      "expected_ground_truth": "BENIGN",
+      "expected_mitigation_action": "RATE_LIMIT",
+      "threshold_comparison": "exact_boundary (== 1000 req/s)"
+    },
+    {
+      "condition_id": "FC-COND-04-FLASH-SURGE",
+      "name": "Volumetric Flash-Crowd Surge (1500 req/s)",
+      "traffic_rate_req_per_sec": 1500.0,
+      "is_flash_crowd": true,
+      "expected_ground_truth": "BENIGN",
+      "expected_mitigation_action": "RATE_LIMIT",
+      "threshold_comparison": "super_threshold (> 1000 req/s)"
+    },
+    {
+      "condition_id": "FC-COND-05-EXTREME-SURGE",
+      "name": "Extreme Flash-Crowd Surge (2500 req/s)",
+      "traffic_rate_req_per_sec": 2500.0,
+      "is_flash_crowd": true,
+      "expected_ground_truth": "BENIGN",
+      "expected_mitigation_action": "RATE_LIMIT",
+      "threshold_comparison": "super_threshold (> 1000 req/s)"
+    }
+  ]
+}

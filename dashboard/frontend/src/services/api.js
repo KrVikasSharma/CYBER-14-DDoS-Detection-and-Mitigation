@@ -59,6 +59,7 @@ export const api = {
   mitigationHistory: (params = '') => request(`/api/v1/mitigation/history${params}`),
   auditLogs: (params = '') => request(`/api/v1/audit/logs${params}`),
   liveAnalytics: () => request('/api/v1/analytics/live'),
+  acceptanceDashboard: () => request('/api/v1/evidence/acceptance-dashboard'),
 }
 
 export function websocketUrl(token = localStorage.getItem('cyber14_access_token')) {

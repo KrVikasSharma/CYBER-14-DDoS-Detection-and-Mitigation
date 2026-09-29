@@ -1,0 +1,170 @@
+{
+  "cascade_metrics": {
+    "attack_routing_precision": 0.9989,
+    "attack_routing_recall": 1.0,
+    "benign_samples_incorrectly_reaching_o3": 2,
+    "cascade_multiclass_accuracy": 0.7077,
+    "pipeline": "O2 Binary Filter -> if ATTACK -> O3 Classifier",
+    "samples_bypassed_o3": 142,
+    "samples_routed_to_o3": 1856,
+    "total_evaluated_samples": 1998,
+    "true_attacks_reaching_o3": 1854
+  },
+  "latency_metrics": {
+    "cascade_inference_ms": {
+      "mean": 34.75,
+      "p50": 34.62,
+      "p95": 35.93,
+      "p99": 36.17
+    },
+    "measurement_scope": "Single-sample in-memory CPU model inference latency",
+    "o2_inference_ms": {
+      "mean": 17.41,
+      "p50": 17.35,
+      "p95": 18.19,
+      "p99": 18.32
+    },
+    "o3_inference_ms": {
+      "mean": 18.45,
+      "p50": 17.27,
+      "p95": 18.61,
+      "p99": 42.24
+    },
+    "trials_count": 35
+  },
+  "mitigation_linkage": [
+    {
+      "compliant": true,
+      "input": "BENIGN normal traffic (10 req/s)",
+      "mitigation_action": "ALLOW",
+      "o2_pred": "BENIGN",
+      "o3_invoked": false
+    },
+    {
+      "compliant": true,
+      "input": "Flash crowd benign surge (2000 req/s)",
+      "mitigation_action": "RATE_LIMIT",
+      "o2_pred": "BENIGN",
+      "o3_invoked": false
+    },
+    {
+      "compliant": true,
+      "input": "SYN attack (1500 req/s)",
+      "mitigation_action": "BLOCK",
+      "o2_pred": "ATTACK",
+      "o3_class": "SYN",
+      "o3_invoked": true
+    },
+    {
+      "compliant": true,
+      "input": "DrDoS_DNS attack (1500 req/s)",
+      "mitigation_action": "BLOCK",
+      "o2_pred": "ATTACK",
+      "o3_class": "DRDOS_DNS",
+      "o3_invoked": true
+    }
+  ],
+  "o2_binary_metrics": {
+    "accuracy": 0.999,
+    "attack_support": 1854,
+    "benign_support": 144,
+    "confusion_matrix": {
+      "false_negative": 0,
+      "false_positive": 2,
+      "true_negative": 142,
+      "true_positive": 1854
+    },
+    "f1": 0.9995,
+    "false_negative_rate": 0.0,
+    "false_positive_rate": 0.0139,
+    "model_version": "0.1.0",
+    "precision": 0.9989,
+    "recall": 1.0,
+    "sample_count": 1998,
+    "task": "Binary Threat Detection (BENIGN vs ATTACK)"
+  },
+  "o3_multiclass_metrics": {
+    "accuracy": 0.7077,
+    "classes": [
+      "BENIGN",
+      "DRDOS_DNS",
+      "DRDOS_LDAP",
+      "DRDOS_MSSQL",
+      "DRDOS_NETBIOS",
+      "DRDOS_NTP",
+      "DRDOS_SNMP",
+      "DRDOS_SSDP",
+      "DRDOS_UDP",
+      "LDAP",
+      "MSSQL",
+      "NETBIOS",
+      "PORTMAP",
+      "SYN",
+      "TFTP",
+      "UDP",
+      "UDP-LAG"
+    ],
+    "macro_f1": 0.6399,
+    "macro_precision": 0.6582,
+    "macro_recall": 0.6687,
+    "model_version": "0.1.0",
+    "sample_count": 1998,
+    "task": "Multiclass Attack-Family Classification",
+    "top_confused_pairs": [
+      {
+        "count": 70,
+        "predicted_class": "TFTP",
+        "true_class": "SYN"
+      },
+      {
+        "count": 54,
+        "predicted_class": "DRDOS_LDAP",
+        "true_class": "DRDOS_MSSQL"
+      },
+      {
+        "count": 52,
+        "predicted_class": "DRDOS_UDP",
+        "true_class": "UDP-LAG"
+      },
+      {
+        "count": 50,
+        "predicted_class": "PORTMAP",
+        "true_class": "NETBIOS"
+      },
+      {
+        "count": 31,
+        "predicted_class": "UDP",
+        "true_class": "UDP-LAG"
+      },
+      {
+        "count": 27,
+        "predicted_class": "DRDOS_SSDP",
+        "true_class": "DRDOS_LDAP"
+      },
+      {
+        "count": 27,
+        "predicted_class": "DRDOS_SSDP",
+        "true_class": "DRDOS_MSSQL"
+      },
+      {
+        "count": 27,
+        "predicted_class": "DRDOS_NETBIOS",
+        "true_class": "MSSQL"
+      },
+      {
+        "count": 23,
+        "predicted_class": "NETBIOS",
+        "true_class": "DRDOS_SNMP"
+      },
+      {
+        "count": 23,
+        "predicted_class": "DRDOS_LDAP",
+        "true_class": "LDAP"
+      }
+    ],
+    "total_classes": 17,
+    "weighted_f1": 0.6909,
+    "weighted_precision": 0.7174,
+    "weighted_recall": 0.7077
+  }
+}

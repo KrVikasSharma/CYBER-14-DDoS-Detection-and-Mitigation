@@ -78,3 +78,12 @@ async def get_feature_manifest(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Feature manifest unavailable")
     with open(path, encoding="utf-8") as f:
         return json.load(f)
+
+
+@router.get("/acceptance-dashboard")
+async def get_acceptance_dashboard(
+    _user: LocalUser = Depends(require_roles(UserRole.VIEWER, UserRole.ANALYST, UserRole.OPERATOR, UserRole.ADMIN)),
+    service: EvidenceService = Depends(get_evidence_service),
+) -> dict[str, Any]:
+    """Return authoritative compliance status, KPIs, ACs, NTs, Degraded-Mode, Resource, and Limitations data."""
+    return service.acceptance_dashboard()

@@ -1,0 +1,170 @@
+[
+  {
+    "batch_latency_ms": {
+      "max": 5.557,
+      "mean": 4.984,
+      "min": 4.419,
+      "p50": 5.083,
+      "p95": 5.496,
+      "p99": 5.545
+    },
+    "batch_size": 1,
+    "failures": 0,
+    "memory_delta_mb": 0.0,
+    "per_sample_latency_ms": {
+      "mean": 4.98435,
+      "p50": 5.0827,
+      "p95": 5.49569
+    },
+    "throughput_flows_per_sec": {
+      "mean": 201.66,
+      "p50": 196.75,
+      "p95": 225.9
+    },
+    "trials": 15
+  },
+  {
+    "batch_latency_ms": {
+      "max": 5.691,
+      "mean": 5.026,
+      "min": 4.483,
+      "p50": 4.927,
+      "p95": 5.637,
+      "p99": 5.681
+    },
+    "batch_size": 10,
+    "failures": 0,
+    "memory_delta_mb": 0.0,
+    "per_sample_latency_ms": {
+      "mean": 0.50258,
+      "p50": 0.49273,
+      "p95": 0.56372
+    },
+    "throughput_flows_per_sec": {
+      "mean": 2000.43,
+      "p50": 2029.51,
+      "p95": 2189.65
+    },
+    "trials": 15
+  },
+  {
+    "batch_latency_ms": {
+      "max": 8.842,
+      "mean": 6.16,
+      "min": 4.642,
+      "p50": 5.653,
+      "p95": 8.64,
+      "p99": 8.802
+    },
+    "batch_size": 50,
+    "failures": 0,
+    "memory_delta_mb": 0.0,
+    "per_sample_latency_ms": {
+      "mean": 0.12321,
+      "p50": 0.11306,
+      "p95": 0.17281
+    },
+    "throughput_flows_per_sec": {
+      "mean": 8456.09,
+      "p50": 8845.02,
+      "p95": 10450.63
+    },
+    "trials": 15
+  },
+  {
+    "batch_latency_ms": {
+      "max": 12.479,
+      "mean": 7.685,
+      "min": 4.905,
+      "p50": 6.089,
+      "p95": 11.608,
+      "p99": 12.305
+    },
+    "batch_size": 100,
+    "failures": 0,
+    "memory_delta_mb": 0.0,
+    "per_sample_latency_ms": {
+      "mean": 0.07685,
+      "p50": 0.06089,
+      "p95": 0.11608
+    },
+    "throughput_flows_per_sec": {
+      "mean": 14624.32,
+      "p50": 16423.87,
+      "p95": 20271.83
+    },
+    "trials": 15
+  },
+  {
+    "batch_latency_ms": {
+      "max": 6.976,
+      "mean": 5.94,
+      "min": 5.518,
+      "p50": 5.76,
+      "p95": 6.77,
+      "p99": 6.935
+    },
+    "batch_size": 500,
+    "failures": 0,
+    "memory_delta_mb": 0.0,
+    "per_sample_latency_ms": {
+      "mean": 0.01188,
+      "p50": 0.01152,
+      "p95": 0.01354
+    },
+    "throughput_flows_per_sec": {
+      "mean": 84602.4,
+      "p50": 86821.54,
+      "p95": 90244.95
+    },
+    "trials": 10
+  },
+  {
+    "batch_latency_ms": {
+      "max": 13.991,
+      "mean": 9.977,
+      "min": 6.949,
+      "p50": 9.173,
+      "p95": 13.798,
+      "p99": 13.952
+    },
+    "batch_size": 1000,
+    "failures": 0,
+    "memory_delta_mb": 0.0,
+    "per_sample_latency_ms": {
+      "mean": 0.00998,
+      "p50": 0.00917,
+      "p95": 0.0138
+    },
+    "throughput_flows_per_sec": {
+      "mean": 106706.47,
+      "p50": 109387.85,
+      "p95": 141807.14
+    },
+    "trials": 10
+  },
+  {
+    "batch_latency_ms": {
+      "max": 18.795,
+      "mean": 12.219,
+      "min": 8.267,
+      "p50": 9.495,
+      "p95": 18.503,
+      "p99": 18.737
+    },
+    "batch_size": 1998,
+    "failures": 0,
+    "memory_delta_mb": 0.0,
+    "per_sample_latency_ms": {
+      "mean": 0.00612,
+      "p50": 0.00475,
+      "p95": 0.00926
+    },
+    "throughput_flows_per_sec": {
+      "mean": 181227.36,
+      "p50": 210416.77,
+      "p95": 237416.35
+    },
+    "trials": 10
+  }
+]

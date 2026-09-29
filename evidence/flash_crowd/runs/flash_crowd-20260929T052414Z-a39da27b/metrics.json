@@ -1,0 +1,227 @@
+{
+  "benchmark_summary": {
+    "flash_crowd_observations": 432,
+    "rate_conditions_tested": 5,
+    "sub_threshold_observations": 288,
+    "total_observations": 720,
+    "unique_benign_vectors": 144
+  },
+  "classification_metrics": {
+    "benign_base_vector_fpr": 0.0139,
+    "overall_classification_fpr": 0.0139
+  },
+  "conditions": [
+    {
+      "allow_count": 142,
+      "block_count": 0,
+      "classification_false_positives": 2,
+      "classification_fpr": 0.0139,
+      "condition_id": "FC-COND-01-BASELINE",
+      "condition_name": "Baseline Legitimate Traffic",
+      "confidence_stats": {
+        "max": 1.0,
+        "mean": 0.9353,
+        "min": 0.5175
+      },
+      "destructive_block_count": 0,
+      "destructive_mitigation_fpr": 0.0,
+      "expected_mitigation_action": "ALLOW",
+      "is_flash_crowd": false,
+      "latency_scope": "In-memory O2 inference and MitigationEngine policy evaluation",
+      "latency_stats_ms": {
+        "combined_decision": {
+          "mean": 6.7,
+          "p50": 5.861,
+          "p95": 11.697,
+          "p99": 12.427
+        },
+        "mitigation_decision": {
+          "mean": 0.165,
+          "p50": 0.149,
+          "p95": 0.29,
+          "p99": 0.411
+        },
+        "o2_inference": {
+          "mean": 6.535,
+          "p50": 5.691,
+          "p95": 11.43,
+          "p99": 12.207
+        }
+      },
+      "observations_count": 144,
+      "rate_limit_count": 2,
+      "traffic_rate_req_per_sec": 50.0
+    },
+    {
+      "allow_count": 142,
+      "block_count": 0,
+      "classification_false_positives": 2,
+      "classification_fpr": 0.0139,
+      "condition_id": "FC-COND-02-SUB-THRESHOLD",
+      "condition_name": "Moderate High-Rate Legitimate Traffic (500 req/s)",
+      "confidence_stats": {
+        "max": 1.0,
+        "mean": 0.9353,
+        "min": 0.5175
+      },
+      "destructive_block_count": 0,
+      "destructive_mitigation_fpr": 0.0,
+      "expected_mitigation_action": "ALLOW",
+      "is_flash_crowd": false,
+      "latency_scope": "In-memory O2 inference and MitigationEngine policy evaluation",
+      "latency_stats_ms": {
+        "combined_decision": {
+          "mean": 6.778,
+          "p50": 5.947,
+          "p95": 11.505,
+          "p99": 12.382
+        },
+        "mitigation_decision": {
+          "mean": 0.235,
+          "p50": 0.214,
+          "p95": 0.396,
+          "p99": 0.503
+        },
+        "o2_inference": {
+          "mean": 6.543,
+          "p50": 5.775,
+          "p95": 11.139,
+          "p99": 12.037
+        }
+      },
+      "observations_count": 144,
+      "rate_limit_count": 2,
+      "traffic_rate_req_per_sec": 500.0
+    },
+    {
+      "allow_count": 142,
+      "block_count": 0,
+      "classification_false_positives": 2,
+      "classification_fpr": 0.0139,
+      "condition_id": "FC-COND-03-BOUNDARY",
+      "condition_name": "Threshold Boundary Traffic (1000 req/s)",
+      "confidence_stats": {
+        "max": 1.0,
+        "mean": 0.9353,
+        "min": 0.5175
+      },
+      "destructive_block_count": 0,
+      "destructive_mitigation_fpr": 0.0,
+      "expected_mitigation_action": "RATE_LIMIT",
+      "is_flash_crowd": true,
+      "latency_scope": "In-memory O2 inference and MitigationEngine policy evaluation",
+      "latency_stats_ms": {
+        "combined_decision": {
+          "mean": 7.295,
+          "p50": 6.044,
+          "p95": 13.226,
+          "p99": 18.616
+        },
+        "mitigation_decision": {
+          "mean": 0.304,
+          "p50": 0.279,
+          "p95": 0.474,
+          "p99": 0.585
+        },
+        "o2_inference": {
+          "mean": 6.991,
+          "p50": 5.769,
+          "p95": 12.697,
+          "p99": 18.199
+        }
+      },
+      "observations_count": 144,
+      "rate_limit_count": 2,
+      "traffic_rate_req_per_sec": 1000.0
+    },
+    {
+      "allow_count": 11,
+      "block_count": 0,
+      "classification_false_positives": 2,
+      "classification_fpr": 0.0139,
+      "condition_id": "FC-COND-04-FLASH-SURGE",
+      "condition_name": "Volumetric Flash-Crowd Surge (1500 req/s)",
+      "confidence_stats": {
+        "max": 1.0,
+        "mean": 0.9353,
+        "min": 0.5175
+      },
+      "destructive_block_count": 0,
+      "destructive_mitigation_fpr": 0.0,
+      "expected_mitigation_action": "RATE_LIMIT",
+      "is_flash_crowd": true,
+      "latency_scope": "In-memory O2 inference and MitigationEngine policy evaluation",
+      "latency_stats_ms": {
+        "combined_decision": {
+          "mean": 6.968,
+          "p50": 6.22,
+          "p95": 11.293,
+          "p99": 13.17
+        },
+        "mitigation_decision": {
+          "mean": 0.384,
+          "p50": 0.358,
+          "p95": 0.563,
+          "p99": 0.659
+        },
+        "o2_inference": {
+          "mean": 6.584,
+          "p50": 5.804,
+          "p95": 10.752,
+          "p99": 12.626
+        }
+      },
+      "observations_count": 144,
+      "rate_limit_count": 133,
+      "traffic_rate_req_per_sec": 1500.0
+    },
+    {
+      "allow_count": 11,
+      "block_count": 0,
+      "classification_false_positives": 2,
+      "classification_fpr": 0.0139,
+      "condition_id": "FC-COND-05-EXTREME-SURGE",
+      "condition_name": "Extreme Flash-Crowd Surge (2500 req/s)",
+      "confidence_stats": {
+        "max": 1.0,
+        "mean": 0.9353,
+        "min": 0.5175
+      },
+      "destructive_block_count": 0,
+      "destructive_mitigation_fpr": 0.0,
+      "expected_mitigation_action": "RATE_LIMIT",
+      "is_flash_crowd": true,
+      "latency_scope": "In-memory O2 inference and MitigationEngine policy evaluation",
+      "latency_stats_ms": {
+        "combined_decision": {
+          "mean": 8.286,
+          "p50": 7.035,
+          "p95": 13.974,
+          "p99": 18.573
+        },
+        "mitigation_decision": {
+          "mean": 0.518,
+          "p50": 0.479,
+          "p95": 0.791,
+          "p99": 1.046
+        },
+        "o2_inference": {
+          "mean": 7.769,
+          "p50": 6.537,
+          "p95": 13.24,
+          "p99": 17.674
+        }
+      },
+      "observations_count": 144,
+      "rate_limit_count": 133,
+      "traffic_rate_req_per_sec": 2500.0
+    }
+  ],
+  "flash_crowd_mitigation_metrics": {
+    "allow_count": 164,
+    "configured_threshold": null,
+    "destructive_block_count": 0,
+    "destructive_mitigation_fpr": 0.0,
+    "rate_limit_containment_count": 268
+  }
+}

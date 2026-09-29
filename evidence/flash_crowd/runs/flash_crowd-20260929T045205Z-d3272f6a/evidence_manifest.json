@@ -1,0 +1,14 @@
+{
+  "fixture_hash": "1246a263c7702a4c3bd0d29e55cc11d758f1b67e9bb7ff33180aa1a38535f8a2",
+  "fixture_path": "data\\demo\\flash_crowd\\flash_crowd_fixture.csv",
+  "output_references": [
+    "result.json",
+    "metrics.json",
+    "scenarios.json",
+    "environment.json"
+  ],
+  "run_id": "flash_crowd-20260929T045205Z-d3272f6a",
+  "run_type": "flash_crowd",
+  "scenarios_hash": "61fa606adbfbf4a48ff70295d672a95c7188176a73173fb74c76bf8b5893b715",
+  "status": "NOT_EXECUTED"
+}

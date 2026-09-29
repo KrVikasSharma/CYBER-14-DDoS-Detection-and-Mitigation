@@ -1,0 +1,38 @@
+{
+  "final": {
+    "available_ram_gb": 6.23,
+    "cpu_logical_cores": 12,
+    "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+    "machine": "AMD64",
+    "memory_load_percent": 60.0,
+    "platform": "Windows-11-10.0.26200-SP0",
+    "process_peak_working_set_mb": 0.0,
+    "process_working_set_mb": 0.0,
+    "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+    "python_executable": "C:\\Users\\Vikas\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\\python.exe",
+    "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "recorded_at_utc": "2026-09-29T05:27:49.002694+00:00",
+    "release": "11",
+    "system": "Windows",
+    "total_ram_gb": 15.65,
+    "used_ram_gb": 9.42
+  },
+  "initial": {
+    "available_ram_gb": 6.5,
+    "cpu_logical_cores": 12,
+    "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+    "machine": "AMD64",
+    "memory_load_percent": 58.0,
+    "platform": "Windows-11-10.0.26200-SP0",
+    "process_peak_working_set_mb": 0.0,
+    "process_working_set_mb": 0.0,
+    "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+    "python_executable": "C:\\Users\\Vikas\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\\python.exe",
+    "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "recorded_at_utc": "2026-09-29T05:27:31.121884+00:00",
+    "release": "11",
+    "system": "Windows",
+    "total_ram_gb": 15.65,
+    "used_ram_gb": 9.15
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "crash_count": 0,
+  "fail_count": 2,
+  "pass_count": 6,
+  "recovery_failure_count": 0,
+  "recovery_success_count": 2,
+  "scenarios": {
+    "DM-01": "PASS",
+    "DM-02": "PASS",
+    "DM-03": "PASS",
+    "DM-04": "FAIL",
+    "DM-05": "PASS",
+    "DM-06": "PASS",
+    "DM-07": "FAIL",
+    "DM-08": "PASS"
+  },
+  "total_executions": 10,
+  "total_scenarios": 8,
+  "unsafe_outcome_count": 2
+}

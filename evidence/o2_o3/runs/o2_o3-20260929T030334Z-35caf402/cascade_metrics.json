@@ -1,0 +1,11 @@
+{
+  "attack_routing_precision": 0.9989,
+  "attack_routing_recall": 1.0,
+  "benign_samples_incorrectly_reaching_o3": 2,
+  "cascade_multiclass_accuracy": 0.7077,
+  "pipeline": "O2 Binary Filter -> if ATTACK -> O3 Classifier",
+  "samples_bypassed_o3": 142,
+  "samples_routed_to_o3": 1856,
+  "total_evaluated_samples": 1998,
+  "true_attacks_reaching_o3": 1854
+}

@@ -1,0 +1,245 @@
+{
+  "configuration_hash": "8bb925655b8dd20fe3e26bf22c100d0172618f050167e5bd9ac1a48b279ecde0",
+  "fixture_only": false,
+  "official_cyber14_negative_test_result": false,
+  "recorded_at_utc": "2026-09-28T07:08:12.220442+00:00",
+  "run_id": "negative-20260928T070811Z-6773b9a0",
+  "run_type": "negative_tests",
+  "status": "PARTIAL",
+  "tests": {
+    "NT-1": {
+      "artifact_references": [],
+      "configuration": {},
+      "dataset_source_identifier": null,
+      "environment_information": {
+        "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+        "machine": "AMD64",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+        "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "recorded_at_utc": "2026-09-28T07:08:11.930840+00:00"
+      },
+      "errors": [],
+      "expected_result": {
+        "normal_action": "ALLOW",
+        "recovery_action": "ALLOW",
+        "surge_action": "RATE_LIMIT"
+      },
+      "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+      "metrics": {
+        "recovered_cleanly": true
+      },
+      "model_version_identifier": null,
+      "observed_result": {
+        "normal_action": "ALLOW",
+        "recovery_action": "ALLOW",
+        "surge_action": "RATE_LIMIT"
+      },
+      "project": "CYBER-14",
+      "reasons": [
+        "Flash crowd successfully contained without destructive blocking and recovered to baseline"
+      ],
+      "sample_fixture_identifier": null,
+      "status": "PASS",
+      "test_id": "NT-1",
+      "test_name": "Flash-Crowd False-Positive Containment and Recovery",
+      "timestamp": "2026-09-28T07:08:11.870449+00:00"
+    },
+    "NT-2": {
+      "artifact_references": [],
+      "configuration": {},
+      "dataset_source_identifier": null,
+      "environment_information": {
+        "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+        "machine": "AMD64",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+        "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "recorded_at_utc": "2026-09-28T07:08:11.990175+00:00"
+      },
+      "errors": [],
+      "expected_result": {
+        "all_mitigated": true,
+        "attacks_evaluated": 11
+      },
+      "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+      "metrics": {
+        "attack_types_tested": 11,
+        "successful_mitigations": 11
+      },
+      "model_version_identifier": null,
+      "observed_result": {
+        "all_mitigated": true,
+        "results": [
+          {
+            "action": "BLOCK",
+            "attack_type": "SYN",
+            "passed": true
+          },
+          {
+            "action": "BLOCK",
+            "attack_type": "DRDOS_UDP",
+            "passed": true
+          },
+          {
+            "action": "BLOCK",
+            "attack_type": "DRDOS_DNS",
+            "passed": true
+          },
+          {
+            "action": "BLOCK",
+            "attack_type": "DRDOS_NETBIOS",
+            "passed": true
+          },
+          {
+            "action": "BLOCK",
+            "attack_type": "DRDOS_MSSQL",
+            "passed": true
+          },
+          {
+            "action": "BLOCK",
+            "attack_type": "DRDOS_LDAP",
+            "passed": true
+          },
+          {
+            "action": "BLOCK",
+            "attack_type": "DRDOS_NTP",
+            "passed": true
+          },
+          {
+            "action": "BLOCK",
+            "attack_type": "TFTP",
+            "passed": true
+          },
+          {
+            "action": "BLOCK",
+            "attack_type": "PORTMAP",
+            "passed": true
+          },
+          {
+            "action": "BLOCK",
+            "attack_type": "DRDOS_SNMP",
+            "passed": true
+          },
+          {
+            "action": "BLOCK",
+            "attack_type": "DRDOS_SSDP",
+            "passed": true
+          }
+        ]
+      },
+      "project": "CYBER-14",
+      "reasons": [
+        "All attack vectors received compliant mitigation actions"
+      ],
+      "sample_fixture_identifier": null,
+      "status": "PASS",
+      "test_id": "NT-2",
+      "test_name": "Attack-Type Diversity with Preserved Safe Behavior and Evidence",
+      "timestamp": "2026-09-28T07:08:11.930840+00:00"
+    },
+    "NT-3": {
+      "artifact_references": [],
+      "configuration": {},
+      "dataset_source_identifier": null,
+      "environment_information": {
+        "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+        "machine": "AMD64",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+        "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "recorded_at_utc": "2026-09-28T07:08:12.091262+00:00"
+      },
+      "errors": [],
+      "expected_result": {
+        "accuracy_minimum": 0.95,
+        "throughput_minimum": 100.0
+      },
+      "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+      "metrics": {
+        "accuracy": 0.998998998998999,
+        "sample_count": 1998,
+        "throughput_flows_per_sec": 105030.20011680362
+      },
+      "model_version_identifier": null,
+      "observed_result": {
+        "accuracy": 0.999,
+        "duration_seconds": 0.019,
+        "throughput_flows_per_sec": 105030.2
+      },
+      "project": "CYBER-14",
+      "reasons": [
+        "Speed and accuracy boundaries verified under burst evaluation"
+      ],
+      "sample_fixture_identifier": null,
+      "status": "PASS",
+      "test_id": "NT-3",
+      "test_name": "Speed-versus-Accuracy Conditions Under System Load",
+      "timestamp": "2026-09-28T07:08:12.031140+00:00"
+    },
+    "NT-4": {
+      "artifact_references": [],
+      "configuration": {},
+      "dataset_source_identifier": null,
+      "environment_information": {
+        "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+        "machine": "AMD64",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+        "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "recorded_at_utc": "2026-09-28T07:08:12.161259+00:00"
+      },
+      "errors": [],
+      "expected_result": {
+        "identifier_isolation_enforced": true,
+        "tampered_token_rejected": true
+      },
+      "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+      "metrics": {
+        "trust_boundary_tests_passed": true
+      },
+      "model_version_identifier": null,
+      "observed_result": {
+        "identifier_isolation_enforced": true,
+        "tampered_token_rejected": true
+      },
+      "project": "CYBER-14",
+      "reasons": [
+        "Authentication token forgery properly rejected and identifier isolation enforced"
+      ],
+      "sample_fixture_identifier": null,
+      "status": "PASS",
+      "test_id": "NT-4",
+      "test_name": "Trust, Identity, and Authorization Bypass Resistance",
+      "timestamp": "2026-09-28T07:08:12.101266+00:00"
+    },
+    "NT-5": {
+      "artifact_references": [],
+      "configuration": {},
+      "dataset_source_identifier": null,
+      "environment_information": {
+        "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+        "machine": "AMD64",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+        "python_version": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+        "recorded_at_utc": "2026-09-28T07:08:12.220442+00:00"
+      },
+      "errors": [
+        "AttributeError: 'str' object has no attribute 'username'"
+      ],
+      "expected_result": null,
+      "git_commit": "303e19d705ab093670ce5ea4161abff9e2c175cb",
+      "metrics": {},
+      "model_version_identifier": null,
+      "observed_result": null,
+      "project": "CYBER-14",
+      "reasons": [],
+      "sample_fixture_identifier": null,
+      "status": "FAIL",
+      "test_id": "NT-5",
+      "test_name": "Deny, Revoke, and Expiry Propagation",
+      "timestamp": "2026-09-28T07:08:12.161259+00:00"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "outcome_consistency": {
+    "RT-01": {
+      "confidence_mean": 0.955,
+      "confidence_std": 0.0764,
+      "consistency_pct": 100.0,
+      "latency_p95_ms": 35.0361
+    },
+    "RT-02": {
+      "confidence_mean": 0.93,
+      "confidence_std": 0.0794,
+      "consistency_pct": 66.0,
+      "latency_p95_ms": 35.1225
+    },
+    "RT-03": {
+      "confidence_mean": 0.6349,
+      "confidence_std": 0.1941,
+      "consistency_pct": 22.0,
+      "latency_p95_ms": 76.1485
+    },
+    "RT-04": {
+      "confidence_mean": 0.5583,
+      "confidence_std": 0.1065,
+      "consistency_pct": 100.0,
+      "latency_p95_ms": 82.5997
+    },
+    "RT-05": {
+      "confidence_mean": null,
+      "confidence_std": null,
+      "consistency_pct": 100.0,
+      "latency_p95_ms": 41.6637
+    }
+  }
+}
