@@ -1,0 +1,244 @@
+{
+  "acceptance_criteria": {
+    "AC-1": {
+      "name": "Representative Operation",
+      "status": "PASS",
+      "threshold": "78 features, O2 Acc >= 0.95, valid mitigation"
+    },
+    "AC-2": {
+      "name": "Boundary/Failure Operation",
+      "status": "PASS",
+      "threshold": "Fail-closed robustness across 5 boundary conditions"
+    },
+    "AC-3": {
+      "name": "Independent Acceptance Preparation",
+      "status": "NOT_EXECUTED",
+      "threshold": "External human examiner review & sign-off"
+    },
+    "AC-4": {
+      "name": "Frozen Resource Envelope",
+      "status": "PASS",
+      "threshold": "RSS <= 2048 MB, CPU <= 16 cores, bounded memory"
+    }
+  },
+  "dataset_references": {
+    "demo_sample": {
+      "classes": 17,
+      "path": "data\\demo\\cic_ddos2019_sample.csv",
+      "rows": 9990,
+      "sha256": "ae13978dd430b69d90ae62ba0aaa101f047d1f002a50e274e82c7d9a9dafd128"
+    },
+    "flash_crowd_fixture": {
+      "path": "data\\demo\\flash_crowd\\flash_crowd_fixture.csv",
+      "rows": 144,
+      "sha256": "1246a263c7702a4c3bd0d29e55cc11d758f1b67e9bb7ff33180aa1a38535f8a2"
+    },
+    "test_partition": {
+      "features": 78,
+      "path": "data\\demo\\processed\\test.csv",
+      "rows": 1998,
+      "sha256": "1302dececdb52d0835e1022c23cf4b98a4dd0e4a0bb88c759041d719b3f35449"
+    }
+  },
+  "evidence_artifact_references": {
+    "acceptance_runs_dir": "evidence/acceptance/runs/",
+    "checksums_file": "evidence/SHA256SUMS.txt",
+    "degraded_mode_runs_dir": "evidence/degraded_mode/runs/",
+    "evidence_manifest": "evidence/evidence_manifest.json",
+    "flash_crowd_runs_dir": "evidence/flash_crowd/runs/",
+    "negative_tests_runs_dir": "evidence/negative_tests/runs/",
+    "resource_profiling_runs_dir": "evidence/resource_profiling/runs/",
+    "rubric_file": "data\\demo\\flash_crowd\\flash_crowd_rubric_v1.json",
+    "rubric_hash": "32bdc3a8ebe2fc05e5d0d91dacdee0780994015983fa24d148eb7fda4fc43905"
+  },
+  "expected_oracles": {
+    "binary_discrimination": "O2 must separate BENIGN from all 11 DDoS attack vectors with >= 95.0% accuracy",
+    "fail_closed_security": "Missing features, tampered signatures, or corrupted payloads must fail closed with HTTP 401/422",
+    "flash_crowd_safety": "Legitimate traffic under surge load (1000-2500 req/s) must receive RATE_LIMIT, NEVER destructive BLOCK",
+    "resource_ceiling": "Process memory RSS must remain strictly under 2,048.0 MB under continuous streaming"
+  },
+  "independent_reviewer_signoff": {
+    "checklist_verified": {
+      "cryptographic_checksums_verified": false,
+      "dataset_provenance_verified": false,
+      "degraded_mode_fail_closed_verified": false,
+      "feature_contract_78_verified": false,
+      "flash_crowd_non_destructive_verified": false,
+      "honest_reporting_not_executed_preserved": false,
+      "latency_p95_bounded_verified": false,
+      "negative_security_tests_verified": false,
+      "o2_binary_accuracy_verified": false,
+      "o3_multiclass_inventory_verified": false,
+      "resource_envelope_memory_ceiling_verified": false,
+      "secrets_audit_zero_leaks_verified": false
+    },
+    "comments": "Awaiting evaluation by independent external human examiner.",
+    "determination": "PENDING",
+    "organization": null,
+    "reviewer_name": null,
+    "signature_hash": null,
+    "signoff_date_utc": null,
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "kpi_results": {
+    "KPI-1": {
+      "name": "Detection Accuracy",
+      "observed": 0.999,
+      "status": "PASS",
+      "threshold": ">= 0.9500 (95.0%)"
+    },
+    "KPI-2": {
+      "name": "Flash-Crowd False-Positive Rate",
+      "observed": "Candidate: 96.0/100, O2 Ref: 45.0, \u0394+51.0 (0 drops on 432 surge flows)",
+      "status": "NOT_EXECUTED",
+      "threshold": ">= 80.0/100.0 (\u0394 >= +5.0 vs O2 Reference)"
+    },
+    "KPI-3": {
+      "name": "Detection Latency",
+      "observed": "8.21 ms P95 (5.19 ms P50, N=35)",
+      "status": "PASS",
+      "threshold": "<= 30.00 ms P95"
+    },
+    "KPI-4": {
+      "name": "Unsafe Outcome Count",
+      "observed": "0 violations",
+      "status": "PASS",
+      "threshold": "== 0 unsafe outcomes"
+    },
+    "KPI-5": {
+      "name": "Attack-Path Prevention Rate",
+      "observed": "100.00% (1,854 / 1,854 attacks)",
+      "status": "PASS",
+      "threshold": ">= 0.9500 (95.0%)"
+    },
+    "KPI-6": {
+      "name": "False Positive Rate",
+      "observed": "1.39% (2 / 144 benign flows flagged)",
+      "status": "PASS",
+      "threshold": "<= 0.0200 (2.0%)"
+    }
+  },
+  "mitigation_policy": {
+    "dynamic_recovery": "Sliding-window tracking with immediate de-escalation upon rate normalization",
+    "rules": [
+      {
+        "action": "ALLOW",
+        "description": "Normal legitimate flow pass-through",
+        "rate": "< 1000 req/s",
+        "traffic_type": "BENIGN"
+      },
+      {
+        "action": "RATE_LIMIT",
+        "description": "Non-destructive flash-crowd surge containment",
+        "rate": ">= 1000 req/s",
+        "traffic_type": "BENIGN"
+      },
+      {
+        "action": "BLOCK",
+        "confidence": ">= 0.80",
+        "description": "Bounded temporary isolation",
+        "duration_seconds": 300,
+        "traffic_type": "ATTACK"
+      },
+      {
+        "action": "RATE_LIMIT",
+        "confidence": "< 0.80",
+        "description": "Conservative containment under low confidence",
+        "traffic_type": "ATTACK"
+      }
+    ]
+  },
+  "model_references": {
+    "feature_contract": {
+      "count": 78,
+      "identifiers_excluded": [
+        "Source IP",
+        "Destination IP",
+        "Source Port",
+        "Destination Port",
+        "Timestamp"
+      ]
+    },
+    "o2_binary_detector": {
+      "path": "data\\demo\\models\\o2\\model.joblib",
+      "sha256": "47ab64235dc87bc5381727fc71236f7497ff68b47f6a38fb634160a58146f61d",
+      "target": "Binary (0=BENIGN, 1=ATTACK)",
+      "type": "RandomForestClassifier (50 estimators, max_depth=8)"
+    },
+    "o3_multiclass_classifier": {
+      "classes_count": 17,
+      "path": "data\\demo\\models\\o3\\model.joblib",
+      "sha256": "e357d41a9300c79cd497f5f94c6096ea39590fea0f77b96f35eb49558e8d6b90",
+      "type": "RandomForestClassifier (60 estimators, max_depth=12)"
+    }
+  },
+  "negative_test_results": {
+    "NT-1": {
+      "invariant": "Normal: ALLOW -> Surge: RATE_LIMIT -> Normal: ALLOW",
+      "name": "Flash-Crowd Surge Containment",
+      "status": "PASS"
+    },
+    "NT-2": {
+      "invariant": "All 11 CIC-DDoS2019 attack vectors mitigated with BLOCK",
+      "name": "Attack-Type Diversity Preservation",
+      "status": "PASS"
+    },
+    "NT-3": {
+      "invariant": "Inference scaling > 10,000 flows/sec without memory leak",
+      "name": "Speed-versus-Accuracy Preservation",
+      "status": "PASS"
+    },
+    "NT-4": {
+      "invariant": "Tampered JWT rejected cryptographically & via HTTP 401",
+      "name": "Trust & Identity Tampering Rejection",
+      "status": "PASS"
+    },
+    "NT-5": {
+      "invariant": "Expired token rejected, block window expires safely after 300s",
+      "name": "Deny, Revoke, and Expiry Propagation",
+      "status": "PASS"
+    }
+  },
+  "project_scope": {
+    "architecture": "Hierarchical Dual-Stage ML (O2 Binary + O3 Multi-Class) with Deterministic Policy Engine and Real-Time WebSocket Telemetry",
+    "mitigation_scope": "In-memory software containment (ALLOW, RATE_LIMIT, BLOCK, SCRUB) without destructive physical switch interruption",
+    "operating_mode": "Demonstration Mode (Real CIC-DDoS2019 78-feature tabular vectors)",
+    "project_name": "CYBER-14: Real-Time DDoS Detection and Mitigation",
+    "version": "1.0.0"
+  },
+  "reproduction_instructions": [
+    {
+      "command": "python scripts/run_acceptance.py --all",
+      "description": "Run full 15-criteria acceptance campaign",
+      "step": 1
+    },
+    {
+      "command": "python scripts/run_acceptance.py --degraded-mode",
+      "description": "Run degraded-mode resilience evaluation (8 scenarios)",
+      "step": 2
+    },
+    {
+      "command": "python scripts/run_acceptance.py --resource-profile",
+      "description": "Run hardware resource profiling & capacity benchmark",
+      "step": 3
+    },
+    {
+      "command": "python ml/evaluation/evidence_manifest.py",
+      "description": "Verify cryptographic checksums across all artifacts",
+      "step": 4
+    },
+    {
+      "command": "pytest tests/unit && cd dashboard/frontend && npm test -- --run",
+      "description": "Run complete backend and frontend automated test suites",
+      "step": 5
+    }
+  ],
+  "test_environment": {
+    "cpu_logical_cores": 12,
+    "database": "Aiven MySQL 8.0 (Relational persistent storage & audit logging)",
+    "node_version": "v20+",
+    "os": "Windows 11 (AMD64)",
+    "python_version": "3.12.10",
+    "total_ram_gb": 15.65
+  }
+}

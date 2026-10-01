@@ -1,0 +1,96 @@
+{
+  "anchors": {
+    "0": "Catastrophic failure: Legitimate flash-crowd surges are destructively blocked as DDoS attacks (>20% destructive FPR), causing severe denial of service to legitimate users.",
+    "100": "Flawless adaptive resilience: Zero destructive blocks (0.0% destructive FPR), instant dynamic recovery (<1s), sub-10ms decision latency, and complete audit trail.",
+    "50": "Marginal containment: High rate of false positives or slow dynamic adaptation (5-20% destructive blocks or high latency penalty >50ms), causing erratic user experience.",
+    "80": "Production-grade acceptance: Non-destructive surge containment via adaptive RATE_LIMIT (<2% destructive FPR, P95 latency <=30ms), preserving service availability."
+  },
+  "criteria": [
+    {
+      "anchors": {
+        "0": "Severe false positive rate (>10% blocked or throttled on normal baseline).",
+        "100": "100% legitimate baseline flows permitted with instant ALLOW and zero false drops.",
+        "50": "Occasional false throttling (2-10% rate-limited or degraded on normal baseline).",
+        "80": "High baseline accuracy (<2% false throttles, >98% seamless pass-through)."
+      },
+      "criterion_id": "C1_BASELINE_PASS_THROUGH",
+      "description": "Legitimate baseline traffic (10-100 req/s) is correctly classified as BENIGN and permitted with immediate ALLOW mitigation without throttling.",
+      "max_score": 20.0,
+      "name": "Benign Baseline Pass-Through",
+      "weight": 20.0
+    },
+    {
+      "anchors": {
+        "0": "Surge traffic is destructively dropped/blocked as malicious DDoS (destructive FPR > 20%).",
+        "100": "100% of legitimate surge traffic is safely contained via RATE_LIMIT with exactly 0.0% destructive blocks.",
+        "50": "Surge traffic is partially dropped/blocked (5-20% destructive blocks alongside rate-limiting).",
+        "80": "Surge traffic is safely contained via RATE_LIMIT with < 2% destructive drops."
+      },
+      "criterion_id": "C2_NON_DESTRUCTIVE_CONTAINMENT",
+      "description": "During traffic surges (1,000-2,500 req/s), system differentiates high-rate legitimate traffic from malicious DDoS and applies non-destructive RATE_LIMIT rather than destructive BLOCK.",
+      "max_score": 20.0,
+      "name": "Non-Destructive Surge Containment",
+      "weight": 20.0
+    },
+    {
+      "anchors": {
+        "0": "System remains locked in throttling or blocking permanently or for >60s after surge ceases.",
+        "100": "Immediate adaptive recovery (<1s) via responsive sliding-window rate tracking.",
+        "50": "Sluggish recovery requiring 15-60s to restore full throughput after traffic normalizes.",
+        "80": "Prompt recovery within <15s of traffic rate normalization."
+      },
+      "criterion_id": "C3_DYNAMIC_RECOVERY",
+      "description": "Mitigation policy reacts instantaneously to surge volume and de-escalates back to ALLOW immediately once traffic volume returns to baseline.",
+      "max_score": 20.0,
+      "name": "Dynamic Adaptation & Fast Recovery",
+      "weight": 20.0
+    },
+    {
+      "anchors": {
+        "0": "Decision latency exceeds 100 ms P95 or causes backpressure and queue exhaustion.",
+        "100": "Decision latency <= 10 ms P95 (preserving sub-5ms fast-path under full load).",
+        "50": "Decision latency between 30-100 ms P95 under heavy surge load.",
+        "80": "Decision latency bounded at <= 30 ms P95 across all surge conditions."
+      },
+      "criterion_id": "C4_LATENCY_BOUNDEDNESS",
+      "description": "Combined detection and mitigation latency remains strictly bounded under peak surge traffic rates (up to 2,500 req/s).",
+      "max_score": 20.0,
+      "name": "High-Load Latency Boundedness",
+      "weight": 20.0
+    },
+    {
+      "anchors": {
+        "0": "No structured telemetry or audit logs generated during flash crowd events.",
+        "100": "Real-time, cryptographically hashed audit trails with granular source IP, rate telemetry, and decision provenance.",
+        "50": "Incomplete audit records missing rate metadata or decision rationale.",
+        "80": "Structured audit records produced for all rate-limit decisions with reason codes."
+      },
+      "criterion_id": "C5_AUDIT_TRANSPARENCY",
+      "description": "Every flash-crowd decision is logged with clear mitigation rationale, source IP tracking, rate metrics, and cryptographic provenance.",
+      "max_score": 20.0,
+      "name": "Audit Trail & Telemetry Integrity",
+      "weight": 20.0
+    }
+  ],
+  "name": "CYBER-14 Flash-Crowd False-Positive and Containment Evaluation Rubric",
+  "rater_requirements": {
+    "min_raters": 2,
+    "protocol": "Each rater independently inspects empirical benchmark observations across all 5 conditions and assigns scores (0-20) for each criterion.",
+    "qualification": "Independent technical reviewer or evaluator with knowledge of network telemetry and DDoS mitigation policies."
+  },
+  "rubric_id": "CYBER14-FC-RUBRIC-V1",
+  "rubric_version": "1.0.0",
+  "scale": {
+    "max_score": 100.0,
+    "min_inter_rater_agreement": 0.8,
+    "min_raters": 2,
+    "min_score": 0.0,
+    "pass_threshold": 80.0,
+    "reference_margin_delta": 5.0
+  },
+  "scoring_method": {
+    "acceptance_rule": "final_score >= pass_threshold AND (final_score - o2_reference_score) >= reference_margin_delta AND inter_rater_agreement >= min_inter_rater_agreement AND len(raters) >= min_raters",
+    "formula": "final_score = mean(rater_scores) if raters else candidate_objective_score",
+    "inter_rater_agreement": "1.0 - (mean_absolute_difference / 100.0)"
+  }
+}

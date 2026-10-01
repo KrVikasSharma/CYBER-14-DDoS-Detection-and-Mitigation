@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "test": "vitest run",
+    "test": "vitest run --pool=threads",
     "preview": "vite preview"
   },
   "dependencies": {

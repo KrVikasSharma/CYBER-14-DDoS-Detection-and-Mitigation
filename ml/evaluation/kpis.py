@@ -94,13 +94,21 @@ def evaluate_kpi2_flash_crowd_false_positive(
     *,
     dataset_path: Path | str | None = None,
     model_path: Path = DEFAULT_O2_MODEL_PATH,
+    rubric_path: Path | str | None = None,
+    rater_scorecards: list[dict[str, Any]] | None = None,
     threshold: float | None = None,
 ) -> dict[str, Any]:
-    """KPI-2: False-positive rate evaluation on legitimate high-rate traffic & flash crowds."""
-    from ml.evaluation.flash_crowd import evaluate_formal_flash_crowd_benchmark
+    """KPI-2: False-positive rate evaluation on legitimate high-rate traffic & flash crowds (0-100 rubric)."""
+    from ml.evaluation.flash_crowd import (
+        DEFAULT_RUBRIC_PATH,
+        evaluate_formal_flash_crowd_benchmark,
+    )
 
+    r_path = Path(rubric_path) if rubric_path is not None else DEFAULT_RUBRIC_PATH
     return evaluate_formal_flash_crowd_benchmark(
         model_path=model_path,
+        rubric_path=r_path,
+        rater_scorecards=rater_scorecards,
         threshold_destructive_fpr=threshold,
     )
 

@@ -3,6 +3,7 @@ import secrets
 from collections import defaultdict, deque
 from datetime import datetime, timezone
 from threading import RLock
+from typing import Any
 from uuid import uuid4
 
 from app.auth.config import AuthSettings
@@ -33,19 +34,64 @@ class AuthService:
         self._active_sessions: dict[str, dict[str, Any]] = {}
         self._events: list[SecurityEvent] = []
         self._lock = RLock()
-        self._bootstrap_hash = hash_password(settings.auth_bootstrap_password) if settings.auth_enabled and settings.auth_bootstrap_password else None
+        self._bootstrap_hash = (
+            hash_password(settings.auth_bootstrap_password)
+            if settings.auth_enabled and settings.auth_bootstrap_password
+            else None
+        )
 
     @property
     def events(self) -> tuple[SecurityEvent, ...]:
         with self._lock:
             return tuple(self._events)
 
+    def _cleanup_stale_sessions(self, now: float | None = None) -> int:
+        """Purge sessions that have exceeded absolute token TTL or idle inactivity window."""
+        current_time = now if now is not None else now_utc().timestamp()
+        idle_window_sec = self.settings.auth_session_idle_timeout_minutes * 60
+        removed = 0
+        for username, session in list(self._active_sessions.items()):
+            expires_at = session.get("expires_at", 0)
+            last_active = session.get("last_activity_at", session.get("created_at", 0))
+            if expires_at <= current_time or (last_active + idle_window_sec) <= current_time:
+                self._active_sessions.pop(username, None)
+                removed += 1
+        return removed
+
+    def touch_session(self, username: str, client_ip: str | None = None) -> bool:
+        """Update last activity timestamp for an active session to prevent premature idle expiration."""
+        now = now_utc().timestamp()
+        with self._lock:
+            self._cleanup_stale_sessions(now)
+            session = self._active_sessions.get(username)
+            if session:
+                session["last_activity_at"] = now
+                if client_ip:
+                    session["client_ip"] = client_ip
+                return True
+            return False
+
+    def is_session_active(self, username: str) -> bool:
+        """Check if an active, non-stale session exists for username."""
+        now = now_utc().timestamp()
+        with self._lock:
+            self._cleanup_stale_sessions(now)
+            return username in self._active_sessions
+
     def login(self, username: str, password: str, client_ip: str | None = None) -> TokenResponse:
         correlation_id = str(uuid4())
         resolved_ip = client_ip or "127.0.0.1"
         if not self.settings.auth_enabled:
             user = LocalUser(username="development", role=UserRole.ADMIN, auth_mode="local_development")
-            self._record("login_success", user.username, user.role, True, "Authentication disabled for local development", correlation_id, client_ip=resolved_ip)
+            self._record(
+                "login_success",
+                user.username,
+                user.role,
+                True,
+                "Authentication disabled for local development",
+                correlation_id,
+                client_ip=resolved_ip,
+            )
             return TokenResponse(access_token=None, expires_in_seconds=None, auth_enabled=False, user=user)
 
         self._check_rate_limit(username)
@@ -57,10 +103,13 @@ class AuthService:
             raise AuthenticationError("Invalid username or password")
 
         now = now_utc().timestamp()
+        expires_in_sec = self.settings.auth_access_token_expire_minutes * 60
         with self._lock:
+            self._cleanup_stale_sessions(now)
             active = self._active_sessions.get(username)
             if active:
-                if active.get("expires_at", 0) > now:
+                # Concurrent session check: different client IP attempting concurrent login while existing session is active and not stale
+                if active.get("client_ip") != resolved_ip:
                     self._record(
                         "login_rejected_concurrent",
                         username,
@@ -70,21 +119,26 @@ class AuthService:
                         correlation_id,
                         client_ip=resolved_ip,
                     )
-                    raise ConcurrentSessionError("User already has an active session. Please logout from the existing session first.")
+                    raise ConcurrentSessionError(
+                        "User already has an active session. Please logout from the existing session first."
+                    )
                 else:
+                    # Same client IP re-authenticating (e.g. after tab reopen/reload) - release old session and issue new token
                     self._active_sessions.pop(username, None)
 
-            expires_in_sec = self.settings.auth_access_token_expire_minutes * 60
             self._active_sessions[username] = {
                 "session_id": correlation_id,
                 "created_at": now,
+                "last_activity_at": now,
                 "expires_at": now + expires_in_sec,
                 "client_ip": resolved_ip,
                 "username": username,
             }
 
         user = LocalUser(username=username, role=UserRole(self.settings.auth_bootstrap_role), auth_mode="local_demo")
-        token = create_access_token(user, self.settings.auth_secret_key or "", self.settings.auth_access_token_expire_minutes * 60)
+        token = create_access_token(
+            user, self.settings.auth_secret_key or "", self.settings.auth_access_token_expire_minutes * 60
+        )
         self._record("login_success", username, user.role, True, "Authenticated", correlation_id, client_ip=resolved_ip)
         return TokenResponse(
             access_token=token,
@@ -98,7 +152,15 @@ class AuthService:
         with self._lock:
             if user and user.username in self._active_sessions:
                 self._active_sessions.pop(user.username, None)
-        self._record("logout", user.username if user else None, user.role if user else None, True, "Client token cleared; session released", str(uuid4()), client_ip=resolved_ip)
+        self._record(
+            "logout",
+            user.username if user else None,
+            user.role if user else None,
+            True,
+            "Client token cleared; session released",
+            str(uuid4()),
+            client_ip=resolved_ip,
+        )
         return {"logged_out": True, "token_revocation": "session_released"}
 
     def _check_rate_limit(self, username: str) -> None:
@@ -110,17 +172,59 @@ class AuthService:
             raise LoginRateLimitError("Login temporarily unavailable; retry later")
         attempts.append(now)
 
-    def _record(self, event_type: str, username: str | None, role: UserRole | None, success: bool, reason: str, correlation_id: str, client_ip: str | None = None) -> None:
-        event = SecurityEvent(event_type=event_type, username=username, role=role, success=success, reason=reason, correlation_id=correlation_id, client_ip=client_ip)
+    def _record(
+        self,
+        event_type: str,
+        username: str | None,
+        role: UserRole | None,
+        success: bool,
+        reason: str,
+        correlation_id: str,
+        client_ip: str | None = None,
+    ) -> None:
+        event = SecurityEvent(
+            event_type=event_type,
+            username=username,
+            role=role,
+            success=success,
+            reason=reason,
+            correlation_id=correlation_id,
+            client_ip=client_ip,
+        )
         with self._lock:
             self._events.append(event)
-        logger.info("auth_event type=%s username=%s role=%s client_ip=%s success=%s correlation_id=%s", event_type, username or "anonymous", role.value if role else "none", client_ip or "unknown", success, correlation_id)
+        logger.info(
+            "auth_event type=%s username=%s role=%s client_ip=%s success=%s correlation_id=%s",
+            event_type,
+            username or "anonymous",
+            role.value if role else "none",
+            client_ip or "unknown",
+            success,
+            correlation_id,
+        )
         try:
             from app.db.database import get_session_factory
             from app.db.repository import log_audit_event
+
             session_factory = get_session_factory()
-            action_name = "LOGIN" if event_type == "login_success" else ("LOGOUT" if event_type == "logout" else ("LOGIN_REJECTED_CONCURRENT" if event_type == "login_rejected_concurrent" else event_type.upper()))
-            status_str = "SUCCESS" if success else ("REJECTED" if event_type == "login_rejected_concurrent" else "FAILURE")
+            action_name = (
+                "LOGIN"
+                if event_type == "login_success"
+                else (
+                    "LOGOUT"
+                    if event_type == "logout"
+                    else (
+                        "LOGIN_REJECTED_CONCURRENT"
+                        if event_type == "login_rejected_concurrent"
+                        else event_type.upper()
+                    )
+                )
+            )
+            status_str = (
+                "SUCCESS"
+                if success
+                else ("REJECTED" if event_type == "login_rejected_concurrent" else "FAILURE")
+            )
             with session_factory() as db_session:
                 log_audit_event(
                     db=db_session,
@@ -141,4 +245,3 @@ class AuthService:
                 )
         except Exception as exc:
             logger.debug("Database audit log skipped for auth event: %s", exc)
-

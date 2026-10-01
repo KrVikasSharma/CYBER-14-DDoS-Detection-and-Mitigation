@@ -72,9 +72,10 @@ def run_acceptance(
     else:
         # Run real KPI evaluations
         dataset_path = Path(config.get("dataset_reference", "data/demo/processed/test.csv"))
+        rubric_path = Path(config.get("flash_crowd_rubric_reference", "data/demo/flash_crowd/flash_crowd_rubric_v1.json"))
         kpis = {
             "KPI-1": evaluate_kpi1_detection_accuracy(dataset_path=dataset_path),
-            "KPI-2": evaluate_kpi2_flash_crowd_false_positive(dataset_path=dataset_path),
+            "KPI-2": evaluate_kpi2_flash_crowd_false_positive(dataset_path=dataset_path, rubric_path=rubric_path),
             "KPI-3": evaluate_kpi3_detection_latency(dataset_path=dataset_path),
             "KPI-4": evaluate_kpi4_unsafe_outcome_count(),
             "KPI-5": evaluate_kpi5_attack_path_prevention_rate(dataset_path=dataset_path),

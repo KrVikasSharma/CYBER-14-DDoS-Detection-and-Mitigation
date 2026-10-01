@@ -12,6 +12,7 @@ class AuthSettings(BaseSettings):
     auth_bootstrap_password: str | None = None
     auth_bootstrap_role: str = "admin"
     auth_login_max_attempts_per_minute: int = Field(default=10, ge=1, le=100)
+    auth_session_idle_timeout_minutes: int = Field(default=15, ge=1, le=1440)
 
     model_config = SettingsConfigDict(
         env_file=".env",

@@ -1,0 +1,37 @@
+{
+  "scorecard_version": "1.0.0",
+  "rubric_reference": "data/demo/flash_crowd/flash_crowd_rubric_v1.json",
+  "rubric_id": "CYBER14-FC-RUBRIC-V1",
+  "rater_id": "rater-sample-id",
+  "rater_name": "Independent Technical Reviewer",
+  "evaluated_at_utc": "2026-09-29T12:00:00Z",
+  "criteria_scores": {
+    "C1_BASELINE_PASS_THROUGH": {
+      "score": 20.0,
+      "max_score": 20.0,
+      "justification": "All 144 baseline benign flows permitted with instant ALLOW mitigation and 0 false drops."
+    },
+    "C2_NON_DESTRUCTIVE_CONTAINMENT": {
+      "score": 20.0,
+      "max_score": 20.0,
+      "justification": "All 432 flash-crowd surge flows contained via non-destructive RATE_LIMIT; 0 destructive drops observed (0.0% destructive FPR)."
+    },
+    "C3_DYNAMIC_RECOVERY": {
+      "score": 20.0,
+      "max_score": 20.0,
+      "justification": "Sliding window rate tracking de-escalates back to ALLOW immediately upon rate normalization."
+    },
+    "C4_LATENCY_BOUNDEDNESS": {
+      "score": 20.0,
+      "max_score": 20.0,
+      "justification": "Decision latency remains strictly bounded under 5ms P95 across all 5 rate conditions."
+    },
+    "C5_AUDIT_TRANSPARENCY": {
+      "score": 20.0,
+      "max_score": 20.0,
+      "justification": "Complete audit trail with reason strings, source IPs, rate metadata, and immutable JSON run artifacts."
+    }
+  },
+  "overall_score": 100.0,
+  "recommendation": "ACCEPT"
+}

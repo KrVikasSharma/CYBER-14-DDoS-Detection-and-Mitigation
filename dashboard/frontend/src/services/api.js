@@ -5,7 +5,7 @@ const baseUrl = import.meta.env.VITE_API_BASE_URL || defaultBaseUrl
 
 async function request(path, options = {}) {
   const controller = new AbortController()
-  const timeout = window.setTimeout(() => controller.abort(), options.timeout || 8000)
+  const timeout = window.setTimeout(() => controller.abort(), options.timeout || 15000)
   try {
     const response = await fetch(`${baseUrl}${path}`, {
       ...options,
@@ -39,7 +39,7 @@ export const api = {
   analyze: (payload) => request('/api/v1/detection/analyze', { method: 'POST', body: JSON.stringify(payload) }),
   simulate: (payload) => request('/api/v1/stream/simulate', { method: 'POST', body: JSON.stringify(payload) }),
   login: (payload) => request('/api/v1/auth/login', { method: 'POST', body: JSON.stringify(payload) }),
-  me: () => request('/api/v1/auth/me'),
+  me: (opts = {}) => request('/api/v1/auth/me', { timeout: 30000, ...opts }),
   logout: () => request('/api/v1/auth/logout', { method: 'POST' }),
   telemetry: (opts = {}) => request('/api/v1/system/telemetry', { timeout: 30000, ...opts }),
   evidenceSummary: () => request('/api/v1/evidence/summary'),

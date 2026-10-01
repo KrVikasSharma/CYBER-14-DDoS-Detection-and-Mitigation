@@ -5,14 +5,14 @@
         "artifact_type": "frontend_spec",
         "purpose": "Frontend dependencies and scripts",
         "relative_path": "dashboard/frontend/package.json",
-        "sha256": "4f589904696dcf9cc132f5f23b0e45cb7a2da708f1554527690bbb441aadecb6",
-        "size_bytes": 636
+        "sha256": "ae2bf916b2c1ac642c4eb82c88abc15328f3739bf94931d3bcddba1620787b35",
+        "size_bytes": 651
       },
       {
         "artifact_type": "build_output",
         "purpose": "Vite production HTML distribution",
         "relative_path": "dashboard/frontend/dist/index.html",
-        "sha256": "c51086c01f1bfaef4213932324044f64a2117c1fe353ea1b0bebaa12486763d8",
+        "sha256": "ea6f83d95605f80f5fe4cf0282876938bc01d76849c84fe6fea4f94aace10e7c",
         "size_bytes": 469
       }
     ],
@@ -170,40 +170,40 @@
       "artifacts": [
         {
           "file_name": "environment.json",
-          "relative_path": "evidence/acceptance/runs/acceptance-20260929T054904Z-a2cca2cb/environment.json",
-          "sha256": "66a10229914247210820704dbac7067e38ce686f3cf71497cd879881a62e05c4",
+          "relative_path": "evidence/acceptance/runs/acceptance-20261001T054439Z-6c7ebfc9/environment.json",
+          "sha256": "4a2cd3b0495a88aac2b3396b935e402c2fff87d35d17beefebe158f539cc4ac6",
           "size_bytes": 367
         },
         {
           "file_name": "evidence_manifest.json",
-          "relative_path": "evidence/acceptance/runs/acceptance-20260929T054904Z-a2cca2cb/evidence_manifest.json",
-          "sha256": "f7b039df1073be99cc755d6b38004a6c6c2d23c808e4802375c2fef322e47be1",
+          "relative_path": "evidence/acceptance/runs/acceptance-20261001T054439Z-6c7ebfc9/evidence_manifest.json",
+          "sha256": "10eb6cf1d59ccac99078a14dd358e1523d266b2ca241018282997d950a2133c6",
           "size_bytes": 518
         },
         {
           "file_name": "independent_review_package.json",
-          "relative_path": "evidence/acceptance/runs/acceptance-20260929T054904Z-a2cca2cb/independent_review_package.json",
-          "sha256": "0c2110010e8e06d218cca27895d8d17f49c77fa52b596b0d72067f4de138047f",
-          "size_bytes": 865
+          "relative_path": "evidence/acceptance/runs/acceptance-20261001T054439Z-6c7ebfc9/independent_review_package.json",
+          "sha256": "4c76c2bc263ff44b25598ea1a8f2508598c4af3558341e0ed6f04d288f38a80e",
+          "size_bytes": 9019
         },
         {
           "file_name": "metrics.json",
-          "relative_path": "evidence/acceptance/runs/acceptance-20260929T054904Z-a2cca2cb/metrics.json",
-          "sha256": "ea09a327c6ef6da300ac4c5f3495c7c4f0dd4380b15b8fab3b64b354578938a0",
-          "size_bytes": 27296
+          "relative_path": "evidence/acceptance/runs/acceptance-20261001T054439Z-6c7ebfc9/metrics.json",
+          "sha256": "0767681c392aa82ada98366bacfdd84052e2d0a4cd3fe8c81517ffd444cae4e5",
+          "size_bytes": 30669
         },
         {
           "file_name": "result.json",
-          "relative_path": "evidence/acceptance/runs/acceptance-20260929T054904Z-a2cca2cb/result.json",
-          "sha256": "7b686d2766e55f0220e3e1044355c680f4bd1c217787639146b6d769567b6f4a",
-          "size_bytes": 27962
+          "relative_path": "evidence/acceptance/runs/acceptance-20261001T054439Z-6c7ebfc9/result.json",
+          "sha256": "fcc93c11024f9e8573a6bb9a9781b0475b34f177494895e1e88a9ecc311f51e4",
+          "size_bytes": 31335
         }
       ],
       "description": "Formal Full Acceptance Suite (ACs, KPIs, NTs)",
-      "latest_run_id": "acceptance-20260929T054904Z-a2cca2cb",
+      "latest_run_id": "acceptance-20261001T054439Z-6c7ebfc9",
       "observed_status": "FAIL",
       "reproduction_command": "python scripts/run_acceptance.py --all",
-      "run_directory": "evidence/acceptance/runs/acceptance-20260929T054904Z-a2cca2cb"
+      "run_directory": "evidence/acceptance/runs/acceptance-20261001T054439Z-6c7ebfc9"
     },
     "degraded_mode": {
       "artifact_count": 8,
@@ -264,44 +264,50 @@
       "run_directory": "evidence/degraded_mode/runs/degraded_mode-20260929T054927Z-8cd119da"
     },
     "flash_crowd": {
-      "artifact_count": 5,
+      "artifact_count": 6,
       "artifacts": [
         {
           "file_name": "environment.json",
-          "relative_path": "evidence/flash_crowd/runs/flash_crowd-20260929T054905Z-0f6553dc/environment.json",
-          "sha256": "93d353bb66948fb90e878267a70e44d6f1fd8da41505e29104d119b22a496d8e",
+          "relative_path": "evidence/flash_crowd/runs/flash_crowd-20261001T054442Z-3ed7eea0/environment.json",
+          "sha256": "9e22007c351b4f155cf782108ab710f8187d84ef8dfb5ae184b2912991471bde",
           "size_bytes": 367
         },
         {
           "file_name": "evidence_manifest.json",
-          "relative_path": "evidence/flash_crowd/runs/flash_crowd-20260929T054905Z-0f6553dc/evidence_manifest.json",
-          "sha256": "05da19b1b5e67998a76a0a40bc7660e6c8a9378343f8990beb0477400b9873ab",
-          "size_bytes": 483
+          "relative_path": "evidence/flash_crowd/runs/flash_crowd-20261001T054442Z-3ed7eea0/evidence_manifest.json",
+          "sha256": "d52d13d0cf30ddfb57c714af25b7961a4389b26a5e355705c45bcc0b73216a8e",
+          "size_bytes": 589
         },
         {
           "file_name": "metrics.json",
-          "relative_path": "evidence/flash_crowd/runs/flash_crowd-20260929T054905Z-0f6553dc/metrics.json",
-          "sha256": "68bb170eb9f04201ca25379489a24fc70927b800d7f2527707b340c09957d960",
-          "size_bytes": 6532
+          "relative_path": "evidence/flash_crowd/runs/flash_crowd-20261001T054442Z-3ed7eea0/metrics.json",
+          "sha256": "d227485a424b402bd4f05cde93b406642aa3bd8aabfc3c104747c5c21906dbb9",
+          "size_bytes": 8947
         },
         {
           "file_name": "result.json",
-          "relative_path": "evidence/flash_crowd/runs/flash_crowd-20260929T054905Z-0f6553dc/result.json",
-          "sha256": "270ed90aff661f12664683b97a476e7091197b919a894cfd59d2968666c96b11",
-          "size_bytes": 7619
+          "relative_path": "evidence/flash_crowd/runs/flash_crowd-20261001T054442Z-3ed7eea0/result.json",
+          "sha256": "71e8221e6017de38459bf76a09edb30054197b7902758be024140e9f0cd134fc",
+          "size_bytes": 10282
+        },
+        {
+          "file_name": "rubric.json",
+          "relative_path": "evidence/flash_crowd/runs/flash_crowd-20261001T054442Z-3ed7eea0/rubric.json",
+          "sha256": "093578216fe54969c065d378df29cb856e498f03065f9aec85251b1085037257",
+          "size_bytes": 5666
         },
         {
           "file_name": "scenarios.json",
-          "relative_path": "evidence/flash_crowd/runs/flash_crowd-20260929T054905Z-0f6553dc/scenarios.json",
+          "relative_path": "evidence/flash_crowd/runs/flash_crowd-20261001T054442Z-3ed7eea0/scenarios.json",
           "sha256": "d0746008be533f152b69016a26a20d440e8914e6691e4cbcb22f2bc0f2269f17",
           "size_bytes": 2224
         }
       ],
       "description": "Formal Flash-Crowd Benchmark (KPI-2, NT-1)",
-      "latest_run_id": "flash_crowd-20260929T054905Z-0f6553dc",
+      "latest_run_id": "flash_crowd-20261001T054442Z-3ed7eea0",
       "observed_status": "NOT_EXECUTED",
       "reproduction_command": "python scripts/run_acceptance.py --flash-crowd",
-      "run_directory": "evidence/flash_crowd/runs/flash_crowd-20260929T054905Z-0f6553dc"
+      "run_directory": "evidence/flash_crowd/runs/flash_crowd-20261001T054442Z-3ed7eea0"
     },
     "kpis": {
       "artifact_count": 2,
@@ -330,28 +336,28 @@
       "artifacts": [
         {
           "file_name": "environment.json",
-          "relative_path": "evidence/negative_tests/runs/negative-20260929T054912Z-6925349b/environment.json",
-          "sha256": "c0527d1ed7e0f0b619abdea4ba5f04c37b325a0fdcee09112204561b2bad9915",
+          "relative_path": "evidence/negative_tests/runs/negative-20261001T054522Z-d1d83c5a/environment.json",
+          "sha256": "73ea5001782ddae45debfe7be2b2c8bd3815a7d9867351132975b8f3734decc0",
           "size_bytes": 367
         },
         {
           "file_name": "evidence_manifest.json",
-          "relative_path": "evidence/negative_tests/runs/negative-20260929T054912Z-6925349b/evidence_manifest.json",
-          "sha256": "21e1d378bc64edb5b7d812927da75942d39c0c81f23721c886060c7a0104301c",
+          "relative_path": "evidence/negative_tests/runs/negative-20261001T054522Z-d1d83c5a/evidence_manifest.json",
+          "sha256": "812e5c40e334de871ecdcaa010fb328d690cfb19c1d4f738a16a9cf2bf466ef5",
           "size_bytes": 303
         },
         {
           "file_name": "result.json",
-          "relative_path": "evidence/negative_tests/runs/negative-20260929T054912Z-6925349b/result.json",
-          "sha256": "4340358c75bb1616b9093697e54274b5c95ed5f9c5ab96e8a4db746d09ed8c67",
-          "size_bytes": 9341
+          "relative_path": "evidence/negative_tests/runs/negative-20261001T054522Z-d1d83c5a/result.json",
+          "sha256": "65317c8070ce58ad2f71830341c7a3e9f833a350f2bf9442406ff25f2a47d796",
+          "size_bytes": 9340
         }
       ],
       "description": "Negative Security & Robustness Suite (NT-1 - NT-5)",
-      "latest_run_id": "negative-20260929T054912Z-6925349b",
+      "latest_run_id": "negative-20261001T054522Z-d1d83c5a",
       "observed_status": "PASS",
       "reproduction_command": "python scripts/run_acceptance.py --negative-tests",
-      "run_directory": "evidence/negative_tests/runs/negative-20260929T054912Z-6925349b"
+      "run_directory": "evidence/negative_tests/runs/negative-20261001T054522Z-d1d83c5a"
     },
     "o2_o3": {
       "artifact_count": 9,
@@ -542,7 +548,7 @@
       "reason_for_exclusion": "Exceeded repository size constraints; representative frozen split data/demo/processed/test.csv (1,998 rows) used for deterministic evaluation"
     }
   ],
-  "generated_at_utc": "2026-09-29T05:50:52.679681+00:00",
+  "generated_at_utc": "2026-10-01T06:51:21.256001+00:00",
   "project": "CYBER-14",
   "sensitive_data_policy": {
     "credentials_exposed": false,

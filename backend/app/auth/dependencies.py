@@ -53,7 +53,13 @@ def get_current_user(authorization: Annotated[str | None, Header()] = None) -> L
     if not token:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Authentication required", headers={"WWW-Authenticate": "Bearer"})
     try:
-        return decode_access_token(token, settings.auth_secret_key or "", settings.auth_access_token_expire_minutes * 60)
+        user = decode_access_token(token, settings.auth_secret_key or "", settings.auth_access_token_expire_minutes * 60)
+        try:
+            service = get_auth_service()
+            service.touch_session(user.username)
+        except Exception:
+            pass
+        return user
     except InvalidTokenError as exc:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired access token", headers={"WWW-Authenticate": "Bearer"}) from exc
 

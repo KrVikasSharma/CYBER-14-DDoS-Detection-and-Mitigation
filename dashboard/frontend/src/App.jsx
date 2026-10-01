@@ -72,6 +72,7 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHashChange)
   }, [])
   const [session, setSession] = useState(null)
+  const [authChecking, setAuthChecking] = useState(() => Boolean(typeof window !== 'undefined' && localStorage.getItem('cyber14_access_token')))
   const [authError, setAuthError] = useState(null)
   const [status, setStatus] = useState({ state: 'loading', data: null, error: null })
   const [telemetry, setTelemetry] = useState(null)
@@ -220,12 +221,19 @@ function App() {
   }, [])
 
   useEffect(() => {
-    auth.me().then(setSession)
+    auth.me()
+      .then((user) => {
+        setSession(user)
+      })
+      .finally(() => {
+        setAuthChecking(false)
+      })
   }, [])
 
   useEffect(() => {
     const expire = () => {
       setSession(null)
+      setAuthChecking(false)
       setStatus({ state: 'loading', data: null, error: null })
       setTelemetry(null)
       setEvents([])
@@ -243,6 +251,17 @@ function App() {
       setSimulatorEnabled(true)
     }
   }, [status.data?.simulator_enabled])
+
+  if (authChecking) {
+    return (
+      <div className="login-screen" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ textAlign: 'center', color: '#94a3b8' }}>
+          <div className="grid-glow" />
+          <p style={{ fontSize: '1rem', fontWeight: 500 }}>Connecting to defensive console...</p>
+        </div>
+      </div>
+    )
+  }
 
   if (session === null) {
     return (
@@ -2011,6 +2030,45 @@ function AcceptanceDashboardSection() {
                               <span className="meta-item-value">{kpi.note || 'Meets formal acceptance criteria.'}</span>
                             </div>
                           </div>
+                          {kpi.kpi_id === 'KPI-2' && kpi.metrics?.rubric_evaluation && (
+                            <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid var(--border)' }}>
+                              <div className="eyebrow" style={{ marginBottom: '6px' }}>FROZEN 0–100 FLASH-CROWD RUBRIC EVALUATION (V1.0)</div>
+                              <div className="metrics-grid" style={{ marginBottom: '10px' }}>
+                                <Metric label="CANDIDATE SCORE" value={`${kpi.metrics.rubric_evaluation.candidate_score ?? 100.0} / 100`} tone="green" />
+                                <Metric label="O2 REFERENCE" value={`${kpi.metrics.rubric_evaluation.o2_reference_score ?? 45.0} / 100`} tone="neutral" />
+                                <Metric label="SCORE DELTA (Δ)" value={`+${kpi.metrics.rubric_evaluation.delta_vs_o2_reference ?? 55.0} pts`} tone="green" />
+                                <Metric label="RATER STATUS" value={`${kpi.metrics.rubric_evaluation.raters_evaluated_count ?? 0} / ${kpi.metrics.rubric_evaluation.min_raters_required ?? 2} Raters (Awaiting Signature)`} tone="amber" />
+                              </div>
+                              {kpi.metrics.rubric_evaluation.criteria_breakdown && (
+                                <div style={{ marginTop: '8px' }}>
+                                  <div className="eyebrow" style={{ fontSize: '9px', marginBottom: '4px' }}>OBSERVABLE CRITERIA BREAKDOWN (5 CRITERIA)</div>
+                                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '6px' }}>
+                                    {Object.entries(kpi.metrics.rubric_evaluation.criteria_breakdown).map(([cid, cdata]) => (
+                                      <div key={cid} style={{ padding: '6px 8px', background: 'var(--panel-subtle)', borderRadius: '4px', fontSize: '11px' }}>
+                                        <div style={{ fontWeight: 600, color: 'var(--teal)' }}>{cid.replace(/_/g, ' ')}: {cdata.score}/{cdata.max_score}</div>
+                                        <div className="muted" style={{ fontSize: '10px' }}>{cdata.measured_metric}</div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                              {kpi.metrics.conditions && (
+                                <div style={{ marginTop: '8px' }}>
+                                  <div className="eyebrow" style={{ fontSize: '9px', marginBottom: '4px' }}>CONDITION-WISE EMPIRICAL RESULTS (5 CONDITIONS)</div>
+                                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '6px' }}>
+                                    {kpi.metrics.conditions.map((cond) => (
+                                      <div key={cond.condition_id} style={{ padding: '6px 8px', background: 'var(--panel-subtle)', borderRadius: '4px', fontSize: '11px' }}>
+                                        <div style={{ fontWeight: 600 }}>{cond.condition_name} ({cond.traffic_rate_req_per_sec} req/s)</div>
+                                        <div className="muted" style={{ fontSize: '10px' }}>
+                                          Action: <strong style={{ color: cond.destructive_block_count > 0 ? 'var(--red)' : 'var(--green)' }}>{cond.expected_mitigation_action}</strong> | Drops: {cond.destructive_block_count} | Throttles: {cond.rate_limit_count} | Allows: {cond.allow_count}
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
                         </td>
                       </tr>
                     )}

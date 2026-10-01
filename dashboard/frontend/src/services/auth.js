@@ -10,10 +10,23 @@ export const auth = {
   },
   async me() {
     if (!localStorage.getItem(TOKEN_KEY)) return null
-    try { return await api.me() } catch { localStorage.removeItem(TOKEN_KEY); return null }
+    try {
+      return await api.me()
+    } catch (err) {
+      if (err?.status === 401) {
+        localStorage.removeItem(TOKEN_KEY)
+      }
+      return null
+    }
   },
   async logout() {
-    try { await api.logout() } finally { localStorage.removeItem(TOKEN_KEY) }
+    try {
+      await api.logout()
+    } finally {
+      localStorage.removeItem(TOKEN_KEY)
+    }
   },
-  clear() { localStorage.removeItem(TOKEN_KEY) },
+  clear() {
+    localStorage.removeItem(TOKEN_KEY)
+  },
 }

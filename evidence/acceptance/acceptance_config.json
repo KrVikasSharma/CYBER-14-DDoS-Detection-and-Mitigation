@@ -19,7 +19,8 @@
     "minimum_official_trials": 30,
     "fixture_trials": 5
   },
-  "flash_crowd_rubric_version": null,
+  "flash_crowd_rubric_version": "CYBER14-FC-RUBRIC-V1",
+  "flash_crowd_rubric_reference": "data/demo/flash_crowd/flash_crowd_rubric_v1.json",
   "resource_envelope": null,
   "oracle_configuration": null,
   "official_thresholds": null,

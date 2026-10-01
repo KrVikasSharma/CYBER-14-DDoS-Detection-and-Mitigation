@@ -259,6 +259,71 @@ def test_expired_session_allows_new_login():
     assert service._active_sessions["admin"]["client_ip"] == "198.51.100.20"
 
 
+def test_same_client_relogin_after_browser_reopen():
+    """Verify that same client IP re-logging in with valid credentials succeeds without lockout."""
+    settings = AuthSettings(
+        auth_enabled=True,
+        auth_secret_key="r" * 40,
+        auth_bootstrap_username="admin",
+        auth_bootstrap_password="password",
+        auth_bootstrap_role="admin",
+    )
+    service = AuthService(settings)
+
+    # 1. First login from client machine
+    res1 = service.login("admin", "password", client_ip="203.0.113.50")
+    assert res1.access_token
+
+    # 2. Browser was closed (no logout called); user re-opens website and logs in from same IP
+    res2 = service.login("admin", "password", client_ip="203.0.113.50")
+    assert res2.access_token
+    assert res2.user.username == "admin"
+    assert service._active_sessions["admin"]["client_ip"] == "203.0.113.50"
+
+
+def test_stale_session_idle_timeout_cleanup():
+    """Verify that inactive sessions past idle timeout are cleaned up and allow new logins."""
+    settings = AuthSettings(
+        auth_enabled=True,
+        auth_secret_key="t" * 40,
+        auth_bootstrap_username="admin",
+        auth_bootstrap_password="password",
+        auth_bootstrap_role="admin",
+        auth_session_idle_timeout_minutes=15,
+    )
+    service = AuthService(settings)
+
+    # First login from client A
+    res1 = service.login("admin", "password", client_ip="203.0.113.10")
+    assert res1.access_token
+
+    # Simulate inactivity past 15 min idle timeout
+    service._active_sessions["admin"]["last_activity_at"] = 0.0
+
+    # Client B logs in from another IP; should succeed because client A's session is stale
+    res2 = service.login("admin", "password", client_ip="198.51.100.20")
+    assert res2.access_token
+    assert service._active_sessions["admin"]["client_ip"] == "198.51.100.20"
+
+
+def test_touch_session_updates_activity():
+    """Verify that touch_session extends active session lifecycle."""
+    settings = AuthSettings(
+        auth_enabled=True,
+        auth_secret_key="u" * 40,
+        auth_bootstrap_username="admin",
+        auth_bootstrap_password="password",
+        auth_bootstrap_role="admin",
+    )
+    service = AuthService(settings)
+    service.login("admin", "password", client_ip="203.0.113.10")
+
+    old_activity = service._active_sessions["admin"]["last_activity_at"]
+    touched = service.touch_session("admin", client_ip="203.0.113.10")
+    assert touched is True
+    assert service._active_sessions["admin"]["last_activity_at"] >= old_activity
+
+
 def test_traffic_simulation_ip_unaffected_by_client_ip(monkeypatch):
     """Verify that DDoS simulation flow IP (192.168.1.50) is never overwritten by client IP."""
     import json
@@ -284,5 +349,6 @@ def test_traffic_simulation_ip_unaffected_by_client_ip(monkeypatch):
     )
     res = service.analyze(req)
     assert res.metadata.source_ip == "192.168.1.50"
+
 
 

@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CYBER-14 Independent External Reviewer Sign-Off Template",
+  "description": "Template for independent human security review and sign-off for CYBER-14 AC-3 verification.",
+  "review_metadata": {
+    "evaluation_campaign": "CYBER-14 Acceptance Campaign",
+    "target_git_commit": "7cfa205716e20143fdfa4728459b3749da12e990",
+    "package_version": "1.0.0",
+    "timestamp_utc": null
+  },
+  "primary_reviewer": {
+    "reviewer_name": null,
+    "reviewer_role": null,
+    "organization": null,
+    "email_hash_or_id": null,
+    "signoff_date": null,
+    "signature_hash": null,
+    "review_duration_hours": null,
+    "overall_determination": "PENDING"
+  },
+  "secondary_reviewer": {
+    "reviewer_name": null,
+    "reviewer_role": null,
+    "organization": null,
+    "email_hash_or_id": null,
+    "signoff_date": null,
+    "signature_hash": null,
+    "review_duration_hours": null,
+    "overall_determination": "PENDING"
+  },
+  "verification_checklist": {
+    "dataset_provenance_verified": false,
+    "feature_contract_78_verified": false,
+    "o2_binary_accuracy_verified": false,
+    "o3_multiclass_inventory_verified": false,
+    "flash_crowd_non_destructive_verified": false,
+    "latency_p95_bounded_verified": false,
+    "resource_envelope_memory_ceiling_verified": false,
+    "degraded_mode_fail_closed_verified": false,
+    "negative_security_tests_verified": false,
+    "cryptographic_checksums_verified": false,
+    "secrets_audit_zero_leaks_verified": false,
+    "honest_reporting_not_executed_preserved": false
+  },
+  "checklist_descriptions": {
+    "dataset_provenance_verified": "Verified that frozen CIC-DDoS2019 test sample and metadata hashes match SHA256SUMS.txt.",
+    "feature_contract_78_verified": "Verified that all 78 network flow features match the standard feature specification without schema drift.",
+    "o2_binary_accuracy_verified": "Verified that O2 XGBoost binary model achieves >= 99.0% accuracy and <= 1.0% FPR against frozen test partition.",
+    "o3_multiclass_inventory_verified": "Verified that O3 Random Forest 8-class model achieves >= 95.0% multiclass accuracy across all 7 attack classes.",
+    "flash_crowd_non_destructive_verified": "Verified that flash-crowd benign surge traffic does not trigger blackhole or rate-limit mitigation (0% destructive FPR).",
+    "latency_p95_bounded_verified": "Verified that inference pipeline latency P95 <= 30.0 ms (P50 ~19.2 ms, P95 ~22.6 ms in isolated runs).",
+    "resource_envelope_memory_ceiling_verified": "Verified that backend process memory RSS <= 512 MB and model footprint <= 50 MB.",
+    "degraded_mode_fail_closed_verified": "Verified that system properly activates defensive degraded mode upon memory pressure, feature corruption, or component failure.",
+    "negative_security_tests_verified": "Verified that all negative security tests (NT-1 through NT-5) pass without evasion or uncaught exceptions.",
+    "cryptographic_checksums_verified": "Verified that all model weights, datasets, manifests, and reports match their SHA-256 hashes.",
+    "secrets_audit_zero_leaks_verified": "Verified that zero passwords, API tokens, database URLs, or private keys are exposed in codebase or git logs.",
+    "honest_reporting_not_executed_preserved": "Verified that pending human reviews (KPI-2, AC-3) are explicitly reported as NOT_EXECUTED rather than falsely claimed as PASS."
+  },
+  "reviewer_observations": {
+    "strengths": [],
+    "identified_risks": [],
+    "recommendations_for_production": [],
+    "additional_notes": ""
+  },
+  "status_contract": {
+    "valid_determinations": ["PASS", "FAIL", "CONDITIONAL_PASS", "PENDING"],
+    "acceptance_condition": "Both primary and secondary reviewers must record overall_determination = 'PASS', supply valid non-placeholder identities with signatures (>= 16 chars SHA256/hex), and verify all 12 checklist criteria as true."
+  }
+}

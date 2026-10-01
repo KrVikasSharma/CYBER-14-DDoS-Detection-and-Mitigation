@@ -30,7 +30,13 @@ async def login(
 
 
 @router.get("/me", response_model=LocalUser)
-async def me(user: LocalUser = Depends(get_current_user)) -> LocalUser:
+async def me(
+    http_request: Request,
+    user: LocalUser = Depends(get_current_user),
+    service: AuthService = Depends(get_auth_service),
+) -> LocalUser:
+    client_ip = extract_client_ip(http_request)
+    service.touch_session(user.username, client_ip=client_ip)
     return user
 
 
